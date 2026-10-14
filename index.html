@@ -7055,10 +7055,32 @@ const recTime = document.getElementById("recFastestTime");
         setupRound();
     }
 
-    /* ========================================================
-       ⚔️ 3. 보스전 시스템
-       ======================================================== */
+    //========================================================
+    //   ⚔️ 3. 보스전 시스템
+    //======================================================== 
+    
+    // 🌟 [철통 방어] 카운트다운 상태 및 타이머 전역 관리
+    let battleCountdownTimer = null;
+    let isBattleCountdownActive = false;
+    let wasCountdownInterrupted = false;
+    let pendingCountdownCallback = null;
+
+    function cancelBattleCountdown() {
+        if (battleCountdownTimer) {
+            clearInterval(battleCountdownTimer);
+            clearTimeout(battleCountdownTimer);
+            battleCountdownTimer = null;
+        }
+        isBattleCountdownActive = false;
+        const overlay = document.getElementById("battleCountdownOverlay");
+        if (overlay) overlay.style.display = "none";
+    }
+
     function runBattleCountdown(callback) {
+        cancelBattleCountdown(); // 이전 타이머 완전 제거
+        isBattleCountdownActive = true;
+        pendingCountdownCallback = callback; // 재개를 위해 콜백 보관
+
         const overlay = document.getElementById("battleCountdownOverlay");
         const display = document.getElementById("countdownNumDisplay");
         overlay.style.display = "flex";
@@ -7066,30 +7088,32 @@ const recTime = document.getElementById("recFastestTime");
         let count = 3;
         display.innerText = count;
         display.style.animation = 'none';
-        display.offsetHeight;
+        void display.offsetWidth;
         display.style.animation = null;
         Sound.countdownTick();
 
-        const countInterval = setInterval(() => {
+        battleCountdownTimer = setInterval(() => {
             count--;
             if (count > 0) {
                 display.innerText = count;
                 display.style.animation = 'none';
-                display.offsetHeight;
+                void display.offsetWidth;
                 display.style.animation = null;
                 Sound.countdownTick();
             } else if (count === 0) {
                 display.innerText = "START!";
                 display.style.color = "#10b981";
                 display.style.animation = 'none';
-                display.offsetHeight;
+                void display.offsetWidth;
                 display.style.animation = null;
                 Sound.countdownStart();
             } else {
-                clearInterval(countInterval);
-                overlay.style.display = "none";
+                cancelBattleCountdown();
                 display.style.color = "#fbbf24";
-                callback();
+                // 🌟 중단 플래그가 없을 때만 진짜로 문제 출제 개시!
+                if (typeof callback === 'function') {
+                    callback();
+                }
             }
         }, 900);
     }
@@ -7355,19 +7379,23 @@ const recTime = document.getElementById("recFastestTime");
     // 🌟 보스전 일시정지 및 포기 확인 모달 통합 제어
     function pauseBossBattleAndConfirm() {
         Sound.click();
-        if (bossTimerInterval) {
-            clearInterval(bossTimerInterval);
-            bossTimerInterval = null;
-            wasBossTimerRunning = true; // 타이머 재개를 위해 상태 기억
-        }
 
         showGameAlert(
             "전투 일시정지",
-            `현재 전투를 포기하고 돌아가시겠습니까?\n(남은 시간: ${Math.max(0, bossTimeLeft).toFixed(1)}초)`,
+            `현재 전투를 포기하고 돌아가시겠습니까?${(!isBattleCountdownActive && !wasCountdownInterrupted) ? `\n(남은 시간: ${Math.max(0, bossTimeLeft).toFixed(1)}초)` : ''}`,
             "전투 포기하고 복귀 ➔",
             "⏸️ BATTLE PAUSED",
             () => {
+                // 🛑 [포기 확인 클릭 시] 모든 타이머 및 콜백 예약 완전 소각
+                wasCountdownInterrupted = false;
                 wasBossTimerRunning = false;
+                pendingCountdownCallback = null;
+                cancelBattleCountdown();
+                if (bossTimerInterval) {
+                    clearInterval(bossTimerInterval);
+                    bossTimerInterval = null;
+                }
+
                 document.getElementById("bossScreen").style.display = "none";
                 if (bossMode === "mid") {
                     openMapLobby(currentMapId);
@@ -9276,7 +9304,7 @@ function handleMidBossVictory() {
         });
     }
 
-// 🌟 [NEW] 알림 씹힘 방지 대기열(Queue) 시스템
+    // 🌟 [NEW] 알림 씹힘 방지 대기열(Queue) 시스템
     let alertQueue = [];
     let currentAlertItem = null;
     let isAlertShowing = false;
@@ -9304,23 +9332,40 @@ function handleMidBossVictory() {
             currentAlertItem = null;
             modal.style.display = "none";
 
-            // 보스전 중이었다면 타이머 재개
-            const bossScreen = document.getElementById("bossScreen");
-            if (wasBossTimerRunning && bossScreen && bossScreen.style.display === "flex") {
-                startBossTimer(true);
+        const bossScreen = document.getElementById("bossScreen");
+            if (bossScreen && bossScreen.style.display === "flex") {
+                // 카운트다운 중에 멈췄었다면 ➔ 3, 2, 1 카운트다운부터 공정하게 재시작!
+                if (wasCountdownInterrupted) {
+                    wasCountdownInterrupted = false;
+                    if (pendingCountdownCallback) {
+                        runBattleCountdown(pendingCountdownCallback);
+                    }
+                } 
+                // 퀴즈 도중에 멈췄었다면 ➔ 남은 시간부터 퀴즈 타이머 재개
+                else if (wasBossTimerRunning) {
+                    wasBossTimerRunning = false;
+                    resumeBossTimer();
+                    playCurrentQuestionTTS();
+                }
             }
-            wasBossTimerRunning = false;
-            playCurrentQuestionTTS();
             return;
         }
 
-        // 보스전 타이머 일시정지 (첫 알림 시작 시)
+        // 🌟 [수정 B: 팝업 뜰 때 즉시 동결 - 카운트다운 & 퀴즈 타이머 동시 차단!]
         if (!isAlertShowing) {
             const bossScreen = document.getElementById("bossScreen");
-            if (bossScreen && bossScreen.style.display === "flex" && bossTimerInterval) {
-                clearInterval(bossTimerInterval);
-                bossTimerInterval = null;
-                wasBossTimerRunning = true;
+            if (bossScreen && bossScreen.style.display === "flex") {
+                // 1) 카운트다운 진행 중이었다면 즉시 강제 동결 & 숨김
+                if (isBattleCountdownActive) {
+                    wasCountdownInterrupted = true;
+                    cancelBattleCountdown();
+                }
+                // 2) 문제 풀이 중이었다면 퀴즈 타이머 정지
+                if (bossTimerInterval) {
+                    clearInterval(bossTimerInterval);
+                    bossTimerInterval = null;
+                    wasBossTimerRunning = true;
+                }
             }
         }
 
