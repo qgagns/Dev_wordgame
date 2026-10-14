@@ -70,9 +70,9 @@
 
         /* 📱 메인 프레임: 모바일 화면을 1밀리미터의 오차도 없이 100% 빈틈없이 장악! */
         .game-container {
-            background: #fbf6ea;
+            background: #0d0704; /* 🌟 #fbf6ea(베이지) ➔ #0d0704(딥나이트) */
             border: none;
-            border-radius: 0;   /* 🛑 모바일에선 둥근 모서리도 없애고 완전 밀착! */
+            border-radius: 0;
             padding: 0;
             width: 100%;
             max-width: 480px;
@@ -279,332 +279,6 @@
         .prologue-highlight { color: #dc2626; font-weight: 900; }
         .prologue-stone { color: #047857; font-weight: 900; }
 
-        /* ============================
-           🏛️ 1. 타이틀 화면
-           ============================ */
-        #titleScreen { display: none; }
-
-        .title-art-wrapper {
-            width: 100%;
-            height: 100px; /* 높이 */
-            border-radius: 14px;
-            overflow: hidden;
-            border: 2px solid #c9b48c;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.22);
-            background: #1c2617;
-            position: relative;
-            flex-shrink: 0;
-            margin-bottom: 6px;
-        }
-        .title-art-overlay {
-            position: absolute;
-            left: 0; right: 0; bottom: 0; top: 0;
-            background: linear-gradient(180deg, rgba(20, 10, 5, 0.25) 0%, rgba(24, 12, 6, 0.94) 85%);
-            padding: 8px 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .title-main-text {
-            font-size: 25px;
-            font-weight: 800;
-            color: #ffffff;
-            margin: 0;
-            letter-spacing: -0.6px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.95);
-            line-height: 1.2;
-        }
-        .title-sub-text {
-            font-size: 13.5px;
-            font-weight: 800;
-            color: #fde047;
-            letter-spacing: -0.2px;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.9);
-            margin-top: 4px;
-        }
-
-        .player-hero-card {
-            background: #ede3cc;
-            border: 2px solid #c9b48c;
-            border-radius: 12px;
-            padding: 8px 12px;
-            margin-bottom: 6px;
-            text-align: left;
-            flex-shrink: 0;
-        }
-        .hero-top { 
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; 
-        }
-        .hero-tier-pill {
-            font-size: 14px;
-            font-weight: 800;
-            padding: 3px 9px;
-            border-radius: 10px;
-            color: white;
-        }
-        .title-equipped-tag {
-            background: linear-gradient(90deg, #b45309, #d97706);
-            color: #fffbeb;
-            border: 1px solid #fef3c7;
-            font-size: 12px;
-            font-weight: 900;
-            padding: 3px 8px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-            display: inline-block;
-        }
-
-        /* ========================================================
-           🌟 타이틀 화면 1행 비대칭 액션 덱 & 팝오버 스타일
-           ======================================================== */
-        
-        .asymmetric-action-bar {
-            display: flex;
-            gap: 8px;
-            width: 100%;
-            height: 80px; /* 👈 시원하게 80px로 확대 */
-            position: relative;
-            margin-bottom: 8px;
-            flex-shrink: 0;
-            box-sizing: border-box;
-            align-items: center;
-        }
-
-        /* [좌측 75%] 실제 두루마리 이미지 스마트 버튼 */
-        .smart-scroll-btn {
-            flex: 1;
-            height: 80px;
-            position: relative;
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.12s ease;
-            box-sizing: border-box;
-        }
-        .smart-scroll-btn:hover {
-            transform: translateY(-1.5px);
-            filter: brightness(1.06);
-        }
-        .smart-scroll-btn:active {
-            transform: scale(0.99);
-        }
-
-        /* 두루마리 배경 이미지 레이어*/
-.scroll-9slice-layer {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 100% 100%;
-            pointer-events: none;
-            transition: filter 0.3s ease;
-        }
-
-        /* 1. 평상시: 얇고 진한 에메랄드 레이저 오라 */
-        .tint-resume .scroll-9slice-layer {
-            background-image: url('images/scroll_green.webp');
-            filter: drop-shadow(0 5px 6px rgba(20, 10, 5, 0.4)) drop-shadow(0 0 2px #86efac) drop-shadow(0 0 5px #22c55e) drop-shadow(0 0 9px rgba(34, 197, 94, 0.85));
-            animation: auraBreathResume 2.2s infinite alternate ease-in-out;
-        }
-        /* 2. 긴급수호: 테두리에 바짝 밀착된 짙은 자수정 네온 불꽃 */
-        .tint-emergency .scroll-9slice-layer {
-            background-image: url('images/scroll_purple.webp');
-            filter: drop-shadow(0 5px 6px rgba(20, 10, 5, 0.4)) drop-shadow(0 0 2px #f0abfc) drop-shadow(0 0 6px #c084fc) drop-shadow(0 0 10px rgba(168, 85, 247, 0.95));
-            animation: auraBreathEmergency 1.4s infinite alternate ease-in-out;
-        }
-        /* 3. 마왕결전: 테두리에 얇게 달라붙어 타오르는 진홍빛 지옥불 */
-        .tint-boss .scroll-9slice-layer {
-            background-image: url('images/scroll_red.webp');
-            filter: drop-shadow(0 5px 7px rgba(30, 15, 5, 0.45)) drop-shadow(0 0 2px #fca5a5) drop-shadow(0 0 6px #ef4444) drop-shadow(0 0 11px rgba(249, 115, 22, 0.95));
-            animation: auraBreathBoss 1.2s infinite alternate ease-in-out;
-        }
-
-        /* 🌟 위아래 침범 0%! 10px 안쪽에서만 쨍하고 농밀하게 호흡하는 키프레임 */
-        @keyframes auraBreathResume {
-            0%   { filter: drop-shadow(0 5px 6px rgba(20, 10, 5, 0.4)) drop-shadow(0 0 2px #86efac) drop-shadow(0 0 4px #22c55e) drop-shadow(0 0 8px rgba(34, 197, 94, 0.7)); }
-            100% { filter: drop-shadow(0 5px 6px rgba(20, 10, 5, 0.4)) drop-shadow(0 0 3px #bbf7d0) drop-shadow(0 0 6px #22c55e) drop-shadow(0 0 11px rgba(74, 222, 128, 1)); }
-        }
-        @keyframes auraBreathEmergency {
-            0%   { filter: drop-shadow(0 5px 6px rgba(20, 10, 5, 0.4)) drop-shadow(0 0 2px #f0abfc) drop-shadow(0 0 5px #c084fc) drop-shadow(0 0 8px rgba(168, 85, 247, 0.8)); }
-            100% { filter: drop-shadow(0 5px 6px rgba(20, 10, 5, 0.4)) drop-shadow(0 0 3px #fae8ff) drop-shadow(0 0 7px #e879f9) drop-shadow(0 0 11px rgba(192, 132, 252, 1)); }
-        }
-        @keyframes auraBreathBoss {
-            0%   { filter: drop-shadow(0 5px 7px rgba(30, 15, 5, 0.45)) drop-shadow(0 0 2px #fca5a5) drop-shadow(0 0 5px #ef4444) drop-shadow(0 0 9px rgba(249, 75, 22, 0.85)); }
-            100% { filter: drop-shadow(0 5px 7px rgba(30, 15, 5, 0.45)) drop-shadow(0 0 3px #fee2e2) drop-shadow(0 0 7px #dc2626) drop-shadow(0 0 12px rgb(234, 12, 12)); }
-        }
-
-        /* 두루마리 중앙 글씨 레이어 */
-        .scroll-text-layer {
-            position: relative;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-            width: 100%;
-            padding-left: 32px;  /* 좌측 말린 롤 여백 */            
-            padding-right: 90px;  /* 좌측 말린 롤 여백 */
-            pointer-events: none;
-        }
-        /* 두루마리 상부 태그 */
-        .scroll-tag-text {
-            font-size: 11px;
-            font-weight: 900;
-            margin-bottom: 2px;
-            letter-spacing: 0.3px;
-            /* text-shadow: 0 1px 1px rgba(255,255,255,0.7); */
-        }
-        /* 두루마리 메인 문구 */
-        .scroll-main-text {
-            font-size: 20px;
-            font-weight: 900;
-            color: #ffffff; /* 🌟 묵직한 두루마리 위에서 선명한 순백색 */
-            line-height: 1.15;
-            text-shadow: 0 2px 2px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.95);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* [우측 25%] 성역 버튼 */
-        .seal-ribbon-btn {
-            width: 88px;
-            height: 114px; /* 리본 꼬리가 자연스럽게 늘어지는 높이 */
-            position: absolute; /* 🌟 두루마리 위에 안착 */
-            right: 4px;         /* 🌟 오른쪽 벽에서 화면 안쪽으로 쏙 들어옴 */            
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex-shrink: 0;
-            margin-top: 14px; /* 두루마리 높이선과 원형 헤드 정렬 */
-            margin-left: -70px; /* 🌟 두루마리 오른쪽 손잡이 위로 18px 겹쳐지며 왼쪽으로 쏙 들어옴! */
-            z-index: 10;        /* 🌟 두루마리 위로 입체적으로 얹히도록 레이어 설정 */
-            transition: transform 0.12s ease, filter 0.15s ease;
-            box-sizing: border-box;
-        }
-        .seal-ribbon-btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.09);
-        }
-        .seal-ribbon-btn:active {
-            transform: translateY(-4%) scale(0.98);
-        }
-
-        /* 왁스 리본 이미지 본체 */
-        .seal-img-bg {
-            position: absolute;
-            width: 110%; height: 110%;
-            object-fit: contain;
-            pointer-events: none;
-            filter: drop-shadow(0 5px 8px rgba(0,0,0,0.4));
-            filter: brightness(1.3);
-        }
-        /* 🛡️ [투명 터치 방패] 인장 우측 끝까지 투명하게 덮어 뒤편 두루마리 터치를 100% 차단! */
-        .seal-ribbon-btn::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            bottom: -10px;
-            left: 0px;
-            right: -15px; /* 👈 인장 오른쪽 화면 끝까지 방패막을 쳐서 두루마리 터치 원천 봉쇄 */
-            z-index: 1;
-        }
-
-        /* 원형 왁스 안쪽 텍스트 레이어 */
-        .seal-content {
-            position: relative;
-            z-index: 5;
-            width: 60px;
-            height: 60px;
-            margin-top: 17px; /* 도장 정중앙 위치로 안착 */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none;
-        }
-        .seal-icon {
-            font-size: 22px;
-            line-height: 1;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
-        }
-        .seal-text {
-            font-size: 18px;
-            font-weight: 700;
-            color: #2b0505;
-            text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.95), 0 1px 0.5px rgba(254, 202, 202, 0.4);
-            letter-spacing: -0.3px;
-            margin-bottom: 1px;
-        }
-
-        /* 왁스 도장 듀얼 알림 배지 (아이콘 + 숫자 알약형) */
-        .seal-badge {
-            position: absolute;
-            top: 4px;
-            font-size: 13px;
-            font-weight: 900;
-            padding: 2px 5px; /* 👈 좌우 여백을 주어 알약 형태로 확장 */
-            height: 18px;
-            border-radius: 9px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2px;
-            border: 1.5px solid #ffffff;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.45);
-            z-index: 10;
-            color: white;
-            white-space: nowrap;
-            animation: sealPulseAnim 1.3s infinite alternate ease-in-out;
-        }
-        /* 우상단: 빨간색 긴급 수호 배지 */
-        .seal-badge.badge-right {
-            right: 0px;
-            background: #dc2626;
-        }
-        /* 좌상단: 주황색 정령 상담 배지 */
-        .seal-badge.badge-left {
-            left: 0px;
-            background: #ea580c;
-        }
-        @keyframes sealPulseAnim {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.15); box-shadow: 0 0 8px #f43f5e; }
-        }
-
-        /* [플로팅] 성역 팝오버 카드 */
-        .ops-popover-card {
-            display: none;
-            position: absolute;
-            top: 78px;
-            right: 0;
-            width: 270px;
-            background: #fdfaf2;
-            border: 2.5px solid #8f603a;
-            border-radius: 14px;
-            padding: 8px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.65);
-            z-index: 60;
-            flex-direction: column;
-            gap: 5px;
-            box-sizing: border-box;
-            animation: popInAnim 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
-        }
-        @keyframes popInAnim {
-            from { opacity: 0; transform: translateY(-8px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
         .pop-item {
             display: flex;
             justify-content: space-between;
@@ -627,92 +301,6 @@
             border-color: #cbd5e1;
             cursor: not-allowed;
         }
-
-        .map-select-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            font-weight: 800;
-            color: #4b301c;
-            margin-bottom: 6px;
-            border-bottom: 2px dashed #c9b48c;
-            padding-bottom: 3px;
-            flex-shrink: 0;
-        }
-        .title-map-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            flex: 1;
-            min-height: 90px;
-            overflow-y: auto;
-            padding-right: 2px;
-            margin-bottom: 6px;
-        }
-        .title-map-card {
-            background: #fdfaf2;
-            border: 2px solid #c9b48c;
-            border-radius: 10px;
-            padding: 8px 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: left;
-        }
-        .title-map-card:hover {
-            border-color: #8f603a;
-            background: #fffdf7;
-            transform: translateY(-1px);
-        }
-        .map-card-top { display: flex; justify-content: space-between; align-items: center; }
-
-        /* 2. 타이틀 영지 맵 카드 */
-        .map-card-name { 
-            font-size: 14.5px; 
-            font-weight: 900; 
-            color: #2c1a0e; 
-        }
-        .map-mastery-badge { 
-            font-size: 11px; 
-            font-weight: 800; 
-            padding: 3px 7px; 
-            border-radius: 6px; 
-            flex-shrink: 0;
-        }
-        .map-card-desc { 
-            font-size: 12.5px; 
-            color: #785a3e; 
-            font-weight: 600; 
-            margin-top: 3px; 
-            line-height: 1.4; 
-            word-break: keep-all; 
-        }
-        .map-card-progress { 
-            font-size: 12.5px;
-            color: #5c3a21; 
-            font-weight: 800; 
-            margin-top: 4px; 
-        }
-
-        .map-mini-bar { 
-            background: #d8c7a6; height: 5px; border-radius: 3px; overflow: hidden; margin-top: 3px; 
-        }
-        .map-mini-bar-fill { 
-            height: 100%; background: linear-gradient(90deg, #10b981, #059669); width: 0%; 
-        }
-        .title-bottom-links {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            padding-top: 2px;
-            flex-shrink: 0;
-        }
-        .link-sub {
-            background: none; border: none; color: #a18366; font-size: 11px; font-weight: 700;
-            cursor: pointer; text-decoration: underline; transition: color 0.2s;
-        }
-        .link-sub:hover { color: #dc2626; }
-
 
         /* ========================================================
            🎖️ 명예의 전당 & 칭호 도감 전용 스타일시트 (CSS 중앙 제어)
@@ -1943,6 +1531,195 @@
             }
         }
 
+        /* ========================================================
+        🏕️ 야영지(Camp Hub) 신규 스타일: 2배 두루마리 & 9-Slice 팝오버
+        ======================================================== */
+
+        /* 1. 우측 5대 두루마리 덱 (가로 46%, 높이 54px 큼직한 버튼) */
+        .right-command-column {
+            position: absolute;
+            top: 36%;
+            right: 0;
+            width: 46%;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            z-index: 10;
+        }
+
+        .big-scroll-btn {
+            width: 100%;
+            height: 54px;
+            position: relative;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.12s ease, filter 0.15s ease;
+            box-sizing: border-box;
+        }
+        .big-scroll-btn:active {
+            transform: scale(0.96);
+        }
+        .big-scroll-btn.active {
+            filter: brightness(1.2) drop-shadow(0 0 10px rgba(245, 158, 11, 0.85));
+            transform: translateX(-4px);
+        }
+
+        .big-scroll-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+            pointer-events: none;
+            transition: filter 0.25s ease;
+        }
+
+        /* 두루마리 컬러 스킨 & 오라 */
+        .skin-green .big-scroll-bg {
+            background-image: url('images/scroll_green.webp');
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6)) drop-shadow(0 0 3px #86efac) drop-shadow(0 0 8px rgba(34, 197, 94, 0.75));
+        }
+        .skin-purple .big-scroll-bg {
+            background-image: url('images/scroll_purple.webp');
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6)) drop-shadow(0 0 3px #f0abfc) drop-shadow(0 0 8px rgba(168, 85, 247, 0.75));
+        }
+        .skin-red .big-scroll-bg {
+            background-image: url('images/scroll_red.webp');
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 3px #fca5a5) drop-shadow(0 0 10px rgba(239, 68, 68, 0.85));
+        }
+
+        .big-scroll-text-layer {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0 16px;
+            pointer-events: none;
+        }
+        .scroll-main-title {
+            font-size: 17px;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.15;
+            text-shadow: 0 2px 3px rgba(0,0,0,0.95), 0 0 8px rgba(0,0,0,0.8);
+            white-space: nowrap;
+            letter-spacing: -0.4px;
+        }
+        .scroll-sub-desc {
+            font-size: 11px;
+            font-weight: 800;
+            color: #fef08a;
+            margin-top: 1.5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+            white-space: nowrap;
+            letter-spacing: -0.2px;
+        }
+
+        /* 2. 🌟 9-Slice 세로 두루마리 팝오버 (가운데만 늘어나는 세로 두루마리) */
+        .popover-backdrop {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 20;
+            background: transparent;  /* 🌟 어두운 틴트 제거 */
+            backdrop-filter: none;   /* 🌟 어설픈 중간 블러 완전 제거 */
+        }
+
+        .camp-popover-card {
+            display: none;
+            position: absolute;
+            /* 🌟 어떤 인라인 style이 있어도 무조건 화면 정중앙 고정 */
+            left: 50% !important;
+            top: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: 80%;
+            max-width: 350px;
+            z-index: 25;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding: 0px 24px;
+
+            /* 🌟 [핵심] 고정 픽셀 대신 비율(20%)로 잘라 원본 롤러 형태 100% 보존
+            - 상하 64px: 화면에 표시될 롤러의 높이 (롤러가 납작하면 숫자를 늘리고, 길면 줄이시면 됩니다)
+            - 상하 20%: 원본 이미지의 롤러 비율 슬라이스 */
+            border-style: solid;
+            border-width: 64px 20px 64px 20px;
+            border-image: url('images/scroll_btn_v.webp') 14% 8% 14% 8% fill stretch;
+            filter: drop-shadow(0 12px 35px rgba(0,0,0,0.95)) drop-shadow(0 0 10px rgba(245, 158, 11, 0.4));
+            
+            /* (내부 padding 등 직접 해결하신 2번 코드는 그대로 유지하시면 됩니다) */
+            animation: popInCenterAnim 0.18s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+        }
+
+        /* 🌟 중앙 줌인 탄성 애니메이션 */
+        @keyframes popInCenterAnim {
+            from { 
+                opacity: 0; 
+                transform: translate(-50%, -46%) scale(0.92); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1); 
+            }
+        }
+
+        .popover-inner-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+        }
+        /* 팝오버 */
+        .popover-header {
+            font-size: 15px;
+            font-weight: 900;
+            color: #451a03;
+            border-bottom: 1.5px dashed #b45309;
+            padding-bottom: 3px;
+            margin-bottom: 2px;
+            text-align: center;
+        }
+
+        .popover-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(254, 243, 199, 0.7);
+            border: 1px solid #d4c29d;
+            border-radius: 8px;
+            padding: 6px 8px;
+            cursor: pointer;
+            transition: all 0.12s ease;
+            text-align: left;
+        }
+        .popover-item:active {
+            transform: scale(0.97);
+            background: #fde68a;
+            border-color: #b45309;
+        }
+        .pop-item-title {
+            font-size: 15px;
+            font-weight: 900;
+            color: #2c1a0e;
+        }
+        .pop-item-badge {
+            font-size: 9px;
+            font-weight: 800;
+            color: #ffffff;
+            background: #b45309;
+            padding: 1.5px 5px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
     </style>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;">
@@ -1993,136 +1770,202 @@
         <!-- ==============================================
              🏛️ 1. 타이틀 화면
              ============================================== -->
-        <div id="titleScreen" class="screen-view">
-            <div class="title-art-wrapper">
-                <img src="images/title_bg.webp" style="width:100%; height:100%; object-fit:cover; display:block;" alt="타이틀 배경">
-                <div class="title-art-overlay">
-                    <h1 class="title-main-text">The Crisis<br>of Word Spirits</h1>
-                    <div id="titleSubText" class="title-sub-text">The Trial of EXAM · 덕정고1 X 현수영</div>
-                </div>
-            </div>
+        
+        <div id="titleScreen" class="screen-view" style="display:none; position:absolute; top:0; left:0; right:0; bottom:0; width:100%; height:100%; z-index:10; background:#0a0402; overflow:hidden; padding:max(14px, env(safe-area-inset-top, 14px)) 14px max(14px, env(safe-area-inset-bottom, 14px)) 14px; box-sizing:border-box;">
 
-            <!-- 🧙‍♂️ 정령술사 스테이터스 면허증 대시보드 -->
-            <div class="player-hero-card" style="background:#ede3cc; border:2px solid #b59f77; padding:10px 12px; margin-bottom:6px;">
-                <!-- 1행: 현재 계급 & 장착 칭호 -->
-                <div class="hero-top" style="margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; gap:5px;">
-                    <span id="titleGlobalTierBadge" class="hero-tier-pill" style="padding:3px 8px; font-size:12px; flex-shrink:0;">입문 술사 🌱</span>
-                    <span id="titlePlayerNameText" style="font-size:20px; font-weight:900; color:#451a03; text-shadow:0 1px 0 rgba(255,255,255,0.85); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:center; flex:1;">
-                        <span style="color:#b45309; font-size:11px;">✦</span> 1234 이름 <span style="color:#b45309; font-size:11px;">✦</span>
-                    </span>
-                    <span id="titleEquippedBadge" class="title-equipped-tag" style="padding:3px 8px; font-size:11.5px; flex-shrink:0;">🌱 첫 걸음의 탐색자</span>
-                </div>
+            
+            <!-- 🌌 9:16 세로 풀스크린 모닥불 배경 레이어 -->
+            <div class="camp-bg-layer" style="position:absolute; top:0; left:0; right:0; bottom:0; background-image:url('images/title_fire.webp'); background-size:cover; background-position:left center; opacity:1; filter:none; z-index:1;"></div>
+            <div class="camp-vignette-overlay" style="position:absolute; top:0; left:0; right:0; bottom:0; background:radial-gradient(circle at 35% 65%, transparent 25%, rgba(10,5,2,0.5) 70%, #080302 100%), linear-gradient(180deg, rgba(8,4,2,0.88) 0%, transparent 22%, transparent 70%, #080302 96%); z-index:2; pointer-events:none;"></div>
 
-                <!-- 2행: 현재 등급 경험치 게이지바 -->
-                <div class="overall-gauge-container" style="height:10px; margin-bottom:6px; border-radius:5px;">
-                    <div id="titleProgressBar" class="overall-gauge-bar" style="transition: width 0.4s ease;"></div>
-                </div>
+            <!-- 캠프 콘텐츠 본체 -->
+            <div class="camp-content" style="position:relative; z-index:5; width:100%; height:100%; display:flex; flex-direction:column; justify-content:space-between;">
 
-                <!-- 3행: 다음 등급까지 남은 마리수 (숫자 집중 강조) -->
-                <div style="text-align:center; font-size:13.5px; font-weight:800; color:#4b301c;">
-                    <span id="titleNextExpText">다음 등급까지 계산 중...</span>
-                </div>
-            </div>
-
-
-           <!-- ==============================================
-                 🌟 [NEW] 1행 비대칭 액션 바 (두루마리 스마트 버튼 + 안식처)
-                 ============================================== -->
-            <div class="asymmetric-action-bar">
-                
-                <!-- [좌측 75%] 9-Slice 두루마리 스마트 메인 버튼 -->
-                <button id="smartMainBtn" class="smart-scroll-btn tint-resume" onclick="handleSmartMainClick()">
-                    <!-- 9-Slice 기법으로 늘어나는 두루마리 배경 레이어 -->
-                    <div class="scroll-9slice-layer"></div>
+                <!-- 1. 상단 영역 (좌: 시네마틱 타이포 / 우: 로마자 인장 결합 HUD) -->
+                <div class="top-section-wrap" style="display:flex; justify-content:space-between; align-items:stretch; gap:8px; margin-bottom:6px; width:100%;">
                     
-                    <!-- 두루마리 중앙 글씨 레이어 -->
-                    <div class="scroll-text-layer">
-                        <div id="smartTagRow" class="scroll-tag-text" style="color:#166534;">
-                            <span>⚡ 추천 교감</span>
+                    <!-- 타이틀 화면 좌측 상단 게임 로고 -->
+                    <div class="title-typo-box" style="flex:0 0 34%; display:flex; flex-direction:column; justify-content:center; text-align:left;">
+                        <span class="typo-tag" style="font-size:12px; font-weight:800; color:#d97706; letter-spacing:0.8px;">✦ THE CRISIS OF ✦</span>
+                        <span class="typo-main" style="font-size:40px; font-weight:900; color:#ffffff; line-height:1.05; letter-spacing:-0.6px; text-shadow:0 2px 10px rgba(0,0,0,0.95), 0 0 16px rgba(245,158,11,0.45);">Word<br>Spirits</span>
+                        <span id="titleSubText" class="typo-sub" style="font-size:13px; font-weight:700; color:#fde047; margin-top:4px; opacity:0.9;">The Trial of EXAM </be>야영지</span>
+                    </div>
+
+                    <!-- [우측 66%] 정령술사 면허증 스테이터스 HUD -->
+                    <div class="player-status-dashboard" style="flex:1; position:relative; background:rgba(20,10,5,0.86); border:1.5px solid rgba(245,158,11,0.5); backdrop-filter:blur(10px); border-radius:14px; padding:8px 48px 8px 12px; display:flex; flex-direction:column; justify-content:center; gap:4px; box-shadow:0 4px 18px rgba(0,0,0,0.75); text-align:left; box-sizing:border-box;">
+
+                        <!-- 우상단 로마자 직인 인장 -->
+                        <div class="hud-seal-badge" style="position:absolute; top:4px; right:0px; width:48px; height:58px; display:flex; justify-content:center; align-items:center; pointer-events:none; z-index:10; filter:drop-shadow(0 3px 6px rgba(0,0,0,0.85));">
+                            <img src="images/seal_btn.webp" style="position:absolute; width:100%; height:100%; object-fit:contain;" alt="인장">
+                            <span id="titleSealRoman" class="hud-seal-roman" style="position:relative; z-index:2; font-size:14px; font-weight:900; color:#fffbeb; text-shadow:0 1px 2px #000, 0 0 8px #f59e0b; letter-spacing:-0.5px; margin-top:-14px;">Ⅰ</span>
                         </div>
-                        <div id="smartMainText" class="scroll-main-text">제2구역으로 출격 ➔</div>
-                    </div>
-                </button>
 
-                <!-- [우측 25%] 성역 버튼 -->
-                <button id="specialOpsBtn" class="seal-ribbon-btn" onclick="toggleOpsPopover(event)">
-                    <img src="images/seal_btn.webp" class="seal-img-bg" alt="성역 인장">
-                    <div class="seal-content">
-                        <span class="seal-text">【성역】</span>
-                    </div>
-                    <!-- 좌상단: 주황색 정령 상담 배지 -->
-                    <div id="miniBadgeCounsel" class="seal-badge badge-left" style="display:none;">0</div>
-                    <!-- 우상단: 빨간색 긴급 수호 배지 -->
-                    <div id="miniBadgeEmergency" class="seal-badge badge-right" style="display:none;">0</div>
-                </button>
+                        <!-- 1행: 플레이어 이름 -->
+                        <div class="hud-row-1" style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom: 7px">
+                            <span id="titlePlayerNameText" class="hud-player-name" style="font-size:20px; font-weight:900; color:#fffbeb; white-space:nowrap; letter-spacing:-0.3px;">✦ 술사 ✦</span>
+                        </div>
 
-                <!-- 📜 [플로팅] 성역 팝오버 메뉴 (일반 탐험 제외 완료) -->
-                <div id="opsPopoverCard" class="ops-popover-card">
-                    <div style="font-size:11px; font-weight:900; color:#8f603a; border-bottom:1px dashed #c9b48c; padding-bottom:3px; margin-bottom:3px; text-align:center;">
-                        ✦ 성역의 다른 장소들 ✦
+                        <!-- 2행: 장착 칭호 및 글로벌 티어 -->
+                        <div style="display:flex; justify-content:space-between; flex-direction:row; align-items:center; gap:4px; margin:2px 0;">
+                            <span id="titleEquippedBadge" style="background:linear-gradient(90deg, rgba(180,83,9,0.5), rgba(217,119,6,0.35)); border:1px solid rgba(245,158,11,0.55); color:#fef3c7; font-weight:800; font-size:12px; padding:3px 8px; border-radius:8px; white-space:nowrap; box-shadow:0 1px 4px rgba(0,0,0,0.3);">🌱 첫 걸음의 탐색자</span>
+
+                            <span id="titleGlobalTierBadge" class="hud-tier-pill" style="font-size:12px; font-weight:800; color:#ffffff; background:#b91c1c; border:1px solid rgba(226, 181, 164, 0.55); padding:2px 7px; border-radius:6px; white-space:nowrap; box-shadow:0 2px 5px rgba(0,0,0,0.4);">마왕의 대적자 ⚔️</span>
+                        </div>
+
+                        <!-- 3행: 정령 결속 수치 -->
+                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; font-weight:800; margin-right:-36px;">
+                            <span style="color:#d4a373;">✦ 정령 결속도</span>
+                            <span id="titleContractCountText" style="color:#fde047; font-weight:900; white-space:nowrap;">계산 중...</span>
+                        </div>
+
+                        <!-- 4행: 경험치 게이지 -->
+                        <div class="hud-gauge-bar" style="height:6px; margin-right:-36px; background:rgba(40,20,10,0.95); border:0.5px solid rgba(245,158,11,0.5); border-radius:3px; overflow:hidden;">
+                            <div id="titleProgressBar" class="hud-gauge-fill" style="height:100%; width:0%; background:linear-gradient(90deg, #f59e0b, #ef4444);"></div>
+                        </div>
+
+                        <!-- 5행: 다음 목표 안내 -->
+                        <div class="hud-row-2" style="display:flex; justify-content:flex-end; align-items:flex-end; font-size:13px; font-weight:700; color:#fde047; gap:6px; margin-right:-36px;">
+                            <span id="titleNextExpText" style="color:#fde047; font-size:12px; font-weight:700; line-height:1.25; text-align:right;">계산 중...</span>
+                        </div>
+
                     </div>
+
+                </div>
+
+                <!-- 2. 중앙~우측: 🌟 2배 커진 5대 두루마리 & 9-Slice 세로 팝오버 영역 -->
+                <div class="mid-body-area" style="flex:1; position:relative; width:100%;">
                     
-                    <!-- 1. 안개 속 구출 (침식 단어 방어) -->
-                    <div class="pop-item" onclick="handleOpsSelect('emergency')">
-                        <span>🚨 안개 속 구출</span>
-                        <span id="popEmergencyBadge" style="font-size:11px; color:#7e22ce; font-weight:900;">침식 0 (안전)</span>
+                    <!-- 팝오버 닫기용 투명 백드롭 -->
+                    <div id="campPopBackdrop" class="popover-backdrop" onclick="closeCampPopovers()"></div>
+
+                    <!-- [팝오버 1] 🗺️ 성역 탐험 (4대 스토리 영지 목록) -->
+                    <div id="campPopStory" class="camp-popover-card" style="top:32%;">
+                        <div class="popover-inner-content">
+                            <div class="popover-header">✦ 4대 스토리 영지 ✦</div>
+                            <div id="campStoryMapList" style="display:flex; flex-direction:column; gap:4px; max-height:220px; overflow-y:auto;">
+                                <!-- JS에서 실제 스토리 영지 카드들이 동적으로 채워집니다 -->
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- 2. 정령 성소 (오답 케어) -->
-                    <div class="pop-item" onclick="handleOpsSelect('counsel')">
-                        <span>🛋️ 정령 성소</span>
-                        <span id="popCounselBadge" style="font-size:11px; color:#ea580c; font-weight:900;">면담 0</span>
+                    <!-- [팝오버 2] 🌀 숨겨진 비경 (형상변환 & 동·반의어) -->
+                    <div id="campPopAbyss" class="camp-popover-card" style="top:44%;">
+                        <div class="popover-inner-content">
+                            <div class="popover-header" style="color:#6d28d9; border-bottom-color:#7c3aed;">✦ 숨겨진 특수 비경 ✦</div>
+                            <div id="campSpecialMapList" style="display:flex; flex-direction:column; gap:4px;">
+                                <!-- JS에서 형상변환 및 동반의어 맵 목록이 채워집니다 -->
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- 3. 마왕 EXAM 결전 (스토리 보스) -->
-                    <div id="popBossItem" class="pop-item locked" onclick="handleOpsSelect('boss')">
-                        <span>👑 마왕 『EXAM』</span>
-                        <span id="popBossBadge" style="font-size:10.5px; color:#94a3b8; font-weight:800;">봉인 🔒</span>
+                    <!-- [팝오버 3] 🛋️ 정령의 성소 (안개 구출, 치유, 교감) -->
+                    <div id="campPopShrine" class="camp-popover-card" style="top:52%;">
+                        <div class="popover-inner-content">
+                            <div class="popover-header" style="color:#9d174d; border-bottom-color:#db2777;">✦ 성역 안식 & 케어 ✦</div>
+                            <div class="popover-item" onclick="handleCampSelect('emergency')">
+                                <span class="pop-item-title">🚨 안개 속 구출</span>
+                                <span id="campMistBadge" class="pop-item-badge">0마리</span>
+                            </div>
+                            <div class="popover-item" onclick="handleCampSelect('counsel_hurt')">
+                                <span class="pop-item-title">🍂 정령 치유실</span>
+                                <span id="campHurtBadge" class="pop-item-badge">오답 케어</span>
+                            </div>
+                            <div class="popover-item" onclick="handleCampSelect('counsel_fav')">
+                                <span class="pop-item-title">💖 정령 교감실</span>
+                                <span id="campFavBadge" class="pop-item-badge">찜한 정령</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- 4. 🔥 [NEW] 시험 직전 하드코어 파이널 마왕전 -->
-                    <div id="popHardcoreBossItem" class="pop-item" style="display:none; background:#fff1f2; border-color:#fca5a5;" onclick="handleOpsSelect('hardcore')">
-                        <span id="popHardcoreTitleText" style="color:#991b1b; font-weight:900;">🔥 파이널 점검</span>
-                        <span id="popHardcoreBadge" style="font-size:10.5px; color:#dc2626; font-weight:900;">실전 ⚔️</span>
+                    <!-- [팝오버 4] 🔥 차원의 틈새 (마왕전, 특훈, 심연) -->
+                    <div id="campPopRift" class="camp-popover-card" style="top:60%;">
+                        <div class="popover-inner-content">
+                            <div class="popover-header" style="color:#991b1b; border-bottom-color:#dc2626;">✦ 차원의 틈새 (최종전) ✦</div>
+                            <div id="campBossItem" class="popover-item" onclick="handleCampSelect('boss')">
+                                <span class="pop-item-title" style="color:#991b1b;">👑 마왕 EXAM 결전</span>
+                                <span id="campBossBadge" class="pop-item-badge" style="background:#dc2626;">결전 ⚔️</span>
+                            </div>
+                            <div id="campHardcoreItem" class="popover-item" onclick="handleCampSelect('hardcore')">
+                                <span class="pop-item-title">📖 파이널 점검</span>
+                                <span class="pop-item-badge" style="background:#ea580c;">특훈 ⚡</span>
+                            </div>
+                            <div class="popover-item" style="opacity:0.6; cursor:not-allowed;" onclick="handleCampSelect('abyss')">
+                                <span class="pop-item-title" style="color:#64748b;">🌌 끝없는 심연</span>
+                                <span class="pop-item-badge" style="background:#475569;">봉인 🔒</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- 5. 끝없는 심연 (준비 중 보존) -->
-                    <div class="pop-item locked" onclick="handleOpsSelect('abyss')">
-                        <span>🌌 끝없는 심연</span>
-                        <span style="font-size:10.5px; color:#94a3b8; font-weight:800;">미개방 🔒</span>
+                    <!-- ==============================================
+                         우측 5대 두루마리 버튼 덱 (가로 46%, 높이 54px)
+                         ============================================== -->
+                    <div class="right-command-column">
+                        
+                        <!-- ① [⚡ 모험 이어하기] 스마트 추천 버튼 계승 -->
+                        <button id="smartMainBtn" class="big-scroll-btn skin-green" onclick="handleCampSmartClick()">
+                            <div class="big-scroll-bg"></div>
+                            <div class="big-scroll-text-layer">
+                                <span class="scroll-main-title">⚡ 모험 이어하기</span>
+                                <span id="smartMainText" class="scroll-sub-desc">추천 구역 출격 ➔</span>
+                            </div>
+                        </button>
+
+                        <!-- ② [🗺️ 성역 탐험] ➔ 4대 스토리 영지 팝오버 -->
+                        <button id="btnCampStory" class="big-scroll-btn skin-green" onclick="toggleCampPopover('campPopStory', 'btnCampStory')">
+                            <div class="big-scroll-bg"></div>
+                            <div class="big-scroll-text-layer">
+                                <span class="scroll-main-title">🗺️ 성역 탐험</span>
+                                <span class="scroll-sub-desc">단어 정령들을 찾아가자!</span>
+                            </div>
+                        </button>
+
+                        <!-- ③ [🌀 숨겨진 비경] ➔ 특수 영지 팝오버 -->
+                        <button id="btnCampAbyss" class="big-scroll-btn skin-purple" onclick="toggleCampPopover('campPopAbyss', 'btnCampAbyss')">
+                            <div class="big-scroll-bg"></div>
+                            <div class="big-scroll-text-layer">
+                                <span class="scroll-main-title">🌀 숨겨진 비경</span>
+                                <span class="scroll-sub-desc">형상변환 · 쌍둥이 · 앙숙 단어 정령들</span>
+                            </div>
+                        </button>
+
+                        <!-- ④ [🛋️ 정령의 성소] ➔ 케어 팝오버 -->
+                        <button id="btnCampShrine" class="big-scroll-btn skin-purple" onclick="toggleCampPopover('campPopShrine', 'btnCampShrine')">
+                            <div class="big-scroll-bg"></div>
+                            <div class="big-scroll-text-layer">
+                                <span class="scroll-main-title">🛋️ 정령의 성소</span>
+                                <span class="scroll-sub-desc">안개 속 구출 · 치유 · 교감</span>
+                            </div>
+                        </button>
+
+                        <!-- ⑤ [🔥 차원의 틈새] ➔ 최종전 팝오버 -->
+                        <button id="btnCampRift" class="big-scroll-btn skin-red" onclick="toggleCampPopover('campPopRift', 'btnCampRift')">
+                            <div class="big-scroll-bg"></div>
+                            <div class="big-scroll-text-layer">
+                                <span class="scroll-main-title">🔥 차원의 틈새</span>
+                                <span class="scroll-sub-desc">마왕결전 · 하드코어 점검 · 끝없는 심연</span>
+                            </div>
+                        </button>
+
                     </div>
 
                 </div>
-            </div>
 
-            <div class="map-select-header">
-                <span>🗺️ 탐험할 영지 선택</span>
-            </div>
-
-            <div class="title-map-list" id="titleMapListContainer"></div>
-
-            <!-- 🎛️ [교사용 비밀 버튼] 선생님 로그인 시에만 노출! -->
-            <button id="adminTowerBtn" class="btn-wood" style="display:none; background:linear-gradient(180deg, #7e22ce 0%, #581c87 100%); border-color:#c084fc; color:#ffffff; font-weight:900; padding:11px; font-size:14px; margin-bottom:6px;" onclick="openAdminTower()">
-                🎛️ 교사용 비밀 관제탑 (학생 현황 & 엑셀) ➔
-            </button>
-
-            <!-- 하단 버튼들-->
-            <div class="title-bottom-links">
-                <div style="display:flex; gap:8px; width:100%; margin-top:2px; flex-shrink:0;">
-                <button class="top-btn" style="flex:1; padding:13px 10px; font-size:14px; font-weight:900; background:#5c3a21; border-color:#8f603a; border-radius:14px;" onclick="openWordBook(true)">
-                    📖 모험 일지
-                </button>
-                <button class="top-btn" style="flex:1; padding:13px 10px; font-size:14px; font-weight:900; background:#ede3cc; color:#5c3a21; border-color:#c9b48c; border-radius:14px;" onclick="openSettingsModal()">
-                    ⚙️ 환경 설정
-                </button>
-
+                <!-- 3. 하단 툴바 & 저작권 -->
+                <div class="bottom-toolbar-wrap" style="display:flex; flex-direction:column; gap:4px; width:100%; margin-top:auto; flex-shrink:0;">
+                    <div class="bottom-btns-row" style="display:flex; gap:8px; width:100%;">
+                        <button class="top-btn" style="flex:1; padding:10px; font-size:13px; font-weight:900; background:rgba(30,16,10,0.85); border:1px solid rgba(181,148,97,0.35); border-radius:10px;" onclick="openWordBook(true)">
+                            📖 모험 일지
+                        </button>
+                        <button class="top-btn" style="flex:1; padding:10px; font-size:13px; font-weight:900; background:rgba(30,16,10,0.85); border:1px solid rgba(181,148,97,0.35); border-radius:10px;" onclick="openSettingsModal()">
+                            ⚙️ 환경 설정
+                        </button>
+                    </div>
+                    <div id="gameBuildVersion" style="font-size: 9.5px; color: #d4a373; text-align: center; margin-top: 4px; font-weight: 700; opacity: 0.85; letter-spacing: 0.5px; white-space: pre-line; text-shadow: 0 1px 3px rgba(0,0,0,0.95); line-height: 1.4;">
+                        v1.3.4 (Loading...)
+                    </div>
                 </div>
-            </div>
-            <!-- 🌟 [추가] 내가 방금 수정한 최신 버전인지 한눈에 확인하는 빌드 태그! -->
-            <div id="gameBuildVersion" style="font-size: 9.5px; color: #a18366; text-align: center; margin-top: 4px; font-weight: 700; opacity: 0.75; letter-spacing: 0.5px;">
-                v1.0.0 (Loading...)
-            </div>
 
+            </div>
         </div>
 
         <!-- ==============================================
@@ -2401,6 +2244,13 @@
                     <span style="color:#991b1b;">⚠️ 모험 기록 초기화</span>
                     <span style="color:#dc2626; font-size:11px; font-weight:800;">리셋</span>
                 </button>
+
+                <!-- 선생님 로그인 시에만 나타나는 관제탑 버튼 -->
+                <button id="adminTowerBtn" class="choice-btn" style="display:none; min-height:40px; padding:8px 12px; font-size:13px; justify-content:space-between; background:#f3e8ff; border-color:#c084fc;" onclick="openAdminTower()">
+                    <span style="color:#6b21a8; font-weight:900;">🎛️ 교사용 관제탑 (성적표)</span>
+                    <span style="color:#7e22ce; font-weight:900;">➔</span>
+                </button>
+
             </div>
 
             <!-- 하단 닫기 버튼 -->
@@ -4623,7 +4473,7 @@
         const nameEl = document.getElementById("titlePlayerNameText");
         if (nameEl) {
             const heroName = safeStorageGet('spirit_hero_name', safeStorageGet('spirit_user_name', '2521 술사'));
-            nameEl.innerHTML = `<span style="color:#b45309; font-size:11px;">✦</span> ${heroName} <span style="color:#b45309; font-size:11px;">✦</span>`;
+            nameEl.innerHTML = `<span style="color:#b45309; font-size:11px;">✦✦</span> ${heroName} <span style="color:#b45309; font-size:11px;">✦✦</span>`;
         }
         const adminBtn = document.getElementById("adminTowerBtn");
         if (adminBtn) {
@@ -5036,16 +4886,114 @@ const recTime = document.getElementById("recFastestTime");
         }, 1000); // 👈 🌟 화면이 완전히 까매지는 시간
     }
 
+    /* ========================================================
+       🏕️ 야영지(Camp Hub) 팝오버 & 두루마리 퀘스트 제어 엔진
+       ======================================================== */
+    
+    // 🌟 로마 숫자 티어 변환 테이블 (Ⅰ ~ XII)
+    const TIER_ROMAN_NUMERALS = ["Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "Ⅶ", "Ⅷ", "Ⅸ", "Ⅹ", "XI", "XII"];
+
+    let activeCampPopoverId = null;
+
+    // 🌟 팝오버 토글 함수 (열려있으면 닫고, 다른 걸 누르면 교체)
+    function toggleCampPopover(popoverId, btnId) {
+        Sound.click();
+
+        if (activeCampPopoverId === popoverId) {
+            closeCampPopovers();
+            return;
+        }
+
+        closeCampPopovers();
+        activeCampPopoverId = popoverId;
+
+        const pop = document.getElementById(popoverId);
+        const btn = document.getElementById(btnId);
+        const backdrop = document.getElementById('campPopBackdrop');
+
+        if (pop) pop.style.display = 'flex';
+        if (btn) btn.classList.add('active');
+        if (backdrop) backdrop.style.display = 'block';
+    }
+
+    // 🌟 모든 팝오버 닫기 (화면 빈 곳 터치 시)
+    function closeCampPopovers() {
+        activeCampPopoverId = null;
+        document.querySelectorAll('.camp-popover-card').forEach(p => p.style.display = 'none');
+        document.querySelectorAll('.big-scroll-btn').forEach(b => b.classList.remove('active'));
+        const backdrop = document.getElementById('campPopBackdrop');
+        if (backdrop) backdrop.style.display = 'none';
+    }
+
+    // 🌟 [모험 이어하기] 원터치 즉시 출격 (스마트 버튼 계승)
+    function handleCampSmartClick() {
+        Sound.click();
+        closeCampPopovers();
+
+        if (currentSmartMode === 'emergency') {
+            openMistRescueBriefing(); // 안개 구출
+        } else if (currentSmartMode === 'boss') {
+            startFinalBossRaid(); // 마왕 결전
+        } else {
+            openMapLobby(currentMapId); // 현재 추천 영지 로비로 직행
+        }
+    }
+
+    // 🌟 팝오버 서브메뉴 항목 클릭 라우터
+    function handleCampSelect(actionType) {
+        Sound.click();
+        closeCampPopovers();
+
+        if (actionType === 'emergency') {
+            openMistRescueBriefing();
+        } else if (actionType === 'counsel_hurt') {
+            openShrineRoom('hurt'); // 상처 입은 정령 치유실
+        } else if (actionType === 'counsel_fav') {
+            openShrineRoom('fav'); // 찜한 정령 교감실
+        } else if (actionType === 'boss') {
+            const { allMapsConquered } = getGlobalTotalStats();
+            const decayedWords = getDecayedWords();
+            const todayStr = new Date().toISOString().slice(0, 10);
+            const hasDoneToday = (lastEmergencyClearedDate === todayStr);
+
+            if (allMapsConquered && (decayedWords.length === 0 || hasDoneToday)) {
+                startFinalBossRaid();
+            } else {
+                showGameAlert("마왕의 봉인", "모든 스토리 영지를 정복하고, 침식된 정령을 모두 구출해야 마왕이 모습을 드러냅니다.", "확인", "🔒 SEALED");
+            }
+        } else if (actionType === 'hardcore') {
+            openHardcoreBriefing(); // 책선생 파이널 특훈
+        } else if (actionType === 'abyss') {
+            showGameAlert("심연의 문", "끝없는 심연의 균열은 아직 열리지 않았습니다.\n(차후 업데이트 개방 예정)", "확인", "🌌 COMING SOON");
+        }
+    }
+
+    // ========================================================
+    // 🏛️ 야영지 타이틀 화면 통합 렌더러
+    // ========================================================
     function renderTitleScreen() {
         const feverOverlay = document.getElementById("feverVignette");
         if (feverOverlay) feverOverlay.remove();
+        closeCampPopovers();
 
         loadMapData(currentMapId);
 
         const { tier, tierIndex, next, totalWords, totalContracted, allMapsConquered } = getGlobalTier();
         safeStorageSet('spirit_last_tier_idx', tierIndex);
 
-        // 1. 티어 뱃지 및 전체 계약 수 표시
+        // 1. [우상단 인장 직인] 로마자 레벨(Ⅰ~XII) 주입
+        const romanEl = document.getElementById("titleSealRoman");
+        if (romanEl) {
+            romanEl.innerText = TIER_ROMAN_NUMERALS[tierIndex] || "Ⅰ";
+        }
+
+        // 2. HUD 플레이어 이름 & 계급 & 칭호 동기화
+        const nameEl = document.getElementById("titlePlayerNameText");
+        if (nameEl) {
+            const heroName = safeStorageGet('spirit_hero_name', safeStorageGet('spirit_user_name', '정령술사'));
+            nameEl.innerText = `✦✦ ${heroName} ✦✦`;
+        }
+
         const badge = document.getElementById("titleGlobalTierBadge");
         if (badge) {
             badge.innerText = tier.name;
@@ -5053,39 +5001,36 @@ const recTime = document.getElementById("recFastestTime");
         }
         updateEquippedBadgeDisplay();
 
-        // 2. 현재 등급 구간 경험치 게이지 & 다음 승급 목표 수치 강조
+        // 3. 경험치 게이지 & 다음 승급 안내
         const nextText = document.getElementById("titleNextExpText");
         const progBar = document.getElementById("titleProgressBar");
 
-        if (tierIndex === 11) {
-            // 최종 마왕 토벌 완료 티어
-            if (nextText) nextText.innerHTML = "👑 최종 계급 <b style='color:#be185d;'>[정령의 구원자]</b> 도달!";
-            if (progBar) progBar.style.width = "100%";
-        } else if (tierIndex === 10) {
-            // 모든 단어 계약 완료, 마왕 결전 대기
-            if (nextText) nextText.innerHTML = "다음: <b style='color:#be185d;'>[정령의 구원자 👑]</b> (마왕 토벌 필요!)";
-            if (progBar) progBar.style.width = "100%";
-        } else if (next) {
-            // 일반 승급 진행 중: 남은 마리수 숫자를 17px 초록색으로 큼직하게 강조!
-            const remain = next.req - totalContracted;
-            if (nextText) {
-                nextText.innerHTML = `다음 승급 <b style="color:${next.color}; font-size:17px;font-weight:900;">[${next.name}]</b>까지 단 <b style="font-size:17px; color:#15803d; text-decoration:underline;">${remain}</b> 마리!`;
-            }
-            
-            // 현재 등급 안에서의 순수 경험치 퍼센트 (0% ~ 100%)
-            const currentLevelMin = tier.req;
-            const currentLevelMax = next.req;
-            const expGainedInThisLevel = totalContracted - currentLevelMin;
-            const expNeededForThisLevel = currentLevelMax - currentLevelMin;
-            
-            const levelPercentage = expNeededForThisLevel > 0 
-                ? Math.min(100, Math.max(0, (expGainedInThisLevel / expNeededForThisLevel) * 100))
-                : 0;
-
-            if (progBar) progBar.style.width = `${levelPercentage}%`;
+        // 🌟 [추가] 실시간 전체 정령 계약 마리수 & 퍼센트 동기화
+        const countTextEl = document.getElementById("titleContractCountText");
+        if (countTextEl) {
+            const totalPct = totalWords > 0 ? Math.round((totalContracted / totalWords) * 100) : 0;
+            countTextEl.innerText = `${totalContracted} / ${totalWords}마리 (${totalPct}%)`;
         }
 
-        // 🌟 [NEW] 1행 비대칭 두루마리 양피지 & 안식처 팝오버 갱신
+        if (tierIndex === 11) {
+            if (nextText) nextText.innerHTML = "👑 최종 계급 「정령의 구원자」 달성!";
+            if (progBar) progBar.style.width = "100%";
+        } else if (tierIndex === 10) {
+            if (nextText) nextText.innerHTML = "「정령의 구원자👑」가 되기 위해 『마왕 토벌』 필요!";
+            if (progBar) progBar.style.width = "100%";
+        } else if (next) {
+            const remain = next.req - totalContracted;
+            if (nextText) nextText.innerHTML = `「${next.name}」까지 <b>${remain} 마리</b>`;
+            
+            const currentLevelMin = tier.req;
+            const currentLevelMax = next.req;
+            const expGained = totalContracted - currentLevelMin;
+            const expNeeded = currentLevelMax - currentLevelMin;
+            const percent = expNeeded > 0 ? Math.min(100, Math.max(0, (expGained / expNeeded) * 100)) : 0;
+            if (progBar) progBar.style.width = `${percent}%`;
+        }
+
+        // 4. [모험 이어하기] 스마트 두루마리 상태 및 스킨 연동
         const decayedWords = getDecayedWords();
         const counselTargets = getCounselingTargets();
         const isBossDefeated = isFinalExamDefeated();
@@ -5094,192 +5039,148 @@ const recTime = document.getElementById("recFastestTime");
         const isBossReady = allMapsConquered && (decayedWords.length === 0 || hasDoneTodayForProgression);
         const activeMap = worldMaps.find(m => m.id === currentMapId) || worldMaps[0];
 
-        // 1. 우측 로열 왁스 인장 듀얼 알림 배지 (좌: 상담 주황 / 우: 수호 빨강)
-        const miniEmBadge = document.getElementById("miniBadgeEmergency");
-        const miniCounselBadge = document.getElementById("miniBadgeCounsel");
-
-        // 우상단: 긴급 수호전 배지 (빨강)
-        if (miniEmBadge) {
-            const hasEmergency = (decayedWords.length > 0 && !hasDoneTodayForProgression);
-            if (hasEmergency) {
-                miniEmBadge.style.display = "flex";
-                miniEmBadge.innerText = `🚨${decayedWords.length}`;
-            } else {
-                miniEmBadge.style.display = "none";
-            }
-        }
-        // 좌상단: 정령 성소 배지 (주황)
-        if (miniCounselBadge) {
-            if (counselTargets.length > 0) {
-                miniCounselBadge.style.display = "flex";
-                miniCounselBadge.innerText = `🛋️${counselTargets.length}`;
-            } else {
-                miniCounselBadge.style.display = "none";
-            }
-        }
-
-        // 2. 팝오버 내부 상태 텍스트 갱신
-        const popEm = document.getElementById("popEmergencyBadge");
-        const popCounsel = document.getElementById("popCounselBadge");
-        const popBossItem = document.getElementById("popBossItem");
-        const popBossBadge = document.getElementById("popBossBadge");
-
-        if (popEm) {
-            if (decayedWords.length > 0) {
-                // 오늘 남은 구출 할당량 계산
-                const isBossDefeated = isFinalExamDefeated();
-                const dailyQuota = isBossDefeated ? 20 : 5;
-                const todayStr = new Date().toISOString().slice(0, 10);
-                const todayCount = safeStorageGet(`spirit_defense_today_count_${todayStr}`, 0);
-                const isDailyDone = (lastEmergencyClearedDate === todayStr || todayCount >= dailyQuota);
-                const remainToday = Math.max(0, dailyQuota - todayCount);
-
-                const subNotice = isDailyDone ? "오늘 목표 완료! ✨" : `오늘 ${remainToday} 마리 남음 ⏳`;
-                const subColor = isDailyDone ? "#15803d" : "#ea580c";
-
-                popEm.style.display = "flex";
-                popEm.style.flexDirection = "column";
-                popEm.style.alignItems = "flex-end";
-                popEm.style.lineHeight = "1.25";
-                popEm.innerHTML = `
-                    <span style="font-size:11px; font-weight:900; color:#dc2626;">총 ${decayedWords.length} 마리 ⚠️</span>
-                    <span style="font-size:9.5px; font-weight:800; color:${subColor};">(${subNotice})</span>
-                `;
-            } else {
-                popEm.style.display = "block";
-                popEm.style.lineHeight = "normal";
-                popEm.innerHTML = `<span style="font-size:11px; color:#15803d; font-weight:900;">안전 🟢</span>`;
-            }
-        }
-        if (popCounsel) {
-            popCounsel.innerText = (counselTargets.length > 0) ? `면담 ${counselTargets.length}마리` : `평화 🟢`;
-            popCounsel.style.color = (counselTargets.length > 0) ? `#ea580c` : `#15803d`;
-        }
-        if (popBossItem && popBossBadge) {
-            if (isBossReady) {
-                popBossItem.className = "pop-item";
-                popBossBadge.innerText = isBossDefeated ? "재대결 👑" : "결전 가능 ⚔️";
-                popBossBadge.style.color = "#dc2626";
-            } else {
-                popBossItem.className = "pop-item locked";
-                popBossBadge.innerText = "봉인 🔒";
-                popBossBadge.style.color = "#94a3b8";
-            }
-        }
-
-        // 🌟 [하드코어] 시험 직전 파이널 모드 팝오버 메뉴 활성화
-        const hcItem = document.getElementById("popHardcoreBossItem");
-        const hcTitle = document.getElementById("popHardcoreTitleText");
-        const hcConfig = (typeof GAME_CONFIG !== 'undefined' && GAME_CONFIG.hardcoreMode) ? GAME_CONFIG.hardcoreMode : null;
-        if (hcItem) {
-            if (hcConfig && hcConfig.enabled) {
-                hcItem.style.display = "flex";
-                if (hcTitle) hcTitle.innerText = `🔥 ${hcConfig.title || '파이널 점검'}`;
-            } else {
-                hcItem.style.display = "none";
-            }
-        }
-
-        // 3. 좌측 스마트 두루마리 버튼: 상황에 따라 양피지 자체를 실시간 염색!
         const smartBtn = document.getElementById("smartMainBtn");
         const smartMainText = document.getElementById("smartMainText");
-        const smartTagRow = document.getElementById("smartTagRow");
 
-        if (smartBtn && smartMainText && smartTagRow) {
-            // [1순위] 성역 균열 침식 발생 시
+        if (smartBtn && smartMainText) {
+            // [침식 발생 시] ➔ 보라색 침식 구출 두루마리
             if (decayedWords.length > 0 && !hasDoneTodayForProgression) {
                 currentSmartMode = 'emergency';
-                smartBtn.className = "smart-scroll-btn tint-emergency";
-                smartTagRow.style.color = "#e9d5ff";
-                smartTagRow.innerHTML = `<span>🌫️ 망각의 안개 경보</span>`;
-                smartMainText.innerText = `안개 속 정령 ${decayedWords.length}마리 구출 ➔`;
+                smartBtn.className = "big-scroll-btn skin-purple";
+                smartMainText.innerText = `안개 구출 (${decayedWords.length}마리) ➔`;
             }
-            // [2순위] 전 영지 정복 완료 시 ➔ 진홍빛 결전 양피지로 염색
+            // [마왕 결전 가능 시] ➔ 붉은색 결전 두루마리
             else if (isBossReady) {
                 currentSmartMode = 'boss';
-                smartBtn.className = "smart-scroll-btn tint-boss";
-                smartTagRow.style.color = "#fef08a";
-                smartTagRow.innerHTML = `<span>👑 ${isBossDefeated ? '부활한 마왕을 저지하라!' : '최종 결전의 순간이다!'}</span>`;
-                smartMainText.innerText = isBossDefeated ? "🔥 마왕 『EXAM』과의 재결전" : "🔥 마왕 『EXAM』과의 대결";
+                smartBtn.className = "big-scroll-btn skin-red";
+                smartMainText.innerText = isBossDefeated ? "마왕 EXAM 재결전 ➔" : "마왕 EXAM 결전 ➔";
             }
-            // [기본값] 평상시 ➔ 싱그러운 에메랄드빛 양피지로 염색
+            // [평상시] ➔ 싱그러운 초록색 추천 출격 두루마리
             else {
                 currentSmartMode = 'resume';
-                smartBtn.className = "smart-scroll-btn tint-resume";
-                smartTagRow.style.color = "#bbf7d0";
-
-                // 현재 진행 중인 구역 이름 찾기 (예: 제2구역)
-                const sectors = getMapSectors(activeMap);
-                const mapMastery = safeStorageGet(`spirit_mastery_${activeMap.id}`, {});
-                let curSecName = sectors[0] ? sectors[0].name : "제1구역";
-                for (let i = 0; i < sectors.length; i++) {
-                    let doneCount = 0;
-                    sectors[i].words.forEach(w => { if ((mapMastery[w.eng] || 0) >= 3) doneCount++; });
-                    if (doneCount < sectors[i].words.length) {
-                        curSecName = sectors[i].name;
-                        break;
-                    }
-                }
-
-                smartTagRow.innerHTML = `<span>🧭 추천 탐험지</span>`;
-                smartMainText.innerText = `「${activeMap.name}」 탐험`;
+                smartBtn.className = "big-scroll-btn skin-green";
+                smartMainText.innerText = `「${activeMap.name}」 출격 ➔`;
             }
         }
 
-        const soundBtn = document.getElementById("soundToggleBtn");
-        if (soundBtn) soundBtn.innerText = Sound.muted ? "🔇 음소거" : "🔊 소리";
+        // 5. 팝오버 내부 뱃지(알림 숫자) 동기화
+        const mistBadge = document.getElementById("campMistBadge");
+        if (mistBadge) {
+            mistBadge.innerText = (decayedWords.length > 0) ? `${decayedWords.length}마리 ⚠️` : `안전 🟢`;
+            mistBadge.style.background = (decayedWords.length > 0) ? `#dc2626` : `#15803d`;
+        }
 
-        // 6. 맵 카드 목록 렌더링 (★ 여기서 멈췄던 것이 정상 복구됩니다)
-        const container = document.getElementById("titleMapListContainer");
-        if (container) {
-            container.innerHTML = "";
-            worldMaps.forEach(map => {
+        const hurtBadge = document.getElementById("campHurtBadge");
+        if (hurtBadge) {
+            hurtBadge.innerText = (counselTargets.length > 0) ? `${counselTargets.length}마리` : `평화 🟢`;
+        }
+
+        const favBadge = document.getElementById("campFavBadge");
+        if (favBadge) {
+            favBadge.innerText = `${Object.keys(wordFavorites).length}마리 찜`;
+        }
+
+        const bossBadge = document.getElementById("campBossBadge");
+        if (bossBadge) {
+            bossBadge.innerText = isBossReady ? (isBossDefeated ? "재대결 👑" : "결전 ⚔️") : "봉인 🔒";
+            bossBadge.style.background = isBossReady ? "#dc2626" : "#64748b";
+        }
+
+        // 6. [팝오버 1: 성역 탐험] 실제 4대 스토리 영지 목록 채우기
+        const storyContainer = document.getElementById("campStoryMapList");
+        if (storyContainer) {
+            storyContainer.innerHTML = "";
+            const storyMaps = worldMaps.filter(m => {
+                const idLower = (m.id || "").toLowerCase();
+                const nameLower = (m.name || "").toLowerCase();
+                return !idLower.includes("irreg") && !idLower.includes("net") && !nameLower.includes("불규칙");
+            });
+
+            storyMaps.forEach(map => {
                 const savedMastery = safeStorageGet(`spirit_mastery_${map.id}`, {});
                 let contracted = 0;
-                map.words.forEach(w => {
-                    if ((savedMastery[w.eng] || 0) >= 3) contracted++;
-                });
-                const { tier: mTier, percent } = getMapCalculatedTier(map.id, map.words.length, contracted);
+                map.words.forEach(w => { if ((savedMastery[w.eng] || 0) >= 3) contracted++; });
+                const { percent } = getMapCalculatedTier(map.id, map.words.length, contracted);
+                const isCleared = (contracted >= map.words.length && isMapBossDefeated(map.id));
 
-                const card = document.createElement("div");
-                card.className = "title-map-card";
-                card.onclick = () => { Sound.click(); openMapLobby(map.id); };
-                card.innerHTML = `
-                    <div class="map-card-top">
-                        <span class="map-card-name">${map.name}</span>
-                        <span class="map-mastery-badge" style="background:${mTier.bg}; color:${mTier.color};">${mTier.name}</span>
-                    </div>
-                    <div class="map-card-desc">${map.desc}</div>
-                    <div class="map-card-progress">
-                        계약 완료: ${contracted} / ${map.words.length}마리 (${percent}%)
-                    </div>
-                    <div class="map-mini-bar">
-                        <div class="map-mini-bar-fill" style="width: ${percent}%;"></div>
-                    </div>
+                const item = document.createElement("div");
+                item.className = "popover-item";
+                item.onclick = () => { closeCampPopovers(); openMapLobby(map.id); };
+                item.innerHTML = `
+                    <span class="pop-item-title">${map.name}</span>
+                    <span class="pop-item-badge" style="background:${isCleared ? '#10b981' : '#b45309'};">${isCleared ? '정화 🌟' : percent + '%'}</span>
                 `;
-                container.appendChild(card);
+                storyContainer.appendChild(item);
             });
         }
 
-        // 🌟 [추가] 파일 최종 수정 시각 자동 반영!
+        // 7. [팝오버 2: 숨겨진 비경] 형상변환 & 동·반의어 맵 목록 채우기
+        const specialContainer = document.getElementById("campSpecialMapList");
+        if (specialContainer) {
+            specialContainer.innerHTML = "";
+            const specialMaps = worldMaps.filter(m => {
+                const idLower = (m.id || "").toLowerCase();
+                const nameLower = (m.name || "").toLowerCase();
+                return idLower.includes("irreg") || idLower.includes("net") || nameLower.includes("불규칙") || nameLower.includes("동의어");
+            });
+
+            if (specialMaps.length === 0) {
+                specialContainer.innerHTML = `<div style="font-size:11px; color:#a18366; text-align:center; padding:10px 0;">비경 영지 준비 중...</div>`;
+            } else {
+                specialMaps.forEach(map => {
+                    const savedMastery = safeStorageGet(`spirit_mastery_${map.id}`, {});
+                    let contracted = 0;
+                    map.words.forEach(w => { if ((savedMastery[w.eng] || 0) >= 3) contracted++; });
+                    const { percent } = getMapCalculatedTier(map.id, map.words.length, contracted);
+
+                    const item = document.createElement("div");
+                    item.className = "popover-item";
+                    item.onclick = () => { closeCampPopovers(); openMapLobby(map.id); };
+                    item.innerHTML = `
+                        <span class="pop-item-title">${map.name}</span>
+                        <span class="pop-item-badge" style="background:#7c3aed; color:#ffffff;">${percent}%</span>
+                    `;
+                    specialContainer.appendChild(item);
+                });
+            }
+        }
+
+        // 원본 파일 최종 수정 시각 및 저작권 자동 반영
         const buildEl = document.getElementById("gameBuildVersion");
         if (buildEl) {
             const lastMod = new Date(document.lastModified);
-            const year = lastMod.getFullYear(); // 🌟 2026 등 4자리 연도
+            const year = lastMod.getFullYear();
             const month = String(lastMod.getMonth() + 1).padStart(2, '0');
             const day = String(lastMod.getDate()).padStart(2, '0');
             const hours = String(lastMod.getHours()).padStart(2, '0');
             const minutes = String(lastMod.getMinutes()).padStart(2, '0');
             
-            // 💡 게임 버전, 빌드 버전, 최신 버전
-            buildEl.innerText = `v1.3.4 · Update: ${year}.${month}.${day} ${hours}:${minutes}\n© 2025-${new Date().getFullYear()} Jayden. All Rights Reserved`
+            buildEl.innerText = `v1.3.4 · Update: ${year}.${month}.${day} ${hours}:${minutes}\n© 2025-${new Date().getFullYear()} Jayden. All Rights Reserved`;
         }
 
-        // 7. 최종 화면 전환
+        // 8. 최종 화면 뷰 전환
         document.getElementById("titleScreen").style.display = "flex";
         document.getElementById("mapLobbyScreen").style.display = "none";
         document.getElementById("gameScreen").style.display = "none";
         document.getElementById("bossScreen").style.display = "none";
+    }
+
+    // 🌟 타이틀 영지 카테고리 탭 전환 상태 및 함수
+    let currentMapCategory = 'normal'; // 'normal' | 'irreg' | 'net'
+
+    function switchMapCategory(category) {
+        Sound.click();
+        currentMapCategory = category;
+
+        const tabNormal = document.getElementById("mapTabNormal");
+        const tabIrreg = document.getElementById("mapTabIrreg");
+        const tabNet = document.getElementById("mapTabNet");
+
+        if (tabNormal) tabNormal.className = (category === 'normal') ? "tab-btn active" : "tab-btn";
+        if (tabIrreg) tabIrreg.className = (category === 'irreg') ? "tab-btn active" : "tab-btn";
+        if (tabNet) tabNet.className = (category === 'net') ? "tab-btn active" : "tab-btn";
+
+        renderTitleScreen(); // 필터링 적용하여 즉시 다시 그리기
     }
 
     // ========================================================
@@ -8789,7 +8690,8 @@ function handleMidBossVictory() {
     // 🚀 [초고속 최적화] 핵심 게임 이미지 백그라운드 사전 캐싱
     function preloadGameAssets() {
         const criticalImages = [
-            "title_bg.webp",
+            "title_fire.webp",
+            "scroll_btn_v.webp",
             "scroll_green.webp",
             "scroll_purple.webp",
             "scroll_red.webp",
@@ -8867,7 +8769,7 @@ function handleMidBossVictory() {
         // 🏫 words.js의 학교 설정으로 웹 브라우저 탭과 타이틀 부제 자동 변경
         document.title = `단어 정령의 위기: EXAM의 시련 - ${SCHOOL_TAG} 편`;
         const titleSub = document.getElementById("titleSubText");
-        if (titleSub) titleSub.innerText = `The Trial of EXAM · ${SCHOOL_TAG} X 현수영`;
+        if (titleSub) titleSub.innerText = `The Trial of EXAM\n${SCHOOL_TAG} X 현수영`;
         const introSub = document.getElementById("introCinematicSubTag");
         if (introSub) introSub.innerText = `· ${SCHOOL_TAG} ver ·`;
 
@@ -9528,6 +9430,12 @@ function handleMidBossVictory() {
     let lastBackPressTime = 0; // 뒤로가기 연속 누름 감지용
 
     window.addEventListener("popstate", (e) => {
+        // 🌟 [추가] 야영지 세로 두루마리 팝오버 닫기
+        if (activeCampPopoverId) {
+            pushNavState();
+            closeCampPopovers();
+            return;
+        }
         // 1. [1순위: 화면에 열려있는 최상단 팝업/모달 자동 감지 및 닫기]
         // 성역 팝오버 메뉴 닫기
         const popCard = document.getElementById("opsPopoverCard");
@@ -9536,7 +9444,6 @@ function handleMidBossVictory() {
             closeOpsPopover();
             return;
         }
-
         // 화면에 켜져 있는 모든 모달/팝업 요소를 한 번에 수집
         const activeModals = Array.from(document.querySelectorAll('.modal, #gameAlertModal, #settingsModal, #feedbackModal'))
             .filter(el => {
