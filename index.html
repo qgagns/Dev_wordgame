@@ -8,7 +8,7 @@
     }
 </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
     <!-- 📱 [PWA] 주소창 없는 100% 풀스크린 독립 앱 실행 설정 -->
     <link rel="manifest" href="manifest.json">
@@ -97,7 +97,7 @@
             background-size: 16px 16px;
             border: none;
             border-radius: 0;
-            padding: 10px 14px;
+            padding: 10px 14px max(12px, env(safe-area-inset-bottom, 12px)) 14px;
             box-shadow: inset 0 0 25px rgba(181, 148, 97, 0.2);
             flex: 1;
             height: 100%;
@@ -108,6 +108,20 @@
             overflow: hidden;
             position: relative;
         }
+
+        /* 🌟 PC에는 영향 없는 모바일 전용 높이 보정 */
+        @media (max-width: 767px) {
+            html, body {
+                height: 100%;
+                height: -webkit-fill-available;
+            }
+            .game-container {
+                height: 100% !important;
+                height: -webkit-fill-available !important;
+                min-height: 100% !important;
+            }
+        }
+
         .parchment-inner::-webkit-scrollbar { width: 4px; }
         .parchment-inner::-webkit-scrollbar-thumb { background: #c2a679; border-radius: 4px; }
 
@@ -5258,7 +5272,7 @@ const recTime = document.getElementById("recFastestTime");
             const minutes = String(lastMod.getMinutes()).padStart(2, '0');
             
             // 💡 게임 버전, 빌드 버전, 최신 버전
-            buildEl.innerText = `v1.3.3 · Update: ${year}.${month}.${day} ${hours}:${minutes}\n© 2025-${new Date().getFullYear()} Jayden. All Rights Reserved`
+            buildEl.innerText = `v1.3.4 · Update: ${year}.${month}.${day} ${hours}:${minutes}\n© 2025-${new Date().getFullYear()} Jayden. All Rights Reserved`
         }
 
         // 7. 최종 화면 전환
@@ -8844,6 +8858,11 @@ function handleMidBossVictory() {
     window.onload = async function() {
         preloadGameAssets(); // 👈 접속 즉시 백그라운드 프리로드 개시!
         migrateOldMapDataIfNeeded(); // 🌟 [추가] 구버전 진도 자동 승계 실행!
+
+        // 🌟 [추가] 새로고침 시 크롬의 100dvh 계산 버그를 즉각 깨우는 리사이즈 신호
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 60);
 
         // 🏫 words.js의 학교 설정으로 웹 브라우저 탭과 타이틀 부제 자동 변경
         document.title = `단어 정령의 위기: EXAM의 시련 - ${SCHOOL_TAG} 편`;
