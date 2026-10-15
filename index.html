@@ -656,28 +656,108 @@
             margin-top: auto; /* 하단으로 완벽 밀착 */
         }
 
-        .choice-btn {
-            flex: 1; /* 🌟 4개 버튼이 영역을 균등하게 나눠 가지며 위아래로 꽉 참! */
-            background: #fdfaf2; 
-            border: 2.5px solid #c9b48c; 
-            color: #2c1a0e;
-            padding: 8px 14px;
-            border-radius: 12px; 
-            font-size: 17px; /* 글씨도 큼직하게 */
-            font-weight: 900;
-            cursor: pointer; 
-            transition: all 0.12s ease; 
-            box-shadow: 0 3px 6px rgba(109, 75, 47, 0.16);
+        .choices-grid .choice-btn {
+            flex: 1;
+            /* 🌟 기존 네모 박스 & 베이지 단색 배경 완전 초기화 */
+            background: none !important;
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            position: relative;
+            z-index: 1;
+
+            /* 🌟 두루마리 B-cut 이미지 본체 적용 */
+            background-image: url('images/scroll_btn_bcut.webp') !important;
+            background-size: 100% 100% !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+
+            /* 글자 스타일 & 양쪽 말린 롤링을 피한 안쪽 패딩 */
+            color: #2c1a0e !important;
+            padding: 8px 26px !important;
+            font-size: 16.5px !important;
+            font-weight: 900 !important;
+            cursor: pointer;
+            transition: transform 0.12s ease, filter 0.18s ease;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.25));
+
             display: flex;
             justify-content: center;
             align-items: center;
             word-break: keep-all;
             text-align: center;
         }
-        .choice-btn:hover { border-color: #8f603a; background: #f4ecda; transform: translateY(-1px); }
-        .choice-btn:active { transform: scale(0.97); }
-        .choice-btn.correct { background: #dcfce7 !important; border-color: #10b981 !important; color: #047857 !important; }
-        .choice-btn.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important; }
+
+        /* 호버 및 터치 손맛 */
+        .choices-grid .choice-btn:hover {
+            transform: translateY(-1.5px);
+            filter: drop-shadow(0 4px 7px rgba(0,0,0,0.35)) brightness(1.05);
+        }
+        .choices-grid .choice-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* 🌟 [정답] 두루마리 질감을 100% 살린 에메랄드 네온 발광 오라 */
+        .choices-grid .choice-btn.correct {
+            color: #000000 !important;       /* 🎯 새까만 먹물 글씨 */
+            text-shadow: none !important;    /* 🎯 번짐·흐림 원인인 그림자 100% 제거 */
+            filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.7)) brightness(1.05) !important;
+        }
+        .choices-grid .choice-btn.correct::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #10b981; /* 선명한 초록빛 잉크 */
+            opacity: 0.52;
+            mix-blend-mode: multiply;  /* 두루마리 종이 결을 그대로 살리는 블렌딩 */
+            
+            /* 🌟 [마스킹] 두루마리 실루엣 모양대로만 구멍 뚫기 */
+            -webkit-mask-image: url('images/scroll_btn_bcut.webp');
+            mask-image: url('images/scroll_btn_bcut.webp');
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* 🌟 [오답] 두루마리 질감을 100% 살린 진홍빛 화염 오라 & 찌릿한 진동 */
+        .choices-grid .choice-btn.wrong {
+            color: #000000 !important;       /* 🎯 새까만 먹물 글씨 */
+            text-shadow: none !important;    /* 🎯 그림자 100% 제거 */            filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.7)) brightness(0.95) !important;
+            animation: wrongShakeAnim 0.35s ease-out;
+        }
+        .choices-grid .choice-btn.wrong::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #ef4444; /* 선명한 붉은빛 잉크 */
+            opacity: 0.56;
+            mix-blend-mode: multiply;  /* 두루마리 종이 결을 그대로 살리는 블렌딩 */
+            
+            /* 🌟 [마스킹] 두루마리 실루엣 모양대로만 구멍 뚫기 */
+            -webkit-mask-image: url('images/scroll_btn_bcut.webp');
+            mask-image: url('images/scroll_btn_bcut.webp');
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* 오답 시 부르르 떨리는 타격 애니메이션 */
+        @keyframes wrongShakeAnim {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-5px); }
+            40% { transform: translateX(5px); }
+            60% { transform: translateX(-3px); }
+            80% { transform: translateX(3px); }
+        }
 
 
         /* ========================================================
@@ -1548,6 +1628,8 @@
         }
 
         .big-scroll-btn {
+            position: relative;
+            z-index: 1;
             width: 100%;
             height: 54px;
             position: relative;
@@ -1561,6 +1643,10 @@
             transition: transform 0.12s ease, filter 0.15s ease;
             box-sizing: border-box;
         }
+        .big-scroll-text-layer {
+            position: relative;
+            z-index: 5 !important;
+        }
         .big-scroll-btn:active {
             transform: scale(0.96);
         }
@@ -1568,30 +1654,53 @@
             filter: brightness(1.2) drop-shadow(0 0 10px rgba(245, 158, 11, 0.85));
             transform: translateX(-4px);
         }
-
+        
+        /* 🌟 [통합] 모든 두루마리 버튼의 기본 흑백 바탕 이미지 1회 등록 */
         .big-scroll-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('images/scroll_btn_cut.webp') !important; /* 🎯 실제 파일명 적용! */
             background-repeat: no-repeat;
             background-position: center;
             background-size: 100% 100%;
             pointer-events: none;
-            transition: filter 0.25s ease;
+            
         }
 
-        /* 두루마리 컬러 스킨 & 오라 */
-        .skin-green .big-scroll-bg {
-            background-image: url('images/scroll_green.webp');
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6)) drop-shadow(0 0 3px #86efac) drop-shadow(0 0 8px rgba(34, 197, 94, 0.75));
+        /* 🌟 [마스킹] 외곽선 따내는 이미지 경로도 실제 파일명(scroll_btn_cut.webp)으로 일치! */
+        .big-scroll-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            mix-blend-mode: multiply;
+            opacity: 0.95;
+            z-index: 2;
+            filter: saturate(0.7);
+
+            -webkit-mask-image: url('images/scroll_btn_cut.webp');
+            mask-image: url('images/scroll_btn_cut.webp');
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
         }
-        .skin-purple .big-scroll-bg {
-            background-image: url('images/scroll_purple.webp');
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6)) drop-shadow(0 0 3px #f0abfc) drop-shadow(0 0 8px rgba(168, 85, 247, 0.75));
-        }
-        .skin-red .big-scroll-bg {
-            background-image: url('images/scroll_red.webp');
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 3px #fca5a5) drop-shadow(0 0 10px rgba(239, 68, 68, 0.85));
-        }
+
+        /* 1) 🌿 [초록] 톤다운 세이지 (성역 탐험 / 스마트 평상시) */
+        .skin-green::after { background-color: #2d7a4c !important; }
+        .skin-green { filter: drop-shadow(0 3px 5px rgba(0,0,0,0.6)) drop-shadow(0 0 5px rgba(45, 122, 76, 0.75)) !important; }
+
+        /* 2) 🌀 [보라] 톤다운 바이올렛 (숨겨진 비경 / 스마트 침식) */
+        .skin-purple::after { background-color: #5b3b8c !important; }
+        .skin-purple { filter: drop-shadow(0 3px 5px rgba(0,0,0,0.6)) drop-shadow(0 0 5px rgba(91, 59, 140, 0.75)) !important; }
+
+        /* 3) 🛋️ [주황] 톤다운 웜 앰버 (정령의 성소 전용!) */
+        .skin-orange::after { background-color: #9a4a15 !important; }
+        .skin-orange { filter: drop-shadow(0 3px 5px rgba(0,0,0,0.6)) drop-shadow(0 0 5px rgba(154, 74, 21, 0.8)) !important; }
+
+        /* 4) 🔥 [빨강] 톤다운 버건디 (차원의 틈새 / 스마트 마왕) */
+        .skin-red::after { background-color: #8c2222 !important; }
+        .skin-red { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 6px rgba(140, 34, 34, 0.85)) !important; }
 
         .big-scroll-text-layer {
             position: relative;
@@ -1605,8 +1714,8 @@
             pointer-events: none;
         }
         .scroll-main-title {
-            font-size: 17px;
-            font-weight: 900;
+            font-size: 16px;
+            font-weight: 700;
             color: #ffffff;
             line-height: 1.15;
             text-shadow: 0 2px 3px rgba(0,0,0,0.95), 0 0 8px rgba(0,0,0,0.8);
@@ -1615,12 +1724,106 @@
         }
         .scroll-sub-desc {
             font-size: 11px;
-            font-weight: 800;
+            font-weight: 700;
             color: #fef08a;
             margin-top: 1.5px;
             text-shadow: 0 1px 2px rgba(0,0,0,0.9);
             white-space: nowrap;
             letter-spacing: -0.2px;
+        }
+
+        /* ========================================================
+           🔥 [메인 퀘스트 칙령] 2배 대형 스마트 두루마리 & 회전 모닥불 궤도 오라
+           ======================================================== */
+
+        /* 1. 2배 대형 스마트 버튼 본체 (높이 84px) */
+        .big-scroll-btn.smart-hero-scroll {
+            width: 135% !important;        /* 🌟 가로 폭 35% 대폭 확장! */
+            margin-left: -35% !important;  /* 🌟 왼쪽으로 쑥 뻗어나오게 당김 */
+            height: 86px !important; /* 🌟 다른 버튼(54px)의 1.6배~2배 묵직한 크기! */
+            margin-bottom: 7px;
+            position: relative;
+            animation: campFireBreath 2.6s infinite alternate ease-in-out;
+            align-self: flex-end;
+
+            /* 🌟 [황금빛 독점 발광] 초록색에 묻히지 않는 모닥불 앰비언트 오라 */
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.85)) drop-shadow(0 0 6px #f59e0b) drop-shadow(0 0 14px rgba(245, 158, 11, 0.75)) !important;
+            animation: campFireHeroBreath 2.6s infinite alternate ease-in-out;
+        }
+
+        /* 2. 🌟 [가로 9-Slice] 양쪽 말린 손잡이는 고정하고, 가운데 양피지만 늘리기 */
+        .big-scroll-btn.smart-hero-scroll .big-scroll-bg {
+            background-image: none !important; /* 일반 배경 끄기 */
+            
+            /* 좌우 손잡이(30px)는 찌그러짐 없이 고정, 가운데만 늘어남 */
+            border-style: solid;
+            border-image: url('images/scroll_btn_cut.webp') 10 40 10 10 fill stretch;
+        }
+
+        /* 3. 스마트 버튼 전용 텍스트 여백: 넓어진 양피지 중앙에 편안하게 안착 */
+        .big-scroll-btn.smart-hero-scroll .big-scroll-text-layer {
+            padding: 0 36px !important; /* 양쪽 손잡이를 피한 넉넉한 글자 여백 */
+        }
+
+        /* 🌟 모닥불 온기에 맞춰 품격 있게 숨 쉬는 불씨 오라 */
+        @keyframes campFireHeroBreath {
+            0% {
+                filter: drop-shadow(0 4px 6px rgba(0,0,0,0.85)) drop-shadow(0 0 4px #f59e0b) drop-shadow(0 0 10px rgba(234, 88, 12, 0.6)) !important;
+            }
+            100% {
+                filter: drop-shadow(0 4px 10px rgba(0,0,0,0.95)) drop-shadow(0 0 7px #fde047) drop-shadow(0 0 18px rgba(245, 158, 11, 0.95)) !important;
+            }
+        }
+
+        /* 2. 🌟 [1:1 동기화] 마스킹과 똑같은 100% 100% 비율로 실제 이미지를 늘려 어긋남 0% 달성 */
+        .big-scroll-btn.smart-hero-scroll .big-scroll-bg {
+            border: none !important;
+            border-image: none !important;
+            background-image: url('images/scroll_btn_cut.webp') !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            background-size: 100% 100% !important; /* 🎯 마스킹 레이어와 1:1 완벽 일치! */
+            filter: contrast(1.15) brightness(0.95);
+        }
+
+        /* 3. 68px 높이에 딱 맞는 3단 텍스트 패딩 */
+        .big-scroll-btn.smart-hero-scroll .big-scroll-text-layer {
+            padding: 0 28px !important;
+            gap: 1.5px !important;
+        }
+        .big-scroll-btn.smart-hero-scroll .smart-title-text {
+            font-size: 20px !important;
+            line-height: 1.15 !important;
+        }
+        .big-scroll-btn.smart-hero-scroll .smart-progress-text {
+            font-size: 10.5px !important;
+            margin-top: 1px !important;
+        }
+
+        /* 3. 대형 스마트 두루마리 내부 3단 텍스트 레이아웃 */
+        .smart-tag-text {
+            font-size: 13px;
+            font-weight: 800;
+            color: #fef08a;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+        }
+        .smart-title-text {
+            font-size: 20px; /* 🌟 큼직한 메인 출격명 */
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -0.4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.95), 0 0 8px rgba(0,0,0,0.8);
+            white-space: nowrap;
+        }
+        .smart-progress-text {
+            font-size: 11px;
+            font-weight: 700;
+            color: #fef08a;
+            margin-top: 2px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.95);
+            white-space: nowrap;
         }
 
         /* 2. 🌟 9-Slice 세로 두루마리 팝오버 (가운데만 늘어나는 세로 두루마리) */
@@ -1720,6 +1923,236 @@
             white-space: nowrap;
         }
 
+        /* ========================================================
+           📜 [대규모 아트 개편] 리얼 양피지 9-Slice 시스템 적용
+           ======================================================== */
+        
+        /* 🌟 [수정] 부모 컨테이너(.parchment-inner)는 깨끗이 비워 타이틀/프롤로그를 100% 보호! */
+        .parchment-inner {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        /* 🌟 [수정] 오직 전초기지, 퀴즈, 보스전, 모달창에만 양피지 액자 씌우기 (타이틀 완벽 제외!) */
+        #mapLobbyScreen, #gameScreen, #bossScreen, .modal {
+            background: transparent !important; 
+            border: 30px solid transparent !important; /* 양피지 4변 테두리 두께 */
+            border-image: url('images/parchment.webp') 15% fill stretch !important;
+            box-sizing: border-box !important;
+            box-shadow: none !important;
+            padding: 10px 12px !important; /* 양피지 롤러 안쪽 콘텐츠 여백 */
+        }
+
+        /* 2. 내부 카드 밝기 상향 (우유빛 반투명) */
+        .record-dashboard-card, .stamp-box-wrapper, .lobby-card, .player-hero-card, 
+        .boss-top-status, .feedback-card, .roadmap-card, .world-summary-card, 
+        .ending-card-box, .tierup-box, .scarcity-box {
+            background: rgba(255, 245, 225, 0.7) !important;
+            border: 1.5px solid rgba(143, 96, 58, 0.5) !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+        }
+
+        /* 3. 리스트 항목 반투명화 */
+        .word-item-clean, .pop-item, .achieve-card, .sector-card, .title-map-card, .rank-card {
+            background: rgba(253, 250, 242, 0.7) !important;
+            border: 1.5px solid rgba(181, 148, 97, 0.6) !important;
+            backdrop-filter: blur(2px);
+        }
+        .word-item-clean:hover, .sector-card:hover, .title-map-card:hover {
+            background: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        /* 4. 퀴즈 4지선다 버튼 질감 */
+        .choice-btn, .poly-tile-btn {
+            background: rgba(253, 250, 242, 0.8) !important;
+            border: 2px solid rgba(143, 96, 58, 0.7) !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+        }
+        .choice-btn:active, .poly-tile-btn:active {
+            background: rgba(220, 200, 170, 0.95) !important;
+            border-color: #8f603a !important;
+        }
+
+        /* ========================================================
+           🎬 마왕전 시네마틱 대화창 (양피지 액자 완전 제외 & 블랙 복원)
+           ======================================================== */
+        #bossDialogueModal {
+            background: #000000 !important; /* 🌟 양피지 날리고 100% 칠흑 복원 */
+            border: none !important;        /* 🌟 양피지 테두리 완전 제거 */
+            border-image: none !important;
+            padding: 12px !important;       /* 원본 여백 복구 */
+            border-radius: 18px !important;
+        }
+
+        /* ========================================================
+           📜 3대 팝업 모달(알림창, 설정창, 정답창) 세로 두루마리 일체화
+           ======================================================== */
+        
+        /* 1. 알림창(.game-alert-card), 2. 환경 설정창(#settingsModal > div), 3. 정답 결과창(#fbCardBody) */
+        .game-alert-card,
+
+        #fbCardBody {
+            /* 🌟 기존 네모 박스 & 베이지 단색 배경 완전 초기화 */
+            background: transparent !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+
+            /* 🌟 9-Slice 세로 두루마리 적용 (가운데 양피지만 내용물 높이에 맞게 늘어남) */
+            border-style: solid !important;
+            border-width: 56px 20px 56px 20px !important;
+            border-image: url('images/scroll_btn_v.webp') 20% 10% 20% 10% fill stretch !important;
+            
+            /* 입체감 있는 다크 섀도우 & 은은한 황금빛 오라 */
+            filter: drop-shadow(0 15px 40px rgba(0,0,0,0.95)) drop-shadow(0 0 10px rgba(245, 158, 11, 0.35)) !important;
+            
+            /* 롤러 안쪽 깨끗한 양피지에 내용물이 안착하도록 내부 패딩 정돈 */
+            padding: 4px 16px 10px 16px !important;
+            width: 86% !important;
+            max-width: 350px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* 🌟 정답 결과창(#fbCardBody)은 폭을 살짝만 더 여유 있게 확보 */
+        #fbCardBody {
+            max-width: 370px !important;
+            padding: 2px 14px 10px 14px !important;
+        }
+
+        /* ========================================================
+           ⚙️ 환경 설정창 전용 스타일 (지속 가능한 무-important 설계)
+           ======================================================== */
+
+        /* 어두운 배경 오버레이 */
+        .settings-modal-overlay {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(8, 4, 2, 0.75);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        /* 두루마리 본체 카드 */
+        .settings-scroll-card {
+            display: flex;
+            flex-direction: column;
+            width: 86%;
+            max-width: 350px;
+            box-sizing: border-box;
+            text-align: center;
+
+            /* 9-Slice 세로 두루마리 */
+            border-style: solid;
+            border-width: 56px 20px 56px 20px;
+            border-image: url('images/scroll_btn_v.webp') 20% 10% 20% 10% fill stretch;
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 10px rgba(245, 158, 11, 0.35));
+            padding: 2px 14px 10px 14px;
+        }
+
+        /* 상단 헤더 */
+        .settings-header {
+            margin-bottom: 10px;
+        }
+        .settings-tag {
+            font-size: 10px;
+            font-weight: 900;
+            color: #b45309;
+            letter-spacing: 1.5px;
+            display: block;
+        }
+        .settings-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: #451a03;
+            margin: 2px 0;
+        }
+        .settings-desc {
+            font-size: 11px;
+            font-weight: 700;
+            color: #785a3e;
+        }
+
+        /* 옵션 목록 컬럼 */
+        .settings-options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        /* 🌟 [핵심] 좌우 완벽 분리되는 양피지 옵션 버튼 */
+        .setting-row-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            min-height: 40px;
+            background: rgba(254, 243, 199, 0.65); /* 두루마리 질감이 은은하게 비치는 반투명 */
+            border: 1px solid #d4c29d;
+            border-radius: 9px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.12s ease;
+            box-sizing: border-box;
+        }
+        .setting-row-btn:hover {
+            background: rgba(253, 230, 138, 0.85);
+            border-color: #b45309;
+        }
+        .setting-row-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* 옵션 명칭 (좌측 정렬) */
+        .setting-label {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #2c1a0e;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 상태 뱃지 (우측 정렬) */
+        .setting-badge {
+            font-size: 11.5px;
+            font-weight: 900;
+            padding: 2px 7px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+        .badge-green { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+        .badge-danger { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+        .badge-sub { color: #785a3e; font-size: 13px; }
+        .badge-purple { background: #f3e8ff; color: #7e22ce; border: 1px solid #c084fc; }
+
+        /* 관제탑 전용 강조 테두리 */
+        .setting-row-btn.admin-btn {
+            background: rgba(243, 232, 255, 0.7);
+            border-color: #c084fc;
+        }
+
+        /* 하단 닫기 버튼 */
+        .settings-close-btn {
+            background: #5c3a21;
+            color: #f7edd4;
+            border: 1.5px solid #3d2314;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.15s ease;
+        }
+        .settings-close-btn:hover {
+            background: #73492a;
+        }
+
     </style>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;">
@@ -1785,9 +2218,12 @@
                 <div class="top-section-wrap" style="display:flex; justify-content:space-between; align-items:stretch; gap:8px; margin-bottom:6px; width:100%;">
                     
                     <!-- 타이틀 화면 좌측 상단 게임 로고 -->
-                    <div class="title-typo-box" style="flex:0 0 34%; display:flex; flex-direction:column; justify-content:center; text-align:left;">
-                        <span class="typo-tag" style="font-size:12px; font-weight:800; color:#d97706; letter-spacing:0.8px;">✦ THE CRISIS OF ✦</span>
-                        <span class="typo-main" style="font-size:40px; font-weight:900; color:#ffffff; line-height:1.05; letter-spacing:-0.6px; text-shadow:0 2px 10px rgba(0,0,0,0.95), 0 0 16px rgba(245,158,11,0.45);">Word<br>Spirits</span>
+                    <div class="title-typo-box" style="flex:0 0 34%; display:flex; flex-direction:column; justify-content:center; text-align:left; margin: 0 0 0 7px">
+
+                        <span class="typo-tag" style="font-size:9px; font-weight:800; color:#d97706; letter-spacing:0.8px;">✦ THE CRISIS OF ✦</span>
+
+                        <span class="typo-main" style="font-size:34px; font-weight:900; color:#ffffff; line-height:1.05; letter-spacing:-0.6px; text-shadow:0 2px 10px rgba(0,0,0,0.95), 0 0 16px rgba(245,158,11,0.45);">Word<br>Spirits</span>
+
                         <span id="titleSubText" class="typo-sub" style="font-size:13px; font-weight:700; color:#fde047; margin-top:4px; opacity:0.9;">The Trial of EXAM </be>야영지</span>
                     </div>
 
@@ -1838,10 +2274,10 @@
                     <!-- 팝오버 닫기용 투명 백드롭 -->
                     <div id="campPopBackdrop" class="popover-backdrop" onclick="closeCampPopovers()"></div>
 
-                    <!-- [팝오버 1] 🗺️ 성역 탐험 (4대 스토리 영지 목록) -->
+                    <!-- [팝오버 1] 🗺️ 성역 탐험 -->
                     <div id="campPopStory" class="camp-popover-card" style="top:32%;">
                         <div class="popover-inner-content">
-                            <div class="popover-header">✦ 4대 스토리 영지 ✦</div>
+                            <div class="popover-header">✦ 성역 탐험 ✦</div>
                             <div id="campStoryMapList" style="display:flex; flex-direction:column; gap:4px; max-height:220px; overflow-y:auto;">
                                 <!-- JS에서 실제 스토리 영지 카드들이 동적으로 채워집니다 -->
                             </div>
@@ -1851,7 +2287,7 @@
                     <!-- [팝오버 2] 🌀 숨겨진 비경 (형상변환 & 동·반의어) -->
                     <div id="campPopAbyss" class="camp-popover-card" style="top:44%;">
                         <div class="popover-inner-content">
-                            <div class="popover-header" style="color:#6d28d9; border-bottom-color:#7c3aed;">✦ 숨겨진 특수 비경 ✦</div>
+                            <div class="popover-header" style="color:#6d28d9; border-bottom-color:#7c3aed;">✦ 숨겨진 비경 ✦</div>
                             <div id="campSpecialMapList" style="display:flex; flex-direction:column; gap:4px;">
                                 <!-- JS에서 형상변환 및 동반의어 맵 목록이 채워집니다 -->
                             </div>
@@ -1861,7 +2297,7 @@
                     <!-- [팝오버 3] 🛋️ 정령의 성소 (안개 구출, 치유, 교감) -->
                     <div id="campPopShrine" class="camp-popover-card" style="top:52%;">
                         <div class="popover-inner-content">
-                            <div class="popover-header" style="color:#9d174d; border-bottom-color:#db2777;">✦ 성역 안식 & 케어 ✦</div>
+                            <div class="popover-header" style="color:#9d174d; border-bottom-color:#db2777;">✦ 정령의 성소 ✦</div>
                             <div class="popover-item" onclick="handleCampSelect('emergency')">
                                 <span class="pop-item-title">🚨 안개 속 구출</span>
                                 <span id="campMistBadge" class="pop-item-badge">0마리</span>
@@ -1880,7 +2316,7 @@
                     <!-- [팝오버 4] 🔥 차원의 틈새 (마왕전, 특훈, 심연) -->
                     <div id="campPopRift" class="camp-popover-card" style="top:60%;">
                         <div class="popover-inner-content">
-                            <div class="popover-header" style="color:#991b1b; border-bottom-color:#dc2626;">✦ 차원의 틈새 (최종전) ✦</div>
+                            <div class="popover-header" style="color:#991b1b; border-bottom-color:#dc2626;">✦ 차원의 틈새 ✦</div>
                             <div id="campBossItem" class="popover-item" onclick="handleCampSelect('boss')">
                                 <span class="pop-item-title" style="color:#991b1b;">👑 마왕 EXAM 결전</span>
                                 <span id="campBossBadge" class="pop-item-badge" style="background:#dc2626;">결전 ⚔️</span>
@@ -1902,11 +2338,13 @@
                     <div class="right-command-column">
                         
                         <!-- ① [⚡ 모험 이어하기] 스마트 추천 버튼 계승 -->
-                        <button id="smartMainBtn" class="big-scroll-btn skin-green" onclick="handleCampSmartClick()">
+                        <button id="smartMainBtn" class="big-scroll-btn smart-hero-scroll skin-green" onclick="handleCampSmartClick()">
+                            
                             <div class="big-scroll-bg"></div>
-                            <div class="big-scroll-text-layer">
-                                <span class="scroll-main-title">⚡ 모험 이어하기</span>
-                                <span id="smartMainText" class="scroll-sub-desc">추천 구역 출격 ➔</span>
+                            <div class="big-scroll-text-layer" style="gap:2px;">
+                                <span id="smartTagRow" class="smart-tag-text">✦ 추천 원정 ✦</span>
+                                <span id="smartMainText" class="smart-title-text">로딩 중...</span>
+                                <span id="smartProgressText" class="smart-progress-text">진행도 계산 중...</span>
                             </div>
                         </button>
 
@@ -1929,7 +2367,7 @@
                         </button>
 
                         <!-- ④ [🛋️ 정령의 성소] ➔ 케어 팝오버 -->
-                        <button id="btnCampShrine" class="big-scroll-btn skin-purple" onclick="toggleCampPopover('campPopShrine', 'btnCampShrine')">
+                        <button id="btnCampShrine" class="big-scroll-btn skin-orange" onclick="toggleCampPopover('campPopShrine', 'btnCampShrine')">
                             <div class="big-scroll-bg"></div>
                             <div class="big-scroll-text-layer">
                                 <span class="scroll-main-title">🛋️ 정령의 성소</span>
@@ -2194,67 +2632,65 @@
     </div>
 
     <!-- ⚙️ 환경 설정 모달 팝업 -->
-    <div id="settingsModal" style="display:none; position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(18, 9, 5, 0.72); z-index:100; justify-content:center; align-items:center; padding:16px; backdrop-filter:blur(2px);">
+    <div id="settingsModal" class="settings-modal-overlay">
         
-        <!-- 🌟 화면 중앙에 아담하고 단정하게 안착하는 양피지 카드 본체 -->
-        <div style="background:#fbf6ea; border:3px solid #8f603a; border-radius:16px; padding:16px; width:100%; max-width:320px; box-shadow:0 12px 30px rgba(0,0,0,0.85); display:flex; flex-direction:column; text-align:center;">
+        <div class="settings-scroll-card">
             
             <!-- 상단 헤더 -->
-            <div style="margin-bottom:12px;">
-                <span style="font-size:10px; font-weight:900; color:#b45309; letter-spacing:2px;">✦ SYSTEM SETTINGS ✦</span>
-                <h3 style="font-size:18px; font-weight:900; color:#451a03; margin:2px 0 3px 0;">환경 설정</h3>
-                <div style="font-size:10.5px; color:#785a3e;">게임 환경 및 계정을 관리하는 곳이야.</div>
+            <div class="settings-header">
+                <span class="settings-tag">✦ SYSTEM SETTINGS ✦</span>
+                <h3 class="settings-title">환경 설정</h3>
+                <div class="settings-desc">게임 환경 및 계정을 관리하는 곳이야.</div>
             </div>
 
-            <!-- 단정하게 모인 설정 버튼 4개 -->
-            <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:12px;">
+            <!-- 설정 항목 목록 (좌: 명칭 / 우: 상태 뱃지 완벽 분리) -->
+            <div class="settings-options-list">
 
-                <!-- 1. 효과음 소리 토글 버튼 -->
-                <button id="modalSoundBtn" class="choice-btn" style="min-height:40px; padding:8px 12px; font-size:13px; justify-content:space-between;" onclick="toggleSoundInSettings()">
-                    <span>🔊 게임 효과음</span>
-                    <span id="modalSoundStatus" style="color:#15803d; font-weight:900;">켜짐 (ON)</span>
+                <!-- 1. 효과음 -->
+                <button id="modalSoundBtn" class="setting-row-btn" onclick="toggleSoundInSettings()">
+                    <span class="setting-label">🔊 게임 효과음</span>
+                    <span id="modalSoundStatus" class="setting-badge badge-green">켜짐 (ON)</span>
                 </button>
 
-                <!-- 🌟 [추가] 2. 영어 발음(TTS) 토글 버튼 -->
-                <button id="modalTtsBtn" class="choice-btn" style="min-height:40px; padding:8px 12px; font-size:13px; justify-content:space-between;" onclick="toggleTtsInSettings()">
-                    <span>🗣️ 영어 단어 발음 (TTS)</span>
-                    <span id="modalTtsStatus" style="color:#15803d; font-weight:900;">켜짐 (ON)</span>
+                <!-- 2. TTS 발음 -->
+                <button id="modalTtsBtn" class="setting-row-btn" onclick="toggleTtsInSettings()">
+                    <span class="setting-label">🗣️ 영어 단어 발음 (TTS)</span>
+                    <span id="modalTtsStatus" class="setting-badge badge-green">켜짐 (ON)</span>
                 </button>
 
-                <!-- 🌟 [추가] 3. 정답창 자동 진행(타이머) 토글 버튼 -->
-                <button id="modalAutoSkipBtn" class="choice-btn" style="min-height:40px; padding:8px 12px; font-size:13px; justify-content:space-between;" onclick="toggleAutoSkipInSettings()">
-                    <span>⚡ 정답창 자동 진행 (1.2초)</span>
-                    <span id="modalAutoSkipStatus" style="color:#15803d; font-weight:900;">켜짐 (ON)</span>
+                <!-- 3. 자동 진행 -->
+                <button id="modalAutoSkipBtn" class="setting-row-btn" onclick="toggleAutoSkipInSettings()">
+                    <span class="setting-label">⚡ 정답창 자동 진행 (1.2초)</span>
+                    <span id="modalAutoSkipStatus" class="setting-badge badge-green">켜짐 (ON)</span>
                 </button>
 
-                <!-- 2. 프롤로그 다시보기 -->
-                <button class="choice-btn" style="min-height:40px; padding:8px 12px; font-size:13px; justify-content:space-between;" onclick="reopenIntroFromSettings()">
-                    <span>📜 프롤로그 다시보기</span>
-                    <span style="color:#785a3e; font-size:12px;">➔</span>
+                <!-- 4. 프롤로그 다시보기 -->
+                <button class="setting-row-btn" onclick="reopenIntroFromSettings()">
+                    <span class="setting-label">📜 프롤로그 다시보기</span>
+                    <span class="setting-badge badge-sub">➔</span>
                 </button>
 
-                <!-- 3. 로그아웃 -->
-                <button class="choice-btn" style="min-height:40px; padding:8px 12px; font-size:13px; justify-content:space-between;" onclick="handleLogout()">
-                    <span>🔒 로그아웃</span>
-                    <span style="color:#dc2626; font-weight:900; font-size:11.5px;">로그아웃</span>
+                <!-- 5. 로그아웃 -->
+                <button class="setting-row-btn" onclick="handleLogout()">
+                    <span class="setting-label">🔒 로그아웃</span>
+                    <span class="setting-badge badge-danger">접속 해제</span>
                 </button>
 
-                <!-- 4. 데이터 초기화 -->
-                <button class="choice-btn" style="min-height:40px; padding:8px 12px; font-size:12px; justify-content:space-between; border-color:#fca5a5; background:#fff1f2;" onclick="handleFullReset()">
-                    <span style="color:#991b1b;">⚠️ 모험 기록 초기화</span>
-                    <span style="color:#dc2626; font-size:11px; font-weight:800;">리셋</span>
+                <!-- 6. 데이터 초기화 -->
+                <button class="setting-row-btn" onclick="handleFullReset()">
+                    <span class="setting-label" style="color:#991b1b;">⚠️ 모험 기록 초기화</span>
+                    <span class="setting-badge badge-danger">초기화</span>
                 </button>
 
-                <!-- 선생님 로그인 시에만 나타나는 관제탑 버튼 -->
-                <button id="adminTowerBtn" class="choice-btn" style="display:none; min-height:40px; padding:8px 12px; font-size:13px; justify-content:space-between; background:#f3e8ff; border-color:#c084fc;" onclick="openAdminTower()">
-                    <span style="color:#6b21a8; font-weight:900;">🎛️ 교사용 관제탑 (성적표)</span>
-                    <span style="color:#7e22ce; font-weight:900;">➔</span>
+                <!-- 7. 교사용 관제탑 (선생님 로그인 시에만 노출) -->
+                <button id="adminTowerBtn" class="setting-row-btn admin-btn" style="display:none;" onclick="openAdminTower()">
+                    <span class="setting-label" style="color:#6b21a8;">🎛️ 교사용 관제탑</span>
                 </button>
 
             </div>
 
             <!-- 하단 닫기 버튼 -->
-            <button class="btn-wood" style="padding:10px; font-size:13px;" onclick="closeSettingsModal()">설정 창 닫기</button>
+            <button class="settings-close-btn" onclick="closeSettingsModal()">설정 창 닫기</button>
         </div>
     </div>
 
@@ -4981,6 +5417,14 @@ const recTime = document.getElementById("recFastestTime");
         const { tier, tierIndex, next, totalWords, totalContracted, allMapsConquered } = getGlobalTier();
         safeStorageSet('spirit_last_tier_idx', tierIndex);
 
+        const decayedWords = (typeof getDecayedWords === 'function') ? getDecayedWords() : [];
+        const counselTargets = (typeof getCounselingTargets === 'function') ? getCounselingTargets() : [];
+        const isBossDefeated = (typeof isFinalExamDefeated === 'function') ? isFinalExamDefeated() : false;
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const hasDoneTodayForProgression = (typeof lastEmergencyClearedDate !== 'undefined' && lastEmergencyClearedDate === todayStr);
+        const isBossReady = (typeof allMapsConquered !== 'undefined' ? allMapsConquered : false) && (decayedWords.length === 0 || hasDoneTodayForProgression);
+        const activeMap = (worldMaps && worldMaps.find(m => m.id === currentMapId)) || (worldMaps && worldMaps[0]) || { name: "성역", id: "map_fallback", words: [] };
+
         // 1. [우상단 인장 직인] 로마자 레벨(Ⅰ~XII) 주입
         const romanEl = document.getElementById("titleSealRoman");
         if (romanEl) {
@@ -5031,35 +5475,70 @@ const recTime = document.getElementById("recFastestTime");
         }
 
         // 4. [모험 이어하기] 스마트 두루마리 상태 및 스킨 연동
-        const decayedWords = getDecayedWords();
-        const counselTargets = getCounselingTargets();
-        const isBossDefeated = isFinalExamDefeated();
-        const todayStr = new Date().toISOString().slice(0, 10);
-        const hasDoneTodayForProgression = (lastEmergencyClearedDate === todayStr);
-        const isBossReady = allMapsConquered && (decayedWords.length === 0 || hasDoneTodayForProgression);
-        const activeMap = worldMaps.find(m => m.id === currentMapId) || worldMaps[0];
-
         const smartBtn = document.getElementById("smartMainBtn");
+        const smartTagRow = document.getElementById("smartTagRow");
         const smartMainText = document.getElementById("smartMainText");
+        const smartProgressText = document.getElementById("smartProgressText");
 
         if (smartBtn && smartMainText) {
-            // [침식 발생 시] ➔ 보라색 침식 구출 두루마리
-            if (decayedWords.length > 0 && !hasDoneTodayForProgression) {
+            // 🌟 [안전장치] 외부 변수 의존 없이 함수 내에서 확실하게 계산
+            const curDecayed = (typeof getDecayedWords === 'function') ? getDecayedWords() : [];
+            const todayStr = new Date().toISOString().slice(0, 10);
+            const isTodayCleared = (typeof lastEmergencyClearedDate !== 'undefined' && lastEmergencyClearedDate === todayStr);
+            const bossReady = (typeof allMapsConquered !== 'undefined' ? allMapsConquered : false) && (curDecayed.length === 0 || isTodayCleared);
+            const bossDefeated = (typeof isFinalExamDefeated === 'function') ? isFinalExamDefeated() : false;
+
+            const curMap = (worldMaps && worldMaps.find(m => m.id === currentMapId)) || (worldMaps && worldMaps[0]) || { name: "성역", id: "map_fallback", words: [] };
+
+            // [A. 침식 발생 시] ➔ 보라색
+            if (curDecayed.length > 0 && !isTodayCleared) {
                 currentSmartMode = 'emergency';
-                smartBtn.className = "big-scroll-btn skin-purple";
-                smartMainText.innerText = `안개 구출 (${decayedWords.length}마리) ➔`;
+                smartBtn.className = "big-scroll-btn smart-hero-scroll skin-purple";
+                if (smartTagRow) smartTagRow.innerText = "🚨 망각의 안개 경보!";
+                smartMainText.innerText = "안개 속 정령 구출 ➔";
+                if (smartProgressText) smartProgressText.innerText = `침식 위험: ${curDecayed.length}마리 대기`;
             }
-            // [마왕 결전 가능 시] ➔ 붉은색 결전 두루마리
-            else if (isBossReady) {
+            // [B. 마왕 결전 가능 시] ➔ 붉은색
+            else if (bossReady) {
                 currentSmartMode = 'boss';
-                smartBtn.className = "big-scroll-btn skin-red";
-                smartMainText.innerText = isBossDefeated ? "마왕 EXAM 재결전 ➔" : "마왕 EXAM 결전 ➔";
+                smartBtn.className = "big-scroll-btn smart-hero-scroll skin-red";
+                if (smartTagRow) smartTagRow.innerText = "👑 최종 결전의 순간!";
+                smartMainText.innerText = bossDefeated ? "마왕 EXAM 재결전 ➔" : "마왕 EXAM 결전 ➔";
+                if (smartProgressText) smartProgressText.innerText = "대륙 모든 정령 결속 완료 (100%)";
             }
-            // [평상시] ➔ 싱그러운 초록색 추천 출격 두루마리
+            // [C. 평상시 스토리 탐험] ➔ 초록색 & 실제 구역 진행도 즉시 계산
             else {
                 currentSmartMode = 'resume';
-                smartBtn.className = "big-scroll-btn skin-green";
-                smartMainText.innerText = `「${activeMap.name}」 출격 ➔`;
+                smartBtn.className = "big-scroll-btn smart-hero-scroll skin-green";
+                
+                const sectors = (typeof getMapSectors === 'function') ? getMapSectors(curMap) : [{ name: "제1구역", words: curMap.words }];
+                const mapMastery = (typeof safeStorageGet === 'function') ? safeStorageGet(`spirit_mastery_${curMap.id}`, {}) : {};
+                
+                let targetSec = sectors[0] || { name: "제1구역", words: [] };
+                let secContracted = 0;
+
+                for (let i = 0; i < sectors.length; i++) {
+                    let doneCount = 0;
+                    sectors[i].words.forEach(w => { if ((mapMastery[w.eng] || 0) >= 3) doneCount++; });
+                    if (doneCount < sectors[i].words.length) {
+                        targetSec = sectors[i];
+                        secContracted = doneCount;
+                        break;
+                    }
+                    if (i === sectors.length - 1) {
+                        targetSec = sectors[i];
+                        secContracted = doneCount;
+                    }
+                }
+
+                const secTotal = targetSec.words.length || 1;
+                const secPct = Math.round((secContracted / secTotal) * 100);
+
+                if (smartTagRow) smartTagRow.innerText = "✦ 추천 원정 (모험 이어하기) ✦";
+                smartMainText.innerText = `「${curMap.name} · ${targetSec.name}」 ➔`;
+                if (smartProgressText) {
+                    smartProgressText.innerText = `계약: ${secContracted} / ${secTotal}마리 (${secPct}%)`;
+                }
             }
         }
 
