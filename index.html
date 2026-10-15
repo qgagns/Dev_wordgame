@@ -482,23 +482,22 @@
             font-weight: 700; 
         }
         .guardian-trial-btn {
-            background: linear-gradient(180deg, #10b981 0%, #059669 100%);
-            border: 2px solid #047857;
-            color: #ffffff !important;
-            padding: 14px 16px;      /* 👈 16px 14px ➔ 14px 16px 골든 규격으로 통일! */
+            color: #ffffff;
+            padding: 14px 16px;
             border-radius: 14px;
             font-size: 15px;         
-            font-weight: 800 !important;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            font-weight: 800;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.15), 0 4px 10px rgba(0,0,0,0.4);
             cursor: pointer;
             width: 100%;
             margin-bottom: 6px;
             flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.35);
-            transition: all 0.2s;
+            transition: all 0.15s ease;
             box-sizing: border-box;
-            letter-spacing: -0.3px;
+            border: 2px solid; /* 색상은 테마 클래스가 담당 */
         }
+        .guardian-trial-btn:active { transform: scale(0.98); }
         .guardian-trial-btn.locked {
             background: #78716c;
             border-color: #57534e;
@@ -1106,32 +1105,34 @@
         .modal {
             display: none; 
             position: absolute;
-            top: 8px; left: 8px; right: 8px; bottom: 8px;
-            background: #fbf6ea; 
-            border: 3px solid #8f603a; 
-            border-radius: 16px;
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            box-sizing: border-box;
             flex-direction: column; 
             justify-content: space-between; 
             align-items: stretch;
-            padding: 14px; 
             z-index: 50; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.85);
             overflow-y: auto;
         }
 
         /* 🌟 2배 커진 메인 액션 버튼 */
         .btn-wood {
-            background: #5c3a21; 
-            color: #f7edd4; 
-            border: 2px solid #3d2314;
+            background: linear-gradient(180deg, #5c3a21 0%, #3d2314 100%);
+            color: #f7edd4;
+            border: 2px solid #1a0a04;
             padding: 14px 16px;
             border-radius: 14px; 
             font-size: 15px;
             font-weight: 900;
             cursor: pointer; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25); 
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.1), 0 3px 6px rgba(0,0,0,0.5);
             width: 100%; 
-            transition: all 0.15s ease;
+            transition: all 0.12s ease;
             flex-shrink: 0;
             box-sizing: border-box;
             display: flex;
@@ -1139,21 +1140,22 @@
             align-items: center;
             touch-action: manipulation;
             letter-spacing: -0.3px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
         }
-        .btn-wood:hover { background: #73492a; transform: translateY(-1px); }
+        .btn-wood:hover { filter: brightness(1.15); }
         .btn-wood:active { transform: scale(0.98); }
 
         .btn-sub-wood {
-            background: #ede3cc; 
-            color: #5c3a21; 
-            border: 1.5px solid #c9b48c;
+            background: #d4c29d;
+            border: 1.5px solid #8f603a;
+            color: #3d2314;
             padding: 13px 12px;      /* 🌟 기존 8px ➔ 13px로 대폭 벌크업! */
             border-radius: 12px; 
             font-size: 13.5px;       /* 🌟 글자 크기 12px ➔ 13.5px로 확대 */
             font-weight: 800;
             cursor: pointer; 
             width: 100%; 
-            transition: all 0.15s ease;
+            transition: all 0.12s ease;
             flex-shrink: 0;
             box-sizing: border-box;
             display: flex;
@@ -1161,9 +1163,11 @@
             align-items: center;
             touch-action: manipulation;
             margin-bottom: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 1px rgba(255,255,255,0.4);
         }
-        .btn-sub-wood:hover { background: #dfd2b5; }
-        .btn-sub-wood:active { transform: scale(0.98); }
+        .btn-sub-wood:hover { background: #e0d0b0; }
+        .btn-sub-wood:active { background: #bfa881; border-color: #5c3a21; transform: scale(0.98); }
 
         .feedback-card {
             background: #ede3cc; border: 2px solid #d4c29d; border-radius: 12px;
@@ -1618,7 +1622,7 @@
         /* 1. 우측 5대 두루마리 덱 (가로 46%, 높이 54px 큼직한 버튼) */
         .right-command-column {
             position: absolute;
-            top: 36%;
+            top: 30%;
             right: 0;
             width: 46%;
             display: flex;
@@ -1701,6 +1705,37 @@
         /* 4) 🔥 [빨강] 톤다운 버건디 (차원의 틈새 / 스마트 마왕) */
         .skin-red::after { background-color: #8c2222 !important; }
         .skin-red { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 6px rgba(140, 34, 34, 0.85)) !important; }
+
+
+        /* ====================================
+           🛡️ 컨텐츠별 5대 테마 컬러 클래스
+           ==================================== */
+
+        /* 🌿 1. 일반 영지 (딥 에메랄드) */
+        .theme-emerald {
+            background: linear-gradient(180deg, #23864c 0%, #155e33 100%);
+            border-color: #0b3d1f; color: #d1fae5;
+        }
+        /* 🌀 2. 숨겨진 비경 / 관제탑 (다크 자수정) */
+        .theme-amethyst {
+            background: linear-gradient(180deg, #5b3b8c 0%, #3b2260 100%);
+            border-color: #210d3a; color: #e9d5ff;
+        }
+        /* 🌊 3. 안개 구출 (딥 사파이어 코발트) */
+        .theme-sapphire {
+            background: linear-gradient(180deg, #1e3a8a 0%, #172554 100%);
+            border-color: #0f172a; color: #dbeafe;
+        }
+        /* 🛋️ 4. 치유 / 교감 (다크 앰버) */
+        .theme-amber {
+            background: linear-gradient(180deg, #9a4a15 0%, #632c05 100%);
+            border-color: #3f1900; color: #fef3c7;
+        }
+        /* 🔥 5. 마왕 / 심연 / 특훈 (딥 루비 버건디) */
+        .theme-ruby {
+            background: linear-gradient(180deg, #7b2020 0%, #4a0d0d 100%);
+            border-color: #2b0505; color: #fecdd3;
+        }
 
         .big-scroll-text-layer {
             position: relative;
@@ -1838,14 +1873,14 @@
 
         .camp-popover-card {
             display: none;
-            position: absolute;
-            /* 🌟 어떤 인라인 style이 있어도 무조건 화면 정중앙 고정 */
+            position: fixed;
             left: 50% !important;
             top: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            width: 80%;
-            max-width: 350px;
-            z-index: 25;
+            transform: translate(-50%, -50%);
+            width: 88%;
+            max-width: 400px;
+            max-height: 78vh;
+            z-index: 30;
             flex-direction: column;
             box-sizing: border-box;
             padding: 0px 24px;
@@ -1877,7 +1912,6 @@
         .popover-inner-content {
             display: flex;
             flex-direction: column;
-            gap: 6px;
             width: 100%;
         }
         /* 팝오버 */
@@ -1902,6 +1936,7 @@
             cursor: pointer;
             transition: all 0.12s ease;
             text-align: left;
+            margin-bottom: 4px;
         }
         .popover-item:active {
             transform: scale(0.97);
@@ -1983,6 +2018,30 @@
             border-image: none !important;
             padding: 12px !important;       /* 원본 여백 복구 */
             border-radius: 18px !important;
+        }
+
+        /* ========================================================
+           🌟 [황금 나침반 현판] 정령술사 스테이터스 보드 장착
+           ======================================================== */
+        .player-status-dashboard {
+            flex: 1;
+            position: relative;
+
+            /* 🎯 황금 나침반 목재 현판 이미지 본체 */
+            background: url('images/statusboard.webp') no-repeat center;
+            background-size: 100% 100%;
+            border: none;
+            border-radius: 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85);
+
+            /* 🎯 상단 나침반(18px), 하단 보석(14px), 우측 인장(44px)을 피한 텍스트 안전 여백 */
+            padding: 40px 30px 30px 30px;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            text-align: left;
         }
 
         /* ========================================================
@@ -2228,41 +2287,119 @@
                     </div>
 
                     <!-- [우측 66%] 정령술사 면허증 스테이터스 HUD -->
-                    <div class="player-status-dashboard" style="flex:1; position:relative; background:rgba(20,10,5,0.86); border:1.5px solid rgba(245,158,11,0.5); backdrop-filter:blur(10px); border-radius:14px; padding:8px 48px 8px 12px; display:flex; flex-direction:column; justify-content:center; gap:4px; box-shadow:0 4px 18px rgba(0,0,0,0.75); text-align:left; box-sizing:border-box;">
+                    <div class="player-status-dashboard">
 
                         <!-- 우상단 로마자 직인 인장 -->
                         <div class="hud-seal-badge" style="position:absolute; top:4px; right:0px; width:48px; height:58px; display:flex; justify-content:center; align-items:center; pointer-events:none; z-index:10; filter:drop-shadow(0 3px 6px rgba(0,0,0,0.85));">
+
                             <img src="images/seal_btn.webp" style="position:absolute; width:100%; height:100%; object-fit:contain;" alt="인장">
+
                             <span id="titleSealRoman" class="hud-seal-roman" style="position:relative; z-index:2; font-size:14px; font-weight:900; color:#fffbeb; text-shadow:0 1px 2px #000, 0 0 8px #f59e0b; letter-spacing:-0.5px; margin-top:-14px;">Ⅰ</span>
+                            
                         </div>
 
                         <!-- 1행: 플레이어 이름 -->
-                        <div class="hud-row-1" style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom: 7px">
-                            <span id="titlePlayerNameText" class="hud-player-name" style="font-size:20px; font-weight:900; color:#fffbeb; white-space:nowrap; letter-spacing:-0.3px;">✦ 술사 ✦</span>
+                        <div class="hud-row-1"
+                            style="display:flex; align-items:center; justify-content:center;
+                                    gap:2px; margin-bottom:4px;">
+
+                            <span id="titlePlayerNameText"
+                                class="hud-player-name"
+                                style="font-size:20px; font-weight:900;
+                                        color:#f8e8c2; white-space:nowrap;
+                                        letter-spacing:-0.3px;
+                                        text-shadow:1px 2px 2px rgba(20,10,4,0.9),
+                                                    0 0 5px rgba(225,177,93,0.15);">
+                                ✦ 술사 ✦
+                            </span>
                         </div>
 
                         <!-- 2행: 장착 칭호 및 글로벌 티어 -->
-                        <div style="display:flex; justify-content:space-between; flex-direction:row; align-items:center; gap:4px; margin:2px 0;">
-                            <span id="titleEquippedBadge" style="background:linear-gradient(90deg, rgba(180,83,9,0.5), rgba(217,119,6,0.35)); border:1px solid rgba(245,158,11,0.55); color:#fef3c7; font-weight:800; font-size:12px; padding:3px 8px; border-radius:8px; white-space:nowrap; box-shadow:0 1px 4px rgba(0,0,0,0.3);">🌱 첫 걸음의 탐색자</span>
+                        <div style="display:flex; justify-content:space-between;
+                                    flex-direction:row; align-items:center;
+                                    gap:4px; margin:3px 0 5px;">
 
-                            <span id="titleGlobalTierBadge" class="hud-tier-pill" style="font-size:12px; font-weight:800; color:#ffffff; background:#b91c1c; border:1px solid rgba(226, 181, 164, 0.55); padding:2px 7px; border-radius:6px; white-space:nowrap; box-shadow:0 2px 5px rgba(0,0,0,0.4);">마왕의 대적자 ⚔️</span>
+                            <span id="titleEquippedBadge"
+                                style="background:linear-gradient(
+                                            135deg,
+                                            rgba(65,79,43,0.96),
+                                            rgba(39,49,29,0.96));
+                                        border:1px solid rgba(190,157,91,0.8);
+                                        color:#f1dfb3;
+                                        font-weight:800; font-size:12px;
+                                        padding:3px 8px; border-radius:5px;
+                                        white-space:nowrap;
+                                        box-shadow:inset 0 1px 2px rgba(255,224,157,0.12),
+                                                    0 2px 3px rgba(0,0,0,0.35);">
+                                🌱 첫 걸음의 탐색자
+                            </span>
+
+                            <span id="titleGlobalTierBadge"
+                                class="hud-tier-pill"
+                                style="font-size:12px; font-weight:800;
+                                        color:#f8e4c5;
+                                        background:linear-gradient(
+                                            135deg,#71352c,#4b211e);
+                                        border:1px solid rgba(194,130,91,0.8);
+                                        padding:2px 7px; border-radius:5px;
+                                        white-space:nowrap;
+                                        box-shadow:inset 0 1px 2px rgba(255,214,166,0.1),
+                                                    0 2px 4px rgba(0,0,0,0.4);">
+                                마왕의 대적자 ⚔️
+                            </span>
                         </div>
 
                         <!-- 3행: 정령 결속 수치 -->
-                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; font-weight:800; margin-right:-36px;">
-                            <span style="color:#d4a373;">✦ 정령 결속도</span>
-                            <span id="titleContractCountText" style="color:#fde047; font-weight:900; white-space:nowrap;">계산 중...</span>
+                        <div style="display:flex; justify-content:space-between;
+                                    align-items:center; font-size:11px;
+                                    font-weight:800; margin-right:0;">
+
+                            <span style="color:#e8d7b2;
+                                        text-shadow:1px 1px 2px rgba(0,0,0,0.8);">
+                                ✦ 정령 결속도
+                            </span>
+
+                            <span id="titleContractCountText"
+                                style="color:#f0cf78; font-weight:900;
+                                        white-space:nowrap;
+                                        text-shadow:1px 1px 2px rgba(0,0,0,0.85);">
+                                계산 중...
+                            </span>
                         </div>
 
                         <!-- 4행: 경험치 게이지 -->
-                        <div class="hud-gauge-bar" style="height:6px; margin-right:-36px; background:rgba(40,20,10,0.95); border:0.5px solid rgba(245,158,11,0.5); border-radius:3px; overflow:hidden;">
-                            <div id="titleProgressBar" class="hud-gauge-fill" style="height:100%; width:0%; background:linear-gradient(90deg, #f59e0b, #ef4444);"></div>
+                        <div class="hud-gauge-bar"
+                            style="height:6px; margin-right:0;
+                                    background:rgba(24,16,10,0.95);
+                                    border:1px solid rgba(167,126,66,0.8);
+                                    border-radius:3px; overflow:hidden;
+                                    box-shadow:inset 0 1px 2px rgba(0,0,0,0.7);">
+
+                            <div id="titleProgressBar"
+                                class="hud-gauge-fill"
+                                style="height:100%; width:0%;
+                                        background:linear-gradient(
+                                            90deg,#b88a3c,#e9cb79);
+                                        box-shadow:0 0 4px rgba(232,190,94,0.35);">
+                            </div>
                         </div>
 
                         <!-- 5행: 다음 목표 안내 -->
-                        <div class="hud-row-2" style="display:flex; justify-content:flex-end; align-items:flex-end; font-size:13px; font-weight:700; color:#fde047; gap:6px; margin-right:-36px;">
-                            <span id="titleNextExpText" style="color:#fde047; font-size:12px; font-weight:700; line-height:1.25; text-align:right;">계산 중...</span>
+                        <div class="hud-row-2"
+                            style="display:flex; justify-content:flex-end;
+                                    align-items:flex-end; font-size:12px;
+                                    font-weight:700; color:#e8d7b2;
+                                    gap:6px; margin-right:0; margin-top:3px;">
+
+                            <span id="titleNextExpText"
+                                style="color:#e8d7b2; font-size:12px;
+                                        font-weight:700; line-height:1.25;
+                                        text-align:right;
+                                        text-shadow:1px 1px 2px rgba(0,0,0,0.85);">
+                                계산 중...
+                            </span>
                         </div>
+
 
                     </div>
 
@@ -2278,9 +2415,7 @@
                     <div id="campPopStory" class="camp-popover-card" style="top:32%;">
                         <div class="popover-inner-content">
                             <div class="popover-header">✦ 성역 탐험 ✦</div>
-                            <div id="campStoryMapList" style="display:flex; flex-direction:column; gap:4px; max-height:220px; overflow-y:auto;">
-                                <!-- JS에서 실제 스토리 영지 카드들이 동적으로 채워집니다 -->
-                            </div>
+                            <div id="campStoryMapList"></div>
                         </div>
                     </div>
 
@@ -2288,9 +2423,7 @@
                     <div id="campPopAbyss" class="camp-popover-card" style="top:44%;">
                         <div class="popover-inner-content">
                             <div class="popover-header" style="color:#6d28d9; border-bottom-color:#7c3aed;">✦ 숨겨진 비경 ✦</div>
-                            <div id="campSpecialMapList" style="display:flex; flex-direction:column; gap:4px;">
-                                <!-- JS에서 형상변환 및 동반의어 맵 목록이 채워집니다 -->
-                            </div>
+                            <div id="campSpecialMapList"></div>
                         </div>
                     </div>
 
@@ -2705,11 +2838,11 @@
                 알림 내용이 들어가는 자리입니다.
             </div>
 
-            <button id="gameAlertCancelBtn" class="btn-wood game-alert-btn-main" style="display:none; background:#16a34a; border-color:#15803d; color:#ffffff;" onclick="cancelGameAlert()">
+            <button id="gameAlertCancelBtn" class="btn-wood theme-emerald game-alert-btn-main" style="display:none;" onclick="cancelGameAlert()">
                 ⚔️ 전투 계속하기
             </button>
 
-            <button id="gameAlertBtn" class="btn-sub-wood game-alert-btn-sub" style="background:#fffdf7; border:1px solid #c9b48c; color:#785a3e;" onclick="closeGameAlert()">
+            <button id="gameAlertBtn" class="btn-sub-wood game-alert-btn-sub" onclick="closeGameAlert()">
                 확인
             </button>
         </div>
@@ -2812,7 +2945,7 @@
         </div>
         <div style="width:100%; display:flex; flex-direction:column; gap:6px;">
             <!-- ⚡ [메인] 다음 구역 즉시 진격 or 수호령 시련 직행 버튼 -->
-            <button id="sectorClearNextBtn" class="btn-wood" style="background:linear-gradient(180deg, #16a34a 0%, #15803d 100%); border-color:#4ade80; color:#ffffff; font-weight:900;" onclick="handleSectorClearProceed()">
+            <button id="sectorClearNextBtn" class="btn-wood theme-emerald" onclick="handleSectorClearProceed()">
                 ⚡ 다음 구역으로 바로 가기! ➔
             </button>
             <!-- [보조] 전초기지로 돌아가기 -->
@@ -2841,12 +2974,15 @@
             </div>
         </div>
         <div>
-            <button id="midBossNoticeStartBtn" class="btn-wood" style="background:#10b981; border-color:#059669; color:#ffffff; margin-bottom:6px;" onclick="confirmStartMidBoss()">
-            ⚔️ 수호령과의 시련 시작! (도전) ➔
+            <button id="midBossNoticeStartBtn" class="btn-wood theme-emerald" style="margin-bottom:6px;" onclick="confirmStartMidBoss()">
+                ⚔️ 수호령과의 시련 시작! (도전) ➔
             </button>
-            <button class="btn-sub-wood" style="background:#fffdf7; margin-bottom:6px;" onclick="openWordBook(false)">
+            
+            <!-- 🌟 하얀 스티커 같던 style 싹 지우고 순수 서브 버튼으로 통일 -->
+            <button class="btn-sub-wood" style="margin-bottom:6px;" onclick="openWordBook(false)">
                 📖 정령도감(단어장) 최종 복습하기
             </button>
+            
             <button class="btn-sub-wood" onclick="backToLobbyFromMidBossNotice()">
                 🏕️ 전초기지로 돌아가기
             </button>
@@ -2893,7 +3029,7 @@
 
         <!-- 하단 출격 버튼군 -->
         <div style="width:100%; display:flex; flex-direction:column; gap:6px;">
-            <button class="btn-wood" style="background:linear-gradient(180deg, #6b21a8 0%, #4a044e 100%); border-color:#c084fc; color:#ffffff; font-weight:900;" onclick="startMistRescueQuiz()">
+            <button class="btn-wood theme-sapphire" onclick="startMistRescueQuiz()">
                 🚨 안개 속으로 뛰어들기! ➔
             </button>
             <button class="btn-sub-wood" onclick="closeMistRescueNotice()">
@@ -3049,7 +3185,8 @@
 
         <!-- 하단 액션 버튼 -->
         <div style="width:100%; display:flex; flex-direction:column; gap:6px; margin-top:8px;">
-            <button id="shrineStartQuizBtn" class="btn-wood" style="background:linear-gradient(180deg, #16a34a 0%, #15803d 100%); border-color:#4ade80; color:#ffffff; font-weight:900;" onclick="startShrineRoomQuiz()">
+            <button id="shrineStartQuizBtn" class="btn-wood theme-amber" onclick="startShrineRoomQuiz()">
+
                 🌿 정령들과 상담 시작하기! (출격) ➔
             </button>
             <button class="btn-sub-wood" onclick="backToShrineHubFromWordlist()">
@@ -3348,7 +3485,7 @@
             </div>
         </div>
         <div>
-            <button class="btn-wood" style="background:linear-gradient(180deg, #dc2626 0%, #991b1b 100%); border-color:#ef4444; color:#ffffff; margin-bottom:6px;" onclick="goToBossFromAwakening()">
+            <button class="btn-wood theme-ruby" style="margin-bottom:6px;" onclick="goToBossFromAwakening()">
             ⚔️ 마왕 『EXAM』 즉시 토벌하러 가기! ➔
             </button>
             <button class="btn-sub-wood" style="background:#27141b; color:#fca5a5; border-color:#831843;" onclick="closeAwakeningToTitle()">
@@ -5585,9 +5722,14 @@ const recTime = document.getElementById("recFastestTime");
                 const item = document.createElement("div");
                 item.className = "popover-item";
                 item.onclick = () => { closeCampPopovers(); openMapLobby(map.id); };
+                
+                // 🌟 [수정] 영지 이름 밑에 11px 세계관 설명(map.desc) 추가!
                 item.innerHTML = `
-                    <span class="pop-item-title">${map.name}</span>
-                    <span class="pop-item-badge" style="background:${isCleared ? '#10b981' : '#b45309'};">${isCleared ? '정화 🌟' : percent + '%'}</span>
+                    <div style="display:flex; flex-direction:column; gap:2px; text-align:left; flex:1; padding-right:8px;">
+                        <span class="pop-item-title" style="font-size:13.5px; font-weight:900; color:#2c1a0e;">${map.name}</span>
+                        <span style="font-size:11px; color:#785a3e; font-weight:600; line-height:1.3; word-break:keep-all;">${map.desc || ''}</span>
+                    </div>
+                    <span class="pop-item-badge" style="background:${isCleared ? '#10b981' : '#b45309'}; flex-shrink:0;">${isCleared ? '정화 🌟' : percent + '%'}</span>
                 `;
                 storyContainer.appendChild(item);
             });
@@ -5859,20 +6001,20 @@ const recTime = document.getElementById("recFastestTime");
         });
 
         const guardianBtn = document.getElementById("lobbyGuardianTrialBtn");
+
         if (bossDefeated) {
-            guardianBtn.className = "guardian-trial-btn";
-            guardianBtn.style.background = "linear-gradient(180deg, #d97706 0%, #b45309 100%)";
-            guardianBtn.style.borderColor = "#f59e0b";
+            // 🌟 JS의 촌스러운 색상 덧칠 삭제 ➔ 붉은색 테마 클래스로 통일
+            guardianBtn.className = "guardian-trial-btn theme-ruby";
             guardianBtn.innerHTML = `⚔️ ${mapTheme.guardianName} 재대결 (시련 재도전) ➔`;
         } else if (allSectorsConquered) {
-            guardianBtn.className = "guardian-trial-btn";
-            guardianBtn.style.background = "linear-gradient(180deg, #10b981 0%, #059669 100%)";
-            guardianBtn.style.borderColor = "#047857";
+            // 🌟 촌스러운 형광 초록 덧칠 삭제 ➔ 로열 에메랄드 테마 클래스로 통일
+            guardianBtn.className = "guardian-trial-btn theme-emerald";
             guardianBtn.innerHTML = `⚔️ ${mapTheme.guardianName}의 시련 대면 (도전 가능!) ➔`;
         } else {
             const unlockPercent = Math.round((conqueredSectorsCount / sectors.length) * 100);
             if (unlockPercent > 0) {
-                guardianBtn.className = "guardian-trial-btn cracked";
+                // 🌟 자물쇠 균열 모드: 주황색 테마
+                guardianBtn.className = "guardian-trial-btn theme-amber cracked";
                 guardianBtn.innerHTML = `🔒 성역의 심장 : 봉인 ${unlockPercent}% 해제! (자물쇠 균열)`;
             } else {
                 guardianBtn.className = "guardian-trial-btn locked";
@@ -9312,6 +9454,8 @@ function handleMidBossVictory() {
     // 1. 관제탑 창 열기 및 닫기
     function openAdminTower() {
         Sound.click();
+        closeSettingsModal(); // 🌟 [추가] 관제탑이 열릴 때 환경 설정창을 자동으로 깔끔하게 닫기!
+
         const modal = document.getElementById("adminTowerModal");
         if (modal) modal.style.display = "flex";
         loadAdminTowerData(); // 전교생 최신 진도 즉시 호출
@@ -9789,14 +9933,11 @@ function handleMidBossVictory() {
             if (currentAlertItem.cancelBtnText) {
                 cancelBtn.innerText = currentAlertItem.cancelBtnText;
                 cancelBtn.style.display = "block";
-                btnEl.className = "btn-sub-wood";
-                btnEl.style.background = "#fffdf7";
-                btnEl.style.color = "#785a3e";
+
+                btnEl.className = "btn-sub-wood game-alert-btn-sub";
             } else {
                 cancelBtn.style.display = "none";
-                btnEl.className = "btn-wood";
-                btnEl.style.background = "#5c3a21";
-                btnEl.style.color = "#f7edd4";
+                btnEl.className = "btn-wood theme-emerald game-alert-btn-main";
             }
         }
 
