@@ -946,6 +946,10 @@
             mask-repeat: no-repeat;
         }
 
+        /* 🌟 [황금 앰버] 모닥불 메인 퀘스트 칙령 전용 스킨 */
+        .skin-amber::after { background-color: #b45309 !important; }
+        .skin-amber { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.85)) drop-shadow(0 0 6px #f59e0b) drop-shadow(0 0 14px rgba(245, 158, 11, 0.75)) !important; }
+
         /* 1) 🌿 [초록] 톤다운 세이지 (성역 탐험 / 스마트 평상시) */
         .skin-green::after { background-color: #2d7a4c !important; }
         .skin-green { filter: drop-shadow(0 3px 5px rgba(0,0,0,0.6)) drop-shadow(0 0 5px rgba(45, 122, 76, 0.75)) !important; }
@@ -961,6 +965,10 @@
         /* 4) 🔥 [빨강] 톤다운 버건디 (차원의 틈새 / 스마트 마왕) */
         .skin-red::after { background-color: #8c2222 !important; }
         .skin-red { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 6px rgba(140, 34, 34, 0.85)) !important; }
+
+        /* 5) 🌊 [파랑] 톤다운 사파이어 (정령의 성소 / 정화와 치유) */
+        .skin-blue::after { background-color: #1e40af !important; }
+        .skin-blue { filter: drop-shadow(0 3px 5px rgba(0,0,0,0.6)) drop-shadow(0 0 5px rgba(30, 64, 175, 0.8)) !important; }
 
         /* ========================================================
            🗺️ 대륙 지도 2단 탭 전용 두루마리 마스킹 (images/scroll_btn.webp)
@@ -1019,6 +1027,7 @@
         /* 3) 테마별 컬러 잉크 주입 */
         .wm-tab-btn.tab-emerald::after { background-color: #23864c; } /* 에메랄드 */
         .wm-tab-btn.tab-sapphire::after { background-color: #1e3a8a; } /* 사파이어 */
+        .wm-tab-btn.tab-purple::after { background-color: #5b3b8c; } /* 신비로운 자수정 바이올렛 */
 
         /* 4) 텍스트 레이어 */
         .wm-tab-text-layer {
@@ -2622,7 +2631,7 @@
                     <div class="right-command-column">
                         
                         <!-- ① [⚡ 모험 이어하기] 스마트 추천 버튼 계승 -->
-                        <button id="smartMainBtn" class="big-scroll-btn smart-hero-scroll skin-green" onclick="handleCampSmartClick()">
+                        <button id="smartMainBtn" class="big-scroll-btn smart-hero-scroll skin-amber" onclick="handleCampSmartClick()">
                             
                             <div class="big-scroll-bg"></div>
                             <div class="big-scroll-text-layer" style="gap:2px;">
@@ -2642,7 +2651,7 @@
                         </button>
 
                         <!-- ④ [🛋️ 정령의 성소] ➔ 케어 팝오버 -->
-                        <button id="btnCampShrine" class="big-scroll-btn skin-orange" onclick="toggleCampPopover('campPopShrine', 'btnCampShrine')">
+                        <button id="btnCampShrine" class="big-scroll-btn skin-blue" onclick="toggleCampPopover('campPopShrine', 'btnCampShrine')">
                             <div class="big-scroll-bg"></div>
                             <div class="big-scroll-text-layer">
                                 <span class="scroll-main-title">🛋️ 정령의 성소</span>
@@ -2727,7 +2736,8 @@
                             <span class="wm-tab-title">🌲 일반 탐험</span>
                         </div>
                     </button>
-                    <button id="wmTabSpecial" class="wm-tab-btn tab-sapphire" onclick="switchWorldMapTab('special')">
+                    <button id="wmTabSpecial" class="wm-tab-btn tab-purple" onclick="switchWorldMapTab('special')">
+                         <div class="wm-tab-bg"></div>
                         <div class="wm-tab-bg"></div>
                         <div class="wm-tab-text-layer">
                             <span class="wm-tab-title">🌀 숨겨진 비경</span>
@@ -6024,7 +6034,7 @@ const recTime = document.getElementById("recFastestTime");
             // [C. 평상시 스토리 탐험] ➔ 초록색 & 실제 구역 진행도 즉시 계산
             else {
                 currentSmartMode = 'resume';
-                smartBtn.className = "big-scroll-btn smart-hero-scroll skin-green";
+                smartBtn.className = "big-scroll-btn smart-hero-scroll skin-amber";
                 
                 const sectors = (typeof getMapSectors === 'function') ? getMapSectors(curMap) : [{ name: "제1구역", words: curMap.words }];
                 const mapMastery = (typeof safeStorageGet === 'function') ? safeStorageGet(`spirit_mastery_${curMap.id}`, {}) : {};
@@ -6049,8 +6059,8 @@ const recTime = document.getElementById("recFastestTime");
                 const secTotal = targetSec.words.length || 1;
                 const secPct = Math.round((secContracted / secTotal) * 100);
 
-                if (smartTagRow) smartTagRow.innerText = "✦ 추천 원정 (모험 이어하기) ✦";
-                smartMainText.innerText = `「${curMap.name} · ${targetSec.name}」 ➔`;
+                if (smartTagRow) smartTagRow.innerText = "✦ 모험 이어하기 ✦";
+                smartMainText.innerText = `「${curMap.name} · ${targetSec.name}」`;
                 if (smartProgressText) {
                     smartProgressText.innerText = `계약: ${secContracted} / ${secTotal}마리 (${secPct}%)`;
                 }
