@@ -2397,6 +2397,120 @@
             }
         }
 
+        .camp-vignette-overlay {
+             position:absolute; top:0; left:0; right:0; bottom:0;
+             background:radial-gradient(circle at 35% 65%, transparent 25%, rgba(10,5,2,0.5) 70%, #080302 100%), linear-gradient(180deg, rgba(8,4,2,0.88) 0%, transparent 22%, transparent 70%, #080302 96%);
+             z-index:2; pointer-events:none;
+         }
+
+         /* 🔥 모닥불 실시간 일렁임 앰비언트 광원 */
+        .campfire-light-glow {
+            position: absolute;
+            /* 현재 이미지 속 모닥불의 실제 위치에 정확히 핀포인트 */
+            left: 31%;
+            top: 65%;
+            width: 140px;
+            height: 140px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            /* 모닥불 중심은 밝은 노랑, 외곽은 은은한 주황/붉은 불꽃 */
+            background: radial-gradient(circle, rgba(254, 240, 138, 0.65) 0%, rgba(249, 115, 22, 0.45) 45%, rgba(220, 38, 38, 0.15) 70%, transparent 85%);
+            mix-blend-mode: screen; /* 배경 픽셀 아트 위에 자연스럽게 빛을 투과 */
+            pointer-events: none;
+            z-index: 3;
+            animation: fireFlicker 2.5s infinite ease-in-out;
+        }
+
+        /* 불꽃이 타닥타닥 타오르며 주변을 비추는 불규칙한 박동 */
+        @keyframes fireFlicker {
+            0%   { transform: translate(-50%, -50%) scale(0.95); opacity: 0.55; }
+            /* 20%  { transform: translate(-49%, -51%) scale(1.08); opacity: 0.85; } */
+            50%  { transform: translate(-51%, -50%) scale(1.15); opacity: 0.65; }
+            /* 80%  { transform: translate(-49%, -50%) scale(1.02); opacity: 0.70; } */
+            100% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.55; }
+        }
+
+        /* ========================================================
+           📖 야영지 책 선생 마스코트 & 츤데레 말풍선 시스템
+           ======================================================== */
+        .camp-mrbook-container {
+            position: absolute;
+            right: 20px;
+            top: 5%; /* 현판 바로 아래, 스마트 버튼 위 */
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* 타이틀 책 선생 스프라이트 (날개를 파닥거리며 위아래로 부드럽게 부유하는 모션) */
+        .camp-mrbook-sprite {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 6px rgba(245, 158, 11, 0.4));
+            animation: mrBookHover 2.6s infinite ease-in-out;
+            transition: transform 0.15s ease;
+        }
+        .camp-mrbook-sprite:active {
+            transform: scale(0.88);
+        }
+
+        @keyframes mrBookHover {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50%      { transform: translateY(-7px) rotate(2deg); }
+        }
+
+        /* 탭했을 때 펄쩍 뛰는 탄성 애니메이션 */
+        .camp-mrbook-sprite.jump {
+            animation: mrBookJump 0.4s ease-out forwards;
+        }
+        @keyframes mrBookJump {
+            0%   { transform: translateY(0) scale(1); }
+            40%  { transform: translateY(-8px) scale(1.2) rotate(-5deg); }
+            70%  { transform: translateY(-2px) scale(0.95) rotate(3deg); }
+            100% { transform: translateY(0) scale(1) rotate(0deg); }
+        }
+
+        /* 📜 책 선생 전용 양피지 말풍선 */
+        .camp-mrbook-bubble {
+            display: none;
+            position: absolute;
+            right: 130px; /* 책 선생 왼쪽으로 돋아남 */
+            top: 30px;
+            width: 175px;
+            background: #fffbeb;
+            border: 2px solid #b45309;
+            border-radius: 12px;
+            padding: 8px 10px;
+            font-size: 12px;
+            font-weight: 800;
+            color: #451a03;
+            line-height: 1.4;
+            word-break: keep-all;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+            pointer-events: none;
+            animation: bubblePop 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+        }
+        /* 말풍선 꼬리표 (오른쪽 책 선생을 향함) */
+        .camp-mrbook-bubble::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 22px;
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 8px solid #b45309;
+        }
+        @keyframes bubblePop {
+            0%   { opacity: 0; transform: scale(0.7) translateX(10px); }
+            100% { opacity: 1; transform: scale(1) translateX(0); }
+        }
+
     </style>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;">
@@ -2454,6 +2568,9 @@
             <!-- 🌌 9:16 세로 풀스크린 모닥불 배경 레이어 -->
             <div class="camp-bg-layer" style="position:absolute; top:0; left:0; right:0; bottom:0; background-image:url('images/title_fire.webp'); background-size:cover; background-position:left center; opacity:1; filter:none; z-index:1;"></div>
             <div class="camp-vignette-overlay" style="position:absolute; top:0; left:0; right:0; bottom:0; background:radial-gradient(circle at 35% 65%, transparent 25%, rgba(10,5,2,0.5) 70%, #080302 100%), linear-gradient(180deg, rgba(8,4,2,0.88) 0%, transparent 22%, transparent 70%, #080302 96%); z-index:2; pointer-events:none;"></div>
+
+            <!-- 🔥 모닥불 일렁임 광원 레이어 추가 -->
+            <div class="campfire-light-glow"></div>
 
             <!-- 캠프 콘텐츠 본체 -->
             <div class="camp-content" style="position:relative; z-index:5; width:100%; height:100%; display:flex; flex-direction:column; justify-content:space-between;">
@@ -2583,6 +2700,14 @@
 
                 <!-- 2. 중앙~우측: 🌟 2배 커진 5대 두루마리 & 9-Slice 세로 팝오버 영역 -->
                 <div class="mid-body-area" style="flex:1; position:relative; width:100%;">
+
+                    <!-- 📖 [마스코트] 둥둥 떠 있는 책 선생 & 츤데레 말풍선 -->
+                    <div class="camp-mrbook-container" onclick="triggerMrBookChat()">
+                        <img id="campMrBookSprite" class="camp-mrbook-sprite" src="images/mr.book_glitter.webp" alt="책 선생">
+                        <div id="campMrBookBubble" class="camp-mrbook-bubble">
+                            <span id="campMrBookText">야, 폰만 보지 말고 단어나 외워라!</span>
+                        </div>
+                    </div>
 
                     <!-- 팝오버 닫기용 투명 백드롭 -->
                     <div id="campPopBackdrop" class="popover-backdrop" onclick="closeCampPopovers()"></div>
@@ -4740,11 +4865,16 @@
         const maps = [];
         let currentMap = null;
 
+        let lastNetSetWords = null; // VS 직전 동의어 세트 임시 보관
+        let pendingVS = false;       // VS 대치 상태 플래그
+
         lines.forEach(line => {
             line = line.trim();
             if (!line) return;
 
             if (line.startsWith('[') && line.includes(']')) {
+                lastNetSetWords = null;
+                pendingVS = false;
                 let rawHeader = line.substring(1, line.indexOf(']')).trim();
                 let mapId = "";
                 let mapName = rawHeader;
@@ -4783,6 +4913,11 @@
             }
 
             if (currentMap) {
+                // 🌟 [net_ 영지 전용] <=> 반의어 대치 라인 단독 감지
+                if (line === '<=>') {
+                    pendingVS = true;
+                    return;
+                }
 
                 let eng = "", kor = "";
                 if (line.includes(':')) {
@@ -4797,13 +4932,48 @@
                 if (eng && kor) {
                     // 🌟 영지 ID에 'irreg'가 들어간 전용 맵에서만 형상변환 정령으로 정식 파싱!
                     const isIrregMap = currentMap.id && currentMap.id.toLowerCase().includes('irreg');
+                    // 🌟 영지 ID에 'net'이 들어간 전용 맵 감지!
+                    const isNetMap = currentMap.id && currentMap.id.toLowerCase().includes('net');
                     const parenMatch = eng.match(/(.*?)\s*\(([^)]+)\)\s*$/);
 
                     // 🌟 [다의어 감지] 뜻에 세미콜론(;)이 있으면 다의어로 분리 보관!
                     const isPoly = kor.includes(';');
                     const meanings = isPoly ? kor.split(';').map(s => s.trim()).filter(Boolean) : [];
 
-                    if (isIrregMap && parenMatch) {
+                    if (isNetMap) {
+                        // 콤마(,)로 나열된 동의어들을 각각 낱개 영단어로 분해
+                        const rawSynonyms = eng.split(',').map(s => s.trim()).filter(Boolean);
+                        const currentBatch = [];
+
+                        rawSynonyms.forEach(singleEng => {
+                            const wordItem = {
+                                eng: singleEng,
+                                kor: kor,
+                                isNet: true,
+                                synonyms: rawSynonyms.filter(s => s !== singleEng), // 나를 제외한 동의어들
+                                allSynonyms: rawSynonyms,                         // 전체 동의어 그룹
+                                antonyms: []                                      // 반의어 군집 (아래에서 매칭)
+                            };
+                            currentMap.words.push(wordItem);
+                            currentBatch.push(wordItem);
+                        });
+
+                        // 만약 직전에 VS가 있었다면 서로를 '반의어(antonyms)'로 양방향 연결!
+                        if (pendingVS && lastNetSetWords && lastNetSetWords.length > 0) {
+                            const prevEngs = lastNetSetWords.map(w => w.eng);
+                            const currEngs = currentBatch.map(w => w.eng);
+
+                            lastNetSetWords.forEach(w => { w.antonyms = currEngs; });
+                            currentBatch.forEach(w => { w.antonyms = prevEngs; });
+
+                            pendingVS = false;
+                            lastNetSetWords = null;
+                        } else {
+                            lastNetSetWords = currentBatch;
+                            pendingVS = false;
+                        }
+
+                    } else if (isIrregMap && parenMatch) {
                         const baseWord = parenMatch[1].trim();
                         const mutations = parenMatch[2].split(',').map(s => s.trim()).filter(Boolean);
                         currentMap.words.push({
@@ -9726,6 +9896,7 @@ function handleMidBossVictory() {
             "intro_book.webp",
             "intro_boss.webp",
             "intro_mr.book.webp",
+            "mr.book_glitter.webp",
             "intro_spirits.webp",
             "mr.book.webp",
             "mr.book_icon.webp",
@@ -9747,7 +9918,6 @@ function handleMidBossVictory() {
             "statusboard1.webp",
             "tier_up.webp",
             "title_fire.webp",
-            "title_fire2.webp",
             "world.webp"
         ];
         criticalImages.forEach(filename => {
@@ -10972,6 +11142,72 @@ function handleMidBossVictory() {
                 }
             }
         }, 150); // 창이 완전히 닫히는 0.15초 뒤에 깔끔하게 발음!
+    }
+
+    /* ========================================================
+       📖 책 선생 츤데레 대사 시스템 (야영지 탭 인터랙션)
+       ======================================================== */
+    const MR_BOOK_DIALOGUES = [
+        "야, 폰 보지 말고 단어나 외워라! ...아, 그럼 이 게임을 못 하나?",
+        "1등급이 거저 나오는 줄 아냐? 어서 다음 구역으로 가!",
+        "마왕 『EXAM』이 코웃음 치고 있다. 멍때리지 마라!",
+        "흠... 그래도 오늘은 좀 열심히 하네? 기특하긴 하다만, 방심은 금물이다.",
+        "안개 속에 갇힌 정령들은 방치하면 성소로 실려 간다. 틈틈이 구해둬!",
+        "키보드 1~4번 누르면 퀴즈가 광속으로 풀린다. 손가락을 쉬게 하지 마라!",
+        "내가 너 1등급 만들겠다고 이세계까지 따라왔다는 걸 잊지마!",
+        "틀린 단어는 정령의 성소에서 꼭 다시 살펴봐라. 실패도 거름이 되는 법이니까.",
+        "피곤하면 모닥불 앞에서 잠시 숨 돌리고... 자, 딱 5개만 더 보자!",
+        "꾸준한 공부. 그것만이 답이야. 꾸준히 해라!",
+        "정령들이 너한테 「진명의 각인」을 새겨줄 때까지 쉬지 않고 굴릴 거다, 각오해!",
+         "1.5초 만에 맞히면 '찰나의 공명'으로 즉시 계약 체결이다. 광속으로 골라봐!",
+         "헷갈리는 단어는 피드백 창에서 하트(💖) 꾹 눌러둬라. 성소에서 각 잡고 훈련시켜 줄 테니.",
+         "안개 속 구출전 3차까지 버텨내면 '진명의 각인'이 찍혀서 영원히 안 까먹는다!",
+         "거대 두루마리가 번쩍일 땐 이유가 있는 법이야. 군말 말고 눌러라!",
+         "구역을 정복했으면 수호령 시련까지 끝장내야 진짜 그 영지 마력을 흡수하는 거다.",
+         "포기하지마. 내가 옆에서 끝까지 멱살 잡고 1등급으로 캐리해 줄 테니까.",
+         "노력은 배신 안 한다. 내가 보증하지. 자, 다시 가자고!",
+         "'내일부터 해야지' 하는 녀석치고 내일 진짜 하는 꼴을 못 봤다.",
+         "손가락 아프다고? 실전에선 멘탈에 쥐가 난다. 멘탈 단련해라!",
+         "영어 3등급 맞고 울지 마라. 지금 네가 탭하는 그 단어가 등급을 가른다.",
+         "단어 암기는 벼락치기가 안 통해. 매일 5분씩 보는 놈이 결국 이긴다.",
+         "호주에서 쓰는 돈이 뭔 줄 아냐? ...호주머니! 크하하! ...웃었지?",
+         "소가 계단을 올라가면? ...소오름! ㅋㅋㅋ ...소름 돋았으면 그 집중력으로 출격해!",
+         "세상에서 가장 착한 사자는? ...자원봉사자. ...이런 고급 유머를 몰라보다니 안타깝군.",
+         "세상에서 제일 가난한 왕이 누군지 알아? ...최저임금. ...이제 좀 시원해졌겠지?"
+    ];
+
+    let mrBookBubbleTimer = null;
+
+    function triggerMrBookChat() {
+        Sound.click();
+
+        const sprite = document.getElementById("campMrBookSprite");
+        const bubble = document.getElementById("campMrBookBubble");
+        const textEl = document.getElementById("campMrBookText");
+        if (!sprite || !bubble || !textEl) return;
+
+        // 1. 펄쩍 뛰는 점프 모션 재생
+        sprite.classList.remove("jump");
+        void sprite.offsetWidth; // 렌더 리셋
+        sprite.classList.add("jump");
+
+        // 🌟 0.4초 점프가 끝나면 점프 클래스를 제거하여 원래의 부유(Hover) 모션으로 복귀
+        setTimeout(() => {
+            sprite.classList.remove("jump");
+        }, 400);
+
+        // 2. 랜덤 대사 추출 (직전 대사와 중복 회피)
+        const randIdx = Math.floor(Math.random() * MR_BOOK_DIALOGUES.length);
+        textEl.innerText = MR_BOOK_DIALOGUES[randIdx];
+
+        // 3. 말풍선 팝업
+        bubble.style.display = "block";
+
+        // 4. 3.2초 후 자동 닫힘 (연타 시 타이머 리셋)
+        if (mrBookBubbleTimer) clearTimeout(mrBookBubbleTimer);
+        mrBookBubbleTimer = setTimeout(() => {
+            bubble.style.display = "none";
+        }, 3200);
     }
 
 </script>
