@@ -51,23 +51,23 @@ const WORLD_MAPS_TEXT = `
 
 [net_1: 테스트]
 increase, expand, grow, augment : [동] 증가하다, 팽창하다
-VS
+<=>
 decrease, shrink, reduce, diminish : [동] 감소하다, 축소하다
 
 encourage, foster, promote, boost : [동] 촉진하다, 북돋우다
-VS
+<=>
 discourage, hinder, impede, suppress : [동] 저해하다, 억제하다
 
 vague, ambiguous, obscure, hazy : [형] 모호한, 불분명한
-VS
+<=>
 clear, explicit, distinct, obvious : [형] 명확한, 뚜렷한
 
 essential, crucial, vital, fundamental : [형] 필수적인, 결정적인
-VS
+<=>
 trivial, minor, negligible, dispensable : [형] 사소한, 없어도 되는
 
 abundant, plentiful, ample, rich : [형] 풍부한, 넉넉한
-VS
+<=>
 scarce, insufficient, deficient, meager : [형] 부족한, 불충분한
 
 
@@ -238,13 +238,13 @@ invent:[동] 발명하다
 imagine:[동] 상상하다
 happen:[동] 일어나다
 depend:[동] 의존하다, ~에 달려 있다
-apply:[동] 적용하다; 신청하다, 지원하다; 도포하다, 바르다
+apply:[동] 적용하다; [동] 신청하다, 지원하다; [동] 도포하다, 바르다
 allow:[동] 허락하다
 prepare:[동] 준비하다
 choose:[동] 선택하다
 follow:[동] 따라가다, 따르다
 bring:[동] 가져오다
-offer:[동] 제공하다, 제안하다; [명] 제안, 제공
+offer:[명] 제안, 제공, [동] 제공하다, 제안하다
 spend:[동] (시간·돈을) 쓰다
 expect:[동] 기대하다, 예상하다
 fill:[동] 채우다
@@ -253,8 +253,8 @@ try:[동] 노력하다, 시도하다
 sell:[동] 팔다
 guess:[동] 추측하다
 forget:[동] 잊다
-return:[동] 돌아오다, 돌려주다; [명] 귀환, 돌아옴
-call:[동] 부르다, 전화하다; [명] 부름, 요청
+return:[명] 귀환, [동] 돌아오다; [명] 반납, [동] 돌려주다
+call:[동] 부르다, 전화하다, [명] 부름; [명] 요청
 carry:[동] 나르다, 가지고 다니다
 add:[동] 더하다, 추가하다
 suppose:[동] 추측하다, 가정하다
@@ -272,7 +272,7 @@ connect:[동] 연결하다
 understand:[동] 이해하다
 provide:[동] 제공하다
 win:[동] 이기다, 쟁취하다, 따다
-worry:[동] 걱정하다; [명] 걱정
+worry:[명] 걱정, [동] 걱정하다
 grow:[동] 자라다, 성장하다; [동] 키우다, 기르다
 study:[동] 공부하다, 연구하다; [명] 공부, 연구
 keep:[동] 유지하다, 계속하다; [동] 키우다, 기르다
@@ -292,7 +292,7 @@ wear:[동] 입다, 착용하다
 remove:[동] 제거하다, 지우다
 borrow:[동] 빌리다
 make:[동] 만들다
-help:[동] 돕다; [명] 도움
+help:[동] 돕다, [명] 도움
 fix:[동] 고치다, 고정하다
 hurt:[동] 아프다; [동] 다치게 하다
 warn:[동] 경고하다
@@ -302,7 +302,7 @@ charge:[동] 청구하다; [동] 충전하다
 share:[동] 공유하다; [명] 몫, 지분
 avoid:[동] 피하다
 communicate:[동] 의사소통하다
-increase:[동] 증가하다; [명] 증가
+increase:[동] 증가하다, [명] 증가
 realize:[동] 깨닫다; [동] 실현하다
 refuse:[동] 거절하다
 consider:[동] 고려하다; [동] 여기다
@@ -316,7 +316,7 @@ develop:[동] 개발하다, 발전시키다
 deliver:[동] 배달하다, 전달하다; [동] (아이를) 낳다, 출산하다
 attend:[동] 참석하다, (학교에) 다니다; [동] 주의를 기울이다
 suggest:[동] 제안하다; [동] 암시하다, 보여주다
-serve:[동] 제공하다, 봉사하다
+serve:[동] 제공하다; [동] 봉사하다, 대접하다
 demand:[동] 요구하다; [명] 수요
 affect:[동] 영향을 미치다
 operate:[동] 작동하다, 운영하다; [동] 수술하다
@@ -324,11 +324,11 @@ discover:[동] 발견하다
 describe:[동] 묘사하다, 설명하다
 compare:[동] 비교하다
 protect:[동] 보호하다
-produce:[동] 생산하다
+produce:[동] 생산하다; [명] 농산물
 gain:[동] 얻다, 증가하다; [명] 얻은 것, 이득
 lose:[동] 잃다, 지다
 remain:[동] 남아 있다; [동] 여전히 ~이다
-respect:[명] 존중; [동] 존중하다
+respect:[명] 존중, [동] 존중하다
 explore:[동] 탐험하다
 recycle:[동] 재활용하다
 disappoint:[동] 실망시키다
@@ -360,7 +360,7 @@ manage:[동] 관리하다; [동] (겨우) 해내다
 express:[동] 표현하다
 attract:[동] 끌어당기다
 complete:[동] 완성하다; [형] 완료된
-escape:[동] 탈출하다; [명] 탈출
+escape:[동] 탈출하다, [명] 탈출
 contain:[동] 포함하다, 담고 있다
 represent:[동] 나타내다; [동] 대표하다
 inform:[동] 알리다
@@ -374,9 +374,9 @@ organize:[동] 조직하다; [동] 정리하다
 overcome:[동] 극복하다
 motivate:[동] 동기를 부여하다
 reflect:[동] 반사하다; [동] 반영하다
-contact:[동] 연락하다; [명] 접촉, 연락
+contact:[명] 접촉, 연락; [동] 연락하다
 benefit:[명] 이득, 혜택; [동] 이익을 얻다
-progress:[동] 진전하다, 발전하다; [명] 진전, 발전
+progress:[명] 진전, 발전; [동] 진전하다, 발전하다
 effort:[명] 노력
 habit:[명] 습관
 reason:[명] 이유; [동] 추론하다, 사고하다
@@ -410,7 +410,7 @@ adventure:[명] 모험
 resource:[명] 자원
 control:[명] 통제, 조절; [동] 통제하다, 조절하다
 project:[명] 프로젝트; [동] 투사하다, 투영하다
-stress:[명] 스트레스; [명] 강조; [동] 강조하다
+stress:[명] 스트레스; [명] 강조, [동] 강조하다
 problem:[명] 문제
 health:[명] 건강
 chance:[명] 기회, 가능성
@@ -579,7 +579,7 @@ among:[전] ~사이에
 edge:[명] 가장자리, 모서리, 날; [명] 강점, 장점
 distance:[명] 거리
 opposite:[형] 반대편의
-vehicle:[명] 탈것
+vehicle:[명] 탈것, 차량
 route:[명] 경로
 track:[명] 길, 선로; [동] 추척하다
 avenue:[명] 대로
@@ -635,7 +635,7 @@ soul:[명] 영혼
 faith:[명] 믿음
 miracle:[명] 기적
 temple:[명] 신전, 사원
-examine:[동] 조사하다
+examine:[동] 조사하다, 검사하다
 experiment:[명] 실험; [동] 실험하다
 
 

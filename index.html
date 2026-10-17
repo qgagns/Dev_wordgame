@@ -122,8 +122,44 @@
             }
         }
 
-        .parchment-inner::-webkit-scrollbar { width: 4px; }
-        .parchment-inner::-webkit-scrollbar-thumb { background: #c2a679; border-radius: 4px; }
+        /* ========================================================
+           📜 [글로벌] 상시 노출 황동 양피지 스크롤바 시스템
+           ======================================================== */
+        /* 1. 파이어폭스 표준 대응 */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #9a5b2d rgba(143, 96, 58, 0.18);
+        }
+
+        /* 2. 크롬, 사파리, 모바일 웹킷 상시 노출 스크롤 규격 */
+        ::-webkit-scrollbar {
+            width: 6px;  /* 세로 스크롤바 폭 */
+            height: 6px; /* 가로 스크롤바 높이 */
+            display: block !important; /* 모바일 숨김 방어 */
+        }
+
+        /* 스크롤바 바닥: 양피지에 깊게 파인 음각 레일 홈 */
+        ::-webkit-scrollbar-track {
+            background: rgba(143, 96, 58, 0.15);
+            border-radius: 6px;
+            box-shadow: inset 0 0 3px rgba(44, 26, 14, 0.3);
+            margin: 4px 0;
+        }
+
+        /* 스크롤바 손잡이: 고대 황동 버클 & 가죽 질감의 묵직한 바 */
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #b45309 0%, #78350f 100%);
+            border-radius: 6px;
+            border: 1px solid rgba(254, 243, 199, 0.4);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        /* 손잡이에 손을 대거나 터치할 때: 밝은 황금빛 점등 */
+        ::-webkit-scrollbar-thumb:hover,
+        ::-webkit-scrollbar-thumb:active {
+            background: linear-gradient(180deg, #d97706 0%, #92400e 100%);
+            border-color: #fde047;
+        }
 
         /* 🖥️ 오직 PC 모니터나 가로가 넓은 화면(태블릿)에서만 예쁜 창모드 적용 */
         @media (min-width: 768px) {
@@ -853,7 +889,7 @@
             line-height: 1.55; 
             word-break: keep-all; 
             margin: 0 0 8px 0; 
-            font-weight: 700; }
+            font-weight: 800; }
         .ending-stat-pill { 
             background: #fde68a; 
             border: 1px solid #f59e0b; 
@@ -869,6 +905,28 @@
             width: 100%; text-align: center;
             flex-shrink: 0;
         }
+
+        /* 🌹 대각성 모달 전용 로즈 크림 카드 */
+        .ending-card-box.card-awakening {
+            background: linear-gradient(180deg, #fffafa 0%, #fee2e2 100%) !important;
+            border: 2.5px solid #ef4444 !important; /* 👈 일러스트 액자와 동일한 레드 테두리 */
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.25) !important;
+        }
+        .card-awakening .ending-badge-top { color: #b91c1c; }
+        .card-awakening .ending-title     { color: #7f1d1d; }
+        .card-awakening .ending-divider   { color: #ef4444; }
+        .card-awakening .ending-desc      { color: #450a0a; font-weight: 800; }
+
+        /* 🌅 마왕 토벌 여명 전용 골드 크림 카드 */
+        .ending-card-box.card-dawn {
+            background: linear-gradient(180deg, #fffdf5 0%, #fef3c7 100%) !important;
+            border: 2.5px solid #f59e0b !important; /* 👈 일러스트 액자와 동일한 골드 테두리 */
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25) !important;
+        }
+        .card-dawn .ending-badge-top { color: #b45309; }
+        .card-dawn .ending-title     { color: #78350f; }
+        .card-dawn .ending-divider   { color: #f59e0b; }
+        .card-dawn .ending-desc      { color: #451a03; font-weight: 800; }
 
 
         /* ========================================================
@@ -969,6 +1027,39 @@
         /* 5) 🌊 [파랑] 톤다운 사파이어 (정령의 성소 / 정화와 치유) */
         .skin-blue::after { background-color: #1e40af !important; }
         .skin-blue { filter: drop-shadow(0 3px 5px rgba(0,0,0,0.6)) drop-shadow(0 0 5px rgba(30, 64, 175, 0.8)) !important; }
+
+        /* 🔔 [성소 두루마리 우상단] 초슬림 미니 알약 래퍼 */
+        .shrine-top-badge-wrap {
+            position: absolute;
+            top: -7px;
+            right: 14px;
+            z-index: 10;
+            display: flex;
+            gap: 4px;
+            pointer-events: none;
+        }
+        .shrine-mini-pill {
+            font-size: 11px;
+            font-weight: 900;
+            padding: 2.5px 6px;
+            border-radius: 10px;
+            line-height: 1;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+            -webkit-font-smoothing: antialiased;
+        }
+        /* 🌊 구출 알약 (파란색) */
+        .shrine-mini-pill.pill-blue {
+            background: #1e40af;
+            color: #eff6ff;
+            border: 1.5px solid #93c5fd;
+        }
+        /* 🍊 상담 알약 (주황색) */
+        .shrine-mini-pill.pill-orange {
+            background: #c2410c;
+            color: #fff7ed;
+            border: 1.5px solid #fdba74;
+        }
 
         /* ========================================================
            🗺️ 대륙 지도 2단 탭 전용 두루마리 마스킹 (images/scroll_btn.webp)
@@ -1355,10 +1446,10 @@
            🎬 마왕전 시네마틱 대화창 (양피지 액자 완전 제외 & 블랙 복원)
            ======================================================== */
         #bossDialogueModal {
-            background: #000000 !important; /* 🌟 양피지 날리고 100% 칠흑 복원 */
-            border: none !important;        /* 🌟 양피지 테두리 완전 제거 */
+            background: #000000 !important; 
+            border: none !important;        
             border-image: none !important;
-            padding: 12px !important;       /* 원본 여백 복구 */
+            padding: 12px !important;       
             border-radius: 18px !important;
         }
 
@@ -2259,6 +2350,39 @@
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
+
+        /* ⏩ 피드백창 다음/스킵 버튼 선명화 */
+        .fb-action-btn {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-weight: 900;
+            border-radius: 12px;
+            border: 2px solid #1a0a04;
+            cursor: pointer;
+            transition: all 0.12s ease;
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+            letter-spacing: -0.3px;
+        }
+        /* 1) 평상시 (수동 진행 또는 오답 확인): 묵직한 다크 우드 */
+        .fb-action-btn.btn-normal {
+            background: linear-gradient(180deg, #5c3a21 0%, #3d2314 100%);
+            border-color: #2c1a0e;
+        }
+        /* 2) 자동 타이머 진행 중 (즉시 스킵 가능): 선명한 에메랄드 그린 */
+        .fb-action-btn.btn-skip {
+            background: linear-gradient(180deg, #15803d 0%, #166534 100%);
+            border-color: #14532d;
+            box-shadow: 0 3px 10px rgba(21, 128, 61, 0.4);
+        }
+        /* 3) 오답 확인: 차분하고 선명한 버건디 레드 */
+        .fb-action-btn.btn-wrong {
+            background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 100%);
+            border-color: #450a0a;
+            box-shadow: 0 3px 10px rgba(185, 28, 28, 0.35);
+        }
         /* 🌟 콤보 엠블럼 스탬프 탄성 팝업 애니메이션 */
         @keyframes comboBadgePunch {
             0% { transform: scale(0.3); opacity: 0; }
@@ -2782,6 +2906,11 @@
                                 <span class="scroll-main-title">🛋️ 정령의 성소</span>
                                 <span class="scroll-sub-desc">안개 속 구출 · 치유 · 교감</span>
                             </div>
+                            <!-- 🔔 두루마리 우상단 모서리 알약 2종 -->
+                            <div class="shrine-top-badge-wrap">
+                                <span id="pillMistNotice" class="shrine-mini-pill pill-blue" style="display:none;">🚨 0</span>
+                                <span id="pillCounselNotice" class="shrine-mini-pill pill-orange" style="display:none;">🍂 0</span>
+                            </div>
                         </button>
 
                         <!-- ⑤ [🔥 차원의 틈새] ➔ 최종전 팝오버 -->
@@ -3199,20 +3328,21 @@
                 <div style="font-size:11px; color:#d97706;">❖ 탐험 전 반드시 숙지하도록! ❖</div>
             </div>
 
-            <!-- 📜 정령술사 5대 실전 지침서 (완전판) -->
+            <!-- 📜 정령술사 실전 지침서 (완전판) -->
             <div style="display:flex; flex-direction:column; gap:5px; margin:4px 0; max-height:68vh; overflow-y:auto; padding-right:2px;">
                 
-                <!-- 1. 기본 계약 -->
+                <!-- 기본 계약 -->
                 <div style="background:#ffffff; border:1.5px solid #d8c7a6; border-left:4px solid #d97706; border-radius:8px; padding:10px 9px;">
-                    <div style="font-size:13px; font-weight:900; color:#b45309;">🌟 1. 정령 조우 & 세 번의 교감</div>
+                    <div style="font-size:13px; font-weight:900; color:#b45309;">🌟 정령 조우 & 세 번의 교감</div>
                     <div style="font-size:12px; color:#451a03; line-height:1.4; margin-top:6px; font-weight:600;">
-                        각 정령의 이름이나 그 진짜 뜻을 맞혀 <b>3회</b> 교감을 하게 되면 <b>영원의 계약</b>이 체결된다. 계약을 맺은 정령들은 수호전과 마왕전에서 너의 부름에 응해 힘이 되어줄 거야,
+                        • 각 정령의 이름이나 그 진짜 뜻을 맞혀 <b>3회</b> 교감을 하게 되면 <b>영원의 계약</b>이 체결된다. 계약을 맺은 정령들은 수호전과 마왕전에서 너의 부름에 응해 힘이 되어줄 거야.<br>
+                        • <b>[다의어 정령]</b>: 이름의 뜻이 여러 개인 정령들은 3단계에서 <b>숨겨진 모든 뜻을 전부 쓸어담아야</b> 비로소 계약이 체결된다. 하나라도 빼먹지 마라!
                     </div>
                 </div>
 
-                <!-- 2. 초광속 반응 보너스 -->
+                <!-- 초광속 반응 보너스 -->
                 <div style="background:#ffffff; border:1.5px solid #d8c7a6; border-left:4px solid #701a75; border-radius:8px; padding:10px 9px;">
-                    <div style="font-size:13px; font-weight:900; color:#701a75;">⚡ 2. 빠른 반응 보너스</div>
+                    <div style="font-size:13px; font-weight:900; color:#701a75;">⚡ 빠른 반응 보너스</div>
                     <div style="font-size:12px; color:#451a03; line-height:1.4; margin-top:6px; font-weight:600;">
                         정답을 빠른 시간 내에 고르면 소요 시간에 따라 다음과 같은 효과가 발동해:<br>
                         • <b>[찰나의 공명]</b>: 1.5초 컷. <b>즉시 영원의 계약(3점) 직행 + 3일간 망각의 안개 침식 방어!</b><br>
@@ -3220,35 +3350,16 @@
                     </div>
                 </div>
 
-                <!-- 3. 망각의 안개 & 안개 속 구출전 (반복 학습) -->
-                <div style="background:#ffffff; border:1.5px solid #d8c7a6; border-left:4px solid #dc2626; border-radius:8px; padding:10px 9px;">
-                    <div style="font-size:13px; font-weight:900; color:#dc2626;">🛡️ 3. 망각의 안개와 정령 구출, 그리고 진명의 각인</div>
-                    <div style="font-size:12px; color:#451a03; line-height:1.4; margin-top:6px; font-weight:600;">
-                        이미 계약한 든든한 아군 정령도 일정 시간 방치되면 망각의 안개에 침식돼.<br>
-                        • <b>[🚨 안개 속 구출]</b> 작전으로 구출해내면 침식 방어일이 <b>3일 ➔ 7일</b>로 연장된다.<br>
-                        • 마지막 구출을 해내면 마침내 서로의 영혼에 이름을 새기는 <b>진명의 각인</b>이 이루어져.<br>
-                        • 안개 속 구출은 마왕 토벌 전에는 하루 5문제, 토벌 이후에는 20문제가 적립돼. 하지만, 네가 원한다면 계속 구출할 수도 있다!
+                <!-- 숨겨진 비경 (동의어 & 불규칙) -->
+                <div style="background:#ffffff; border:1.5px solid #d8c7a6; border-left:4px solid #2563eb; border-radius:8px; padding:9px 9px;">
+                     <div style="font-size:13px; font-weight:900; color:#1d4ed8;">🌀 숨겨진 비경 (특수 마력 영지)</div>
+                     <div style="font-size:12px; color:#451a03; line-height:1.45; margin-top:5px; font-weight:600;">
+                         대륙 지도에서 들어갈 수 있는 마력이 뒤틀린 특수 영지들이다:<br>
+                         • <b>[불규칙 영지]</b>: <b>알파벳 룬 타일을 직접 조립</b>해 해당 정령의 올바른 변화형을 맞혀야 한다. 한 글자라도 틀리면 그 정령과는 계약할 수 없어.<br>
+                         • <b>[동의어 영지]</b>: 3단계에서 대표 단어의 <b>모든 형제 동의어 정령을 쓸어담아</b> 최종 단계인 <b>🔗 얽힌 운명</b>을 맺어야 하는 비경이다.
                     </div>
                 </div>
 
-                <!-- 4. 서운해하는 정령 집중 상담 (오답 정리) -->
-                <div style="background:#ffffff; border:1.5px solid #d8c7a6; border-left:4px solid #c2410c; border-radius:8px; padding:10px 9px;">
-                    <div style="font-size:13px; font-weight:900; color:#c2410c;">🛋️ 4. 정령 성소</div>
-                    <div style="font-size:12px; color:#451a03; line-height:1.4; margin-top:6px; font-weight:600;">
-                        • 누적 2회 이상 틀린 정령은 서운함을 품고 <b>정령 성소</b>로 들어가서 널 기다려. 시간제한 없는 <b>1차(영➔한) 통과 ➔ 3시간 뒤 2차(한➔영) 최종 통과</b>를 모두 완수해야 오해가 완전히 풀릴 거야. 애초에 들리질 마. <br>
-                        • 마찬가지로, 안개 속 구출 작전에서 한번에 구해내지 못한 정령들도 상처를 입고 성소로 오게 돼.
-                    </div>
-                </div>
-
-                <!-- 5. PC 단축키 지원 -->
-                <div style="background:#ffffff; border:1.5px solid #d8c7a6; border-left:4px solid #16a34a; border-radius:8px; padding:10px 9px;">
-                    <div style="font-size:13px; font-weight:900; color:#16a34a;">⌨️ 5. PC 단축키 지원</div>
-                    <div style="font-size:12px; color:#451a03; line-height:1.4; margin-top:6px; font-weight:600;">
-                        키보드를 이용하면 퀴즈 광속 진행이 가능해! 리듬 게임 같을 걸?<br>
-                        • <b>[1~4번]</b> 키로 보기 선택<br>
-                        • <b>[스페이스바 / 엔터]</b>로 다음 
-                    </div>
-                </div>
             </div> 
 
             <!-- 🌟 1. 카드 목록 래퍼 닫기 -->
@@ -3664,7 +3775,7 @@
             </div>
 
             <!-- 6. 다음 버튼 -->
-            <button id="fbNextBtn" class="btn-wood" style="padding:11px; font-size:13.5px; width:100%;" onclick="nextQuestion()">다음 정령 찾기 ➔</button>
+            <button id="fbNextBtn" class="fb-action-btn btn-normal" onclick="nextQuestion()">다음 정령 찾기 ➔</button>
         </div>
     </div>
 
@@ -3802,16 +3913,16 @@
     </div>
 
     <!-- 🌟 전 대륙 제패 & 마왕 결전 각성 팝업 -->
-    <div id="greatAwakeningModal" class="modal" style="background:#1f0910; border-color:#ef4444; color:#fff;">
+    <div id="greatAwakeningModal" class="modal">
         <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; width:100%;">
-            <div class="art-box" style="margin-bottom:8px; border-color:#10b981; height:240px; box-shadow:0 0 20px rgba(16, 185, 129, 0.45); border-radius:14px; overflow:hidden;">
+            <div class="art-box" style="margin-bottom:8px; border:2.5px solid #ef4444; height:240px; box-shadow:0 0 20px rgba(239, 68, 68, 0.35); border-radius:14px; overflow:hidden;">
                 <img src="images/clear_guardian.webp" style="width:100%; height:100%; object-fit:cover; display:block;" alt="수호령 정화 완료">
             </div>
-            <div class="ending-card-box" style="background:#3b0717; border-color:#ef4444;">
-                <span class="ending-badge-top" style="color:#f87171;">THE FINAL SEAL SHATTERED</span>
-                <h2 class="ending-title" style="color:#fee2e2; font-size:20px;">대륙의 모든 정령 해방!</h2>
-                <div class="ending-divider" style="color:#ef4444;">✦ ✦ ✦</div>
-                <div class="ending-desc" style="color:#fecdd3;">
+            <div class="ending-card-box card-awakening">
+                <span class="ending-badge-top">THE FINAL SEAL SHATTERED</span>
+                <h2 class="ending-title" style="font-size:20px;">대륙의 모든 정령 해방!</h2>
+                <div class="ending-divider">✦ ✦ ✦</div>
+                <div class="ending-desc" style="margin-bottom: 20px;">
                     전 대륙 모든 영지의 수호령들이 마침내 정화되었다!<br>
                     여기까지 해내다니... 널 다시 봐야겠는데?<br><br>
                     하지만, 이 정도로는 집으로 돌아갈 수 없어.<br><br>
@@ -3819,7 +3930,7 @@
                     최후의 결전을 위해 강림할테니까!<br><br>
                     이제... 진짜 결전이다!
                 </div>
-                <div class="ending-stat-pill" style="background:#7f1d1d; border-color:#ef4444; color:#fee2e2;">
+                <div class="ending-stat-pill" style="background:#fee2e2; border-color:#ef4444; color:#991b1b; font-weight:900;">
                     👑 전설의 계급: [정령왕의 벗] 각성 완료
                 </div>
             </div>
@@ -3828,7 +3939,7 @@
             <button class="btn-wood theme-ruby" style="margin-bottom:6px;" onclick="goToBossFromAwakening()">
             ⚔️ 마왕 『EXAM』 즉시 토벌하러 가기! ➔
             </button>
-            <button class="btn-sub-wood" style="background:#27141b; color:#fca5a5; border-color:#831843;" onclick="closeAwakeningToTitle()">
+            <button class="btn-sub-wood" onclick="closeAwakeningToTitle()">
                 🗺️ 대륙 지도로 이동해 준비하기
             </button>
         </div>
@@ -3837,26 +3948,27 @@
     <!-- 마왕 격파 진엔딩 모달  -->
 
 <!-- 🌅 1단계: 마왕 토벌 시네마틱 컷씬 모달 -->
-    <div id="bossCinematicModal" class="modal" style="background:#0f050b; border:3px solid #f59e0b; padding:12px;">
+    <div id="bossCinematicModal" class="modal">
         <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; width:100%;">
             
             <!-- 🌟 황금빛 여명 & 4대 수호령 알현 일러스트 -->
-            <div class="art-box" style="border-color:#f59e0b; height:150px; margin-bottom:8px; box-shadow:0 0 20px rgba(245, 158, 11, 0.4);">
+            <div class="art-box" style="border:2.5px solid #f59e0b; height:150px; margin-bottom:8px; box-shadow:0 0 20px rgba(245, 158, 11, 0.35); border-radius:14px; overflow:hidden;">
                 <img src="images/ending_dawn.webp" style="width:100%; height:100%; object-fit:cover; display:block;" alt="여명 시네마틱">
             </div>
 
             <!-- 시네마틱 서사 카드 -->
-            <div class="ending-card-box" style="background:#2a1205; border-color:#f59e0b; padding:12px 10px; margin-bottom:6px;">
-                <span class="ending-badge-top" style="color:#fbbf24; letter-spacing:2.5px;">✦ THE DAWN OF VICTORY ✦</span>
-                <h2 class="ending-title" style="color:#fef08a; font-size:20px; margin:7px 0 10px 0;">마왕 『EXAM』 패퇴!<br>
-                    <span style="font-size:14px; color:#f97316; margin: 10px 0 0 0;">대륙에 찬란한 지혜의 여명이 밝아온다.</span>
+            <div class="ending-card-box card-dawn" style="padding:12px 10px; margin-bottom:6px;">
+                <span class="ending-badge-top" style="letter-spacing:2.5px;">✦ THE DAWN OF VICTORY ✦</span>
+                <h2 class="ending-title" style="font-size:20px; margin:7px 0 10px 0;">마왕 『EXAM』 패퇴!<br>
+                    <span style="font-size:14px; color:#c2410c; margin:10px 0 0 0;">대륙에 찬란한 지혜의 여명이 밝아온다.</span>
                 </h2>
-                <div class="ending-divider" style="color:#f59e0b; margin: 0 0 10px 0;">❖ ❖ ❖</div>
-                <div class="ending-desc" style="color:#fde68a; font-size:13px; line-height:1.6; margin-bottom:6px;">
+                <div class="ending-divider" style="margin:0 0 10px 0;">❖ ❖ ❖</div>
+                <div class="ending-desc" style="font-size:13px; line-height:1.6; margin-bottom:6px;">
                     세상을 망각에 빠뜨리고 널 이렇게까지 고생시켰던 마왕<br>
                     『EXAM』의 가혹한 시련이 산산조각 났어.<br><br>
-                    본래의 이름을 되찾은 수많은 정령들이... 널 영웅이라고 칭송하는군.<br>
-                    그래, 솔직히 이 정도면 인정해 줘야지.<br><br>
+                    본래의 이름을 되찾은 수많은 정령들이... <br>
+                    널 영웅이라>고 칭송하는군.<br><br>
+                    그래, 솔직히 이 정도면 인정해 줘야지.<br>
                     널... <b>입시 히어로</b>, <b>『정령의 구원자 👑』</b>라고 말이야!<br><br>
                     그럼, 성역의 사람들이 준비한 훈장을 받으러 가볼까?
                 </div>
@@ -3869,12 +3981,11 @@
         </button>
     </div>
 
-
-    <div id="bossVictoryModal" class="modal" style="background:#1c0e07; border:3px solid #d97706; padding:10px;">
+    <div id="bossVictoryModal" class="modal">
         <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; width:100%;">
             
             <!-- 캡처 타깃 프레임 (스마트폰 한 화면에 꽉 차는 황금 양피지) -->
-            <div id="certFrame" style="background:#fffdf7; border:4px double #b45309; border-radius:12px; padding:14px 12px; width:100%; text-align:center; box-shadow:0 0 20px rgba(245, 158, 11, 0.4); position:relative;">
+            <div id="certFrame" style="background:#fffdf7; border:3px solid #b45309; outline:1.5px solid #d97706; outline-offset:-5px; border-radius:10px; padding:14px 12px; width:100%; max-width:100%; box-sizing:border-box; text-align:center; box-shadow:inset 0 0 10px rgba(180,83,9,0.08), 0 4px 15px rgba(0,0,0,0.15); position:relative; overflow:hidden;">
                 
                 <!-- 상단 황금 엠블럼 -->
                 <div style="font-size:12px; font-weight:900; color:#b45309; letter-spacing:2px; margin-bottom:10px;">✦ Medal of Honor ✦</div>
@@ -3916,16 +4027,16 @@
             </div>
 
             <!-- 이름 입력창 -->
-            <div style="margin-top:8px; width:100%; display:flex; gap:6px;">
+            <div style="margin-top:8px; width:100%; max-width:100%; box-sizing:border-box; display:flex; gap:6px;">
                 <input id="userNameInput" type="text" placeholder="본인 이름/닉네임 입력" maxlength="8" 
-                       style="flex:1; padding:8px 10px; border-radius:8px; border:1px solid #d97706; font-size:15px; font-weight:800; text-align:center;">
-                <button class="top-btn" style="background:#b45309; padding:8px 14px; font-size:13px; font-weight:800; white-space:nowrap; flex-shrink:0;" onclick="applyCertName()">이름 새기기</button>
+                       style="flex:1; min-width:0; box-sizing:border-box; padding:8px 10px; border-radius:8px; border:1.5px solid #d97706; font-size:14px; font-weight:800; text-align:center;">
+                <button class="top-btn" style="background:#b45309; border-color:#78350f; padding:8px 12px; font-size:13px; font-weight:900; white-space:nowrap; flex-shrink:0; box-sizing:border-box;" onclick="applyCertName()">이름 새기기</button>
             </div>
         </div>
 
         <!-- 하단 액션 버튼 -->
         <div style="margin-top:8px;">
-            <button class="btn-wood" style="padding:12px; font-size:14px; background:#b45309;" onclick="backToTitleFromBossVictory()">
+            <button class="btn-wood" style="padding:12px; font-size:14px; background:linear-gradient(180deg, #b45309 0%, #78350f 100%); border:2px solid #5c2b09; box-shadow:0 3px 8px rgba(0,0,0,0.4);" onclick="backToTitleFromBossVictory()">
                 🏆 당당히 대륙 지도로 복귀
             </button>
         </div>
@@ -4865,16 +4976,11 @@
         const maps = [];
         let currentMap = null;
 
-        let lastNetSetWords = null; // VS 직전 동의어 세트 임시 보관
-        let pendingVS = false;       // VS 대치 상태 플래그
-
         lines.forEach(line => {
             line = line.trim();
             if (!line) return;
 
             if (line.startsWith('[') && line.includes(']')) {
-                lastNetSetWords = null;
-                pendingVS = false;
                 let rawHeader = line.substring(1, line.indexOf(']')).trim();
                 let mapId = "";
                 let mapName = rawHeader;
@@ -4913,11 +5019,9 @@
             }
 
             if (currentMap) {
-                // 🌟 [net_ 영지 전용] <=> 반의어 대치 라인 단독 감지
-                if (line === '<=>') {
-                    pendingVS = true;
-                    return;
-                }
+
+                // 🌐 [동의어 영지] <=> 기호는 건너뛰고, 쉼표 묶음 전체를 1개의 영단어로 취급
+                if (line.includes('<=>')) return;
 
                 let eng = "", kor = "";
                 if (line.includes(':')) {
@@ -4932,48 +5036,14 @@
                 if (eng && kor) {
                     // 🌟 영지 ID에 'irreg'가 들어간 전용 맵에서만 형상변환 정령으로 정식 파싱!
                     const isIrregMap = currentMap.id && currentMap.id.toLowerCase().includes('irreg');
-                    // 🌟 영지 ID에 'net'이 들어간 전용 맵 감지!
-                    const isNetMap = currentMap.id && currentMap.id.toLowerCase().includes('net');
+                    const isNetMap = currentMap.id && currentMap.id.toLowerCase().includes('net_');
                     const parenMatch = eng.match(/(.*?)\s*\(([^)]+)\)\s*$/);
 
                     // 🌟 [다의어 감지] 뜻에 세미콜론(;)이 있으면 다의어로 분리 보관!
                     const isPoly = kor.includes(';');
                     const meanings = isPoly ? kor.split(';').map(s => s.trim()).filter(Boolean) : [];
 
-                    if (isNetMap) {
-                        // 콤마(,)로 나열된 동의어들을 각각 낱개 영단어로 분해
-                        const rawSynonyms = eng.split(',').map(s => s.trim()).filter(Boolean);
-                        const currentBatch = [];
-
-                        rawSynonyms.forEach(singleEng => {
-                            const wordItem = {
-                                eng: singleEng,
-                                kor: kor,
-                                isNet: true,
-                                synonyms: rawSynonyms.filter(s => s !== singleEng), // 나를 제외한 동의어들
-                                allSynonyms: rawSynonyms,                         // 전체 동의어 그룹
-                                antonyms: []                                      // 반의어 군집 (아래에서 매칭)
-                            };
-                            currentMap.words.push(wordItem);
-                            currentBatch.push(wordItem);
-                        });
-
-                        // 만약 직전에 VS가 있었다면 서로를 '반의어(antonyms)'로 양방향 연결!
-                        if (pendingVS && lastNetSetWords && lastNetSetWords.length > 0) {
-                            const prevEngs = lastNetSetWords.map(w => w.eng);
-                            const currEngs = currentBatch.map(w => w.eng);
-
-                            lastNetSetWords.forEach(w => { w.antonyms = currEngs; });
-                            currentBatch.forEach(w => { w.antonyms = prevEngs; });
-
-                            pendingVS = false;
-                            lastNetSetWords = null;
-                        } else {
-                            lastNetSetWords = currentBatch;
-                            pendingVS = false;
-                        }
-
-                    } else if (isIrregMap && parenMatch) {
+                    if (isIrregMap && parenMatch) {
                         const baseWord = parenMatch[1].trim();
                         const mutations = parenMatch[2].split(',').map(s => s.trim()).filter(Boolean);
                         currentMap.words.push({
@@ -4984,6 +5054,13 @@
                             mutations: mutations,
                             isPoly: isPoly,
                             meanings: meanings
+                        });
+                    } else if (isNetMap) {
+                        // 🌐 동의어 영지는 쉼표 포함 문자열 전체가 단어 1개!
+                        currentMap.words.push({
+                            eng: eng,
+                            kor: kor,
+                            isSynonymNet: true
                         });
                     } else {
                         currentMap.words.push({ 
@@ -5115,6 +5192,15 @@
         try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
     }
 
+    // ⏰ [한국 시간 기준 매일 밤 자정(00:00) 칼같이 리셋되는 날짜 문자열]
+    function getTodayKSTString() {
+        const d = new Date();
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
     function isMapBossDefeated(mapId) {
         return safeStorageGet(`spirit_boss_cleared_${mapId}`, false);
     }
@@ -5148,6 +5234,8 @@
         let allMapsConquered = true;
 
         worldMaps.forEach(map => {
+            const idLower = (map.id || "").toLowerCase();
+            const isSpecialMap = idLower.includes('net_') || idLower.includes('irreg'); // 비경 판별
             totalWords += map.words.length;
             const savedMastery = (map.id === currentMapId && typeof wordMastery !== 'undefined')
                 ? wordMastery
@@ -5159,9 +5247,12 @@
             });
             totalContracted += mapContracted;
 
-            const bossDefeated = isMapBossDefeated(map.id);
-            if (mapContracted < map.words.length || !bossDefeated) {
-                allMapsConquered = false;
+            // 🛑 [마왕전 오픈 판정] 비경은 건너뛰고, 오직 '일반 스토리 영지'만 검사!
+            if (!isSpecialMap) {
+                const bossDefeated = isMapBossDefeated(map.id);
+                if (mapContracted < map.words.length || !bossDefeated) {
+                    allMapsConquered = false;
+                }
             }
         });
         return { totalWords, totalContracted, allMapsConquered };
@@ -5588,6 +5679,21 @@ const recTime = document.getElementById("recFastestTime");
     }
 
     function getMasteryInfo(count, engKey = null) {
+        // 🌐 [동의어 영지 net_ 전용 4대 교감도]
+        if (typeof currentMapId !== 'undefined' && currentMapId && currentMapId.includes('net_')) {
+            if (!count || count === 0) return { stage: 0, text: "🌿 야생", bg: "#f1f5f9", color: "#64748b" };
+            if (count === 1) return { stage: 1, text: "🐾 서먹", bg: "#fef3c7", color: "#b45309" };
+            if (count === 2) return { stage: 2, text: "🤝 맞잡음", bg: "#dcfce7", color: "#15803d" };
+            return { 
+                stage: 3, 
+                text: "🔗 운명", 
+                bg: "linear-gradient(135deg, #0284c7, #1e3a8a)", 
+                color: "#ffffff", 
+                border: "#93c5fd",
+                shadow: "0 1px 4px rgba(2, 132, 199, 0.4)"
+            };
+        }
+
         if (!count || count === 0) return { stage: 0, text: "🌿 0/3", bg: "#f1f5f9", color: "#64748b" };
         if (count === 1) return { stage: 1, text: "🐾 1/3", bg: "#fef3c7", color: "#b45309" };
         if (count === 2) return { stage: 2, text: "🍃 2/3", bg: "#dcfce7", color: "#15803d" };
@@ -6071,6 +6177,8 @@ const recTime = document.getElementById("recFastestTime");
             openMistRescueBriefing(); // 안개 구출
         } else if (currentSmartMode === 'boss') {
             startFinalBossRaid(); // 마왕 결전
+        } else if (currentSmartMode === 'counsel') {
+            openShrineHub(); // 🌟 성소 허브 모달 직행!
         } else {
             openMapLobby(currentMapId); // 현재 추천 영지 로비로 직행
         }
@@ -6121,7 +6229,7 @@ const recTime = document.getElementById("recFastestTime");
         const decayedWords = (typeof getDecayedWords === 'function') ? getDecayedWords() : [];
         const counselTargets = (typeof getCounselingTargets === 'function') ? getCounselingTargets() : [];
         const isBossDefeated = (typeof isFinalExamDefeated === 'function') ? isFinalExamDefeated() : false;
-        const todayStr = new Date().toISOString().slice(0, 10);
+        const todayStr = getTodayKSTString(); // 🌟 자정 리셋 적용
         const hasDoneTodayForProgression = (typeof lastEmergencyClearedDate !== 'undefined' && lastEmergencyClearedDate === todayStr);
         const isBossReady = (typeof allMapsConquered !== 'undefined' ? allMapsConquered : false) && (decayedWords.length === 0 || hasDoneTodayForProgression);
         const activeMap = (worldMaps && worldMaps.find(m => m.id === currentMapId)) || (worldMaps && worldMaps[0]) || { name: "성역", id: "map_fallback", words: [] };
@@ -6185,23 +6293,35 @@ const recTime = document.getElementById("recFastestTime");
 
             const curMap = (worldMaps && worldMaps.find(m => m.id === currentMapId)) || (worldMaps && worldMaps[0]) || { name: "성역", id: "map_fallback", words: [] };
 
-            // [A. 침식 발생 시] ➔ 보라색
+            // ========================================================
+            // 🎯 스마트 버튼 4단계 엄격한 우선순위 전환 체계
+            // 1순위: 구출 > 2순위: 초회마왕 > 3순위: 상담 > 4순위: 일반
+            // ========================================================
+            // [1순위: 안개 침식 발생 & 오늘치 미완료 시만 발동!]
             if (curDecayed.length > 0 && !isTodayCleared) {
                 currentSmartMode = 'emergency';
-                smartBtn.className = "big-scroll-btn smart-hero-scroll skin-purple";
+                smartBtn.className = "big-scroll-btn smart-hero-scroll skin-blue";
                 if (smartTagRow) smartTagRow.innerText = "🚨 망각의 안개 경보!";
                 smartMainText.innerText = "안개 속 정령 구출 ➔";
                 if (smartProgressText) smartProgressText.innerText = `침식 위험: ${curDecayed.length}마리 대기`;
             }
-            // [B. 마왕 결전 가능 시] ➔ 붉은색
-            else if (bossReady) {
+            // [2순위: 초회 마왕전 (다회차 토벌자는 스마트버튼 점유 X)] ➔ 마왕 결전 모드
+            else if (bossReady && !bossDefeated) {
                 currentSmartMode = 'boss';
                 smartBtn.className = "big-scroll-btn smart-hero-scroll skin-red";
                 if (smartTagRow) smartTagRow.innerText = "👑 최종 결전의 순간!";
-                smartMainText.innerText = bossDefeated ? "마왕 EXAM 재결전 ➔" : "마왕 EXAM 결전 ➔";
+                smartMainText.innerText = "마왕 EXAM 결전 ➔";
                 if (smartProgressText) smartProgressText.innerText = "대륙 모든 정령 결속 완료 (100%)";
             }
-            // [C. 평상시 스토리 탐험] ➔ 초록색 & 실제 구역 진행도 즉시 계산
+            // [3순위: 성소 상담 대기 정령 발생 시] ➔ 성소 케어 모드
+            else if (counselTargets.length > 0) {
+                currentSmartMode = 'counsel';
+                smartBtn.className = "big-scroll-btn smart-hero-scroll skin-orange";
+                if (smartTagRow) smartTagRow.innerText = "🍂 마음의 상처 치유!";
+                smartMainText.innerText = "정령 성소 심층 상담 ➔";
+                if (smartProgressText) smartProgressText.innerText = `상담 대기: ${counselTargets.length}마리 케어 필요`;
+            }
+            // [4순위: 평상시 추천 원정 (모험 이어하기)] ➔ 황금 앰버
             else {
                 currentSmartMode = 'resume';
                 smartBtn.className = "big-scroll-btn smart-hero-scroll skin-amber";
@@ -6258,6 +6378,26 @@ const recTime = document.getElementById("recFastestTime");
         if (bossBadge) {
             bossBadge.innerText = isBossReady ? (isBossDefeated ? "재대결 👑" : "결전 ⚔️") : "봉인 🔒";
             bossBadge.style.background = isBossReady ? "#dc2626" : "#64748b";
+        }
+
+        // 🌟 [성소 버튼 옆 알약 2종 동기화]
+        const mistPill = document.getElementById("pillMistNotice");
+        if (mistPill) {
+            if (decayedWords.length > 0) {
+                mistPill.innerText = `🚨 ${decayedWords.length}`;
+                mistPill.style.display = "inline-block";
+            } else {
+                mistPill.style.display = "none";
+            }
+        }
+        const counselPill = document.getElementById("pillCounselNotice");
+        if (counselPill) {
+            if (counselTargets.length > 0) {
+                counselPill.innerText = `🍂 ${counselTargets.length}`;
+                counselPill.style.display = "inline-block";
+            } else {
+                counselPill.style.display = "none";
+            }
         }
 
         // 6. [팝오버 1: 성역 탐험] 실제 4대 스토리 영지 목록 채우기
@@ -7028,6 +7168,23 @@ const recTime = document.getElementById("recFastestTime");
                     correctText = w.kor;
                     targetKorMeaning = w.kor;
                 }
+
+            } else if (w.isSynonymNet) {
+                // 🌐 [동의어 3단계 분기] 1·2단계는 문자열 그대로 E2K/K2E, 3단계만 쓸어담기!
+                if (currentMastery === 0) {
+                    type = "E2K"; // 1단계: "increase, expand..." ➔ 한글 뜻 고르기
+                    promptText = w.eng;
+                    correctText = w.kor;
+                } else if (currentMastery === 1) {
+                    type = "K2E"; // 2단계: 한글 뜻 ➔ "increase, expand..." 묶음 고르기
+                    promptText = w.kor;
+                    correctText = w.eng;
+                } else {
+                    type = "SYNONYM_SWEEP"; // 3단계: 맨 왼쪽 단어 ➔ 나머지 단어 쓸어담기
+                    promptText = w.eng.split(',')[0].trim();
+                    correctText = w.kor;
+                }
+
             } else {
                 promptText = (type === "E2K") ? w.eng : w.kor;
                 correctText = (type === "E2K") ? w.kor : w.eng;
@@ -7038,6 +7195,7 @@ const recTime = document.getElementById("recFastestTime");
                 id: qId,
                 wordKey: w.eng,
                 engWord: w.eng,
+                fullEng: w.eng,
                 korMeaning: targetKorMeaning,
                 fullKor: w.kor,
                 type: type,
@@ -7056,6 +7214,80 @@ const recTime = document.getElementById("recFastestTime");
 
         roundQuestions.sort(() => Math.random() - 0.5);
         loadQuestion();
+    }
+
+    // 🌐 [3단계] 맨 왼쪽 단어 제시 ➔ 오른쪽 동의어들 쓸어담기
+    function renderSynonymSweepQuestion(q) {
+        questionStartTime = Date.now();
+        document.getElementById("wordDisplay").innerText = q.prompt;
+        speakWord(q.prompt);
+
+        const mTag = document.getElementById("masteryTag");
+        if (mTag) {
+            mTag.innerText = `⚡ [동의어 결속] "${q.prompt}"의 모든 짝꿍을 골라라!`;
+            mTag.style.background = "#0284c7";
+            mTag.style.color = "#ffffff";
+        }
+
+        const streakBadge = document.getElementById("comboStreakBadge");
+        if (streakBadge) {
+            streakBadge.style.display = streakCount >= 2 ? "block" : "none";
+            streakBadge.innerText = `🔥${streakCount} COMBO!🔥`;
+        }
+
+        // 1. 찾아야 할 정답: 맨 왼쪽 단어를 제외한 나머지 동의어들
+        const allParts = q.fullEng.split(',').map(s => s.trim()).filter(Boolean);
+        const targetSynonyms = allParts.slice(1);
+        let remainingCorrect = [...targetSynonyms];
+
+        // 2. 오답 함정: 같은 영지의 다른 줄에서 낱개 단어 2~3개 추출
+        const distractorPool = [];
+        rawWords.forEach(w => {
+            if (w.eng !== q.fullEng) {
+                w.eng.split(',').forEach(s => {
+                    const word = s.trim();
+                    if (word && !allParts.includes(word)) distractorPool.push(word);
+                });
+            }
+        });
+        const traps = [...new Set(distractorPool)].sort(() => Math.random() - 0.5).slice(0, 3);
+
+        // 3. 선지 버튼 생성 (다의어와 동일한 두루마리 버튼)
+        const allTiles = [...targetSynonyms, ...traps].sort(() => Math.random() - 0.5);
+        const choicesGrid = document.getElementById("choicesGrid");
+        choicesGrid.innerHTML = `<div class="poly-sweep-container" id="synSweepContainer"></div>`;
+        const container = document.getElementById("synSweepContainer");
+
+        allTiles.forEach(tileText => {
+            const btn = document.createElement("button");
+            btn.className = "choice-btn";
+            btn.innerHTML = `<span>${tileText}</span>`;
+
+            btn.onclick = () => {
+                if (remainingCorrect.includes(tileText)) {
+                    Sound.click();
+                    btn.classList.add("correct");
+                    btn.innerHTML = `<span>${tileText} ✓</span>`;
+                    remainingCorrect = remainingCorrect.filter(t => t !== tileText);
+
+                    if (mTag) {
+                        mTag.innerText = remainingCorrect.length > 0 
+                            ? `⚡ [동의어 결속] 남은 동의어: ${remainingCorrect.length}개!` 
+                            : `✨ 모든 동의어 결속 완료!`;
+                    }
+
+                    if (remainingCorrect.length === 0) {
+                        Sound.resonance();
+                        setTimeout(() => { selectAnswer(q.correct, q); }, 250);
+                    }
+                } else {
+                    Sound.wrong();
+                    btn.classList.add("wrong");
+                    setTimeout(() => { selectAnswer("WRONG_SYN_CHOICE", q); }, 400);
+                }
+            };
+            container.appendChild(btn);
+        });
     }
 
     // 🎭 [NEW] 다의어 모든 뜻 쓸어담기(3단계 계약 관문) 렌더러 & 채점기
@@ -7183,11 +7415,18 @@ const recTime = document.getElementById("recFastestTime");
         const mTag = document.getElementById("masteryTag");
 
         // 5대 교감 체계에 맞춘 텍스트 출력
-        if (mInfo.stage === 4) mTag.innerText = "진명의 각인 ⚜️";
-        else if (mInfo.stage === 3) mTag.innerText = "영원의 계약 🔗";
-        else if (mInfo.stage === 2) mTag.innerText = "따스한 유대 🍃";
-        else if (mInfo.stage === 1) mTag.innerText = "서먹한 대면 🐾";
-        else mTag.innerText = "야생의 정령 🌿";
+        if (currentMapId && currentMapId.includes('net_')) {
+            if (mInfo.stage >= 3) mTag.innerText = "얽힌 운명 🔗";
+            else if (mInfo.stage === 2) mTag.innerText = "맞잡은 손 🤝";
+            else if (mInfo.stage === 1) mTag.innerText = "서먹한 사이 🐾";
+            else mTag.innerText = "야생의 정령 🌿";
+        } else {
+            if (mInfo.stage === 4) mTag.innerText = "진명의 각인 ⚜️";
+            else if (mInfo.stage === 3) mTag.innerText = "영원의 계약 🔗";
+            else if (mInfo.stage === 2) mTag.innerText = "따스한 유대 🍃";
+            else if (mInfo.stage === 1) mTag.innerText = "서먹한 대면 🐾";
+            else mTag.innerText = "야생의 정령 🌿";
+        }
 
         // 그라데이션 및 선명한 입체 스타일 적용
         mTag.style.background = mInfo.bg;
@@ -7227,6 +7466,10 @@ const recTime = document.getElementById("recFastestTime");
 
         if (q && q.type === "POLY_SWEEP") {
             renderPolySweepQuestion(q);
+            return;
+        }
+        if (q && q.type === "SYNONYM_SWEEP") {
+            renderSynonymSweepQuestion(q);
             return;
         }
         
@@ -7384,10 +7627,10 @@ const recTime = document.getElementById("recFastestTime");
                 if (q && q.isMorph && q.isMorphComplete) {
                     newCount = 3;
                 // 🌟 다의어는 숨은 뜻을 모두 경험해야 하므로 한방 계약(3점 점프) 스킵 방지!
-                } else if (isInstantResonance && !q.isPoly) {
+                } else if (isInstantResonance && !q.isPoly && !currentMapId.includes('net_')) {
                     newCount = 3;
                     hist.hadInstant = true;
-                } else if (isQuickTuning && !q.isPoly) {
+                } else if (isQuickTuning && !q.isPoly && !currentMapId.includes('net_')) {
                     newCount = Math.min(3, currentCountBefore + 2);
                     hist.hadQuick = true;
                 } else {
@@ -7539,10 +7782,17 @@ const recTime = document.getElementById("recFastestTime");
             // [경우 4: 영원의 계약 체결 ➔ 황금빛 뱃지]
             } else if (currentCountBefore < 3 && newCount === 3) {
                 Sound.fanfare();
-                fbTitle.className = "fb-hero-badge fb-theme-contract";
-                fbTitle.innerText = `🌟영원의 계약 체결! (${elapsedSec}초)`;
-                fbResonanceNotice.style.display = "block";
-                fbResonanceNotice.innerHTML = "정령의 진명을 깨우쳤다!";
+                if (currentMapId && currentMapId.includes('net_')) {
+                    fbTitle.className = "fb-hero-badge fb-theme-tuning";
+                    fbTitle.innerText = `🔗 얽힌 운명 결속! (${elapsedSec}초)`;
+                    fbResonanceNotice.style.display = "block";
+                    fbResonanceNotice.innerHTML = "동의어 정령들과 영혼의 끈으로 얽혔다!";
+                } else {
+                    fbTitle.className = "fb-hero-badge fb-theme-contract";
+                    fbTitle.innerText = `🌟영원의 계약 체결! (${elapsedSec}초)`;
+                    fbResonanceNotice.style.display = "block";
+                    fbResonanceNotice.innerHTML = "정령의 진명을 깨우쳤다!";
+                } 
 
             // [경우 5: 기민한 조율 ➔ 에메랄드 뱃지]
             } else if (isQuickTuning) {
@@ -7602,12 +7852,8 @@ const recTime = document.getElementById("recFastestTime");
                 }, duration * 1000);
             
             if (fbNextBtn) {
-                fbNextBtn.innerText = "탭하여 즉시 스킵 ⏩";
-                fbNextBtn.style.padding = "8px";
-                fbNextBtn.style.fontSize = "12px";
-                fbNextBtn.style.background = "#ede3cc";
-                // fbNextBtn.style.color = "#785a3e";
-                fbNextBtn.style.borderColor = "#c9b48c";
+                fbNextBtn.className = "fb-action-btn btn-skip";
+                fbNextBtn.innerText = "탭하여 즉시 다음으로 ⏩"
             }
             } else {
                 if (fbTimerWrap) fbTimerWrap.style.display = "none";
@@ -7616,12 +7862,8 @@ const recTime = document.getElementById("recFastestTime");
                     feedbackAutoTimer = null;
                 }
                 if (fbNextBtn) {
-                    fbNextBtn.innerText = "다음 정령 찾기 ➔";
-                    fbNextBtn.style.padding = "10px";
-                    fbNextBtn.style.fontSize = "13px";
-                    fbNextBtn.style.background = "#5c3a21";
-                    fbNextBtn.style.color = "#f7edd4";
-                    fbNextBtn.style.borderColor = "#3d2314";
+                    fbNextBtn.className = "fb-action-btn btn-skip";
+                    fbNextBtn.innerText = "다음 정령 찾기 ➔"
                 }
             }
 
@@ -7682,12 +7924,8 @@ const recTime = document.getElementById("recFastestTime");
             if (fbTimerWrap) fbTimerWrap.style.display = "none";
 
             if (fbNextBtn) {
+                fbNextBtn.className = "fb-action-btn btn-wrong";
                 fbNextBtn.innerText = "오답 확인 후 다음으로 ➔";
-                fbNextBtn.style.padding = "11px";
-                fbNextBtn.style.fontSize = "13.5px";
-                fbNextBtn.style.background = "#5c3a21";
-                fbNextBtn.style.color = "#f7edd4";
-                fbNextBtn.style.borderColor = "#3d2314";
             }
 
             if (!wrongPool.some(item => item.id === q.id)) {
@@ -8271,6 +8509,13 @@ const recTime = document.getElementById("recFastestTime");
         playerMaxShields = isReExam ? pHeartRepeat : 3;
         playerShields = playerMaxShields;
         bossTimeLimit = isReExam ? timeRepeat : time1;
+
+        // 🛑 [비경 보스전 전용 타이머] 룬 조립/쓸어담기 호흡을 위해 9.0초 부여
+        const idLower = (activeMap.id || "").toLowerCase();
+        if (idLower.includes('irreg') || idLower.includes('net_')) {
+            bossTimeLimit = isReExam ? 8.0 : 9.5;
+        }
+
         isPhase2Enraged = false;
         hasUsedLastStand = true;  // 수호령전은 부활 없음
         isLastStandMode = false;
@@ -8504,7 +8749,11 @@ const recTime = document.getElementById("recFastestTime");
     function getAllUniverseWords() {
         const pool = [];
         worldMaps.forEach(map => {
+            const mapIdLower = (map.id || "").toLowerCase();
+            // 🛑 [마왕전 제외] 동의어(net_) 및 불규칙(irreg) 비경 영지 차단
+            if (mapIdLower.includes('net_') || mapIdLower.includes('irreg')) return;
             map.words.forEach(w => {
+                if (w.isMorph) return; // 2중 방어
                 if (!pool.some(item => item.eng === w.eng)) pool.push(w);
             });
         });
@@ -8641,14 +8890,28 @@ const recTime = document.getElementById("recFastestTime");
         const targetWord = bossWordPool.shift(); // 👈 뽑고 덱에서 삭제!
         const isE2K = Math.random() < 0.5;
 
-        // 보기 풀(4지선다 오답용)은 전체 단어에서 추출
-        const allUniverse = getAllUniverseWords();
+        // 🌐 [비경 보스전 특수 기믹 분기]
+        const curMap = worldMaps.find(m => m.id === currentMapId);
+        const mapIdLower = (curMap && curMap.id || "").toLowerCase();
+        if (bossMode === "mid") {
+            if (mapIdLower.includes('irreg')) {
+                renderBossMorphQuestion(targetWord);
+                return;
+            }
+            if (mapIdLower.includes('net_')) {
+                renderBossSynonymQuestion(targetWord);
+                return;
+            }
+        }
+
+        // 🛑 [영지 격리] 수호령전은 해당 영지 단어만, 마왕/특훈은 전 대륙 단어에서 선지 추출
+        const sourcePool = (bossMode === "mid" && curMap) ? curMap.words : getAllUniverseWords();
 
         currentBossQuestion = {
             type: isE2K ? "E2K" : "K2E",
             prompt: isE2K ? targetWord.eng : targetWord.kor,
             correct: isE2K ? targetWord.kor : targetWord.eng,
-            pool: isE2K ? allUniverse.map(w => w.kor) : allUniverse.map(w => w.eng),
+            pool: isE2K ? sourcePool.map(w => w.kor) : sourcePool.map(w => w.eng),
             engWord: targetWord.eng
         };
 
@@ -8659,18 +8922,32 @@ const recTime = document.getElementById("recFastestTime");
 
         // 🌟 보스전 스마트 품사 매칭 엔진
         let wrongChoices = [];
-        const korTarget = (currentBossQuestion.type === "E2K") ? currentBossQuestion.correct : currentBossQuestion.prompt;
-        const posMatch = korTarget ? korTarget.match(/\[.*?\]/) : null; 
+
+        const korTarget = (currentBossQuestion.type === "E2K")
+            ? currentBossQuestion.correct
+            : currentBossQuestion.prompt;
+
+        const posMatch = korTarget ? korTarget.match(/\[.*?\]/) : null;
         const targetPos = posMatch ? posMatch[0] : null;
 
         if (targetPos) {
             const allValidWrongPool = [];
-            worldMaps.forEach(m => {
+
+            // 수호령전일 때는 현재 영지만, 마왕전일 때는 전 대륙 영지 순회
+            const targetMaps = (bossMode === "mid" && curMap)
+                ? [curMap]
+                : worldMaps;
+
+            targetMaps.forEach(m => {
                 const mapIdLower = (m.id || "").toLowerCase();
+
                 if (!mapIdLower.includes("irreg") && !mapIdLower.includes("net")) {
                     m.words.forEach(w => {
                         if (w.kor && w.kor.includes(targetPos)) {
-                            const candidate = currentBossQuestion.type === "E2K" ? w.kor : w.eng;
+                            const candidate = currentBossQuestion.type === "E2K"
+                                ? w.kor
+                                : w.eng;
+
                             if (candidate !== currentBossQuestion.correct) {
                                 allValidWrongPool.push(candidate);
                             }
@@ -8678,14 +8955,25 @@ const recTime = document.getElementById("recFastestTime");
                     });
                 }
             });
+
             if (allValidWrongPool.length >= 3) {
-                wrongChoices = allValidWrongPool.sort(() => Math.random() - 0.5).slice(0, 3);
+                wrongChoices = allValidWrongPool
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3);
             }
         }
+
         if (wrongChoices.length < 3) {
-            wrongChoices = currentBossQuestion.pool.filter(item => item !== currentBossQuestion.correct && !wrongChoices.includes(item))
-                                 .sort(() => Math.random() - 0.5)
-                                 .slice(0, 3 - wrongChoices.length);
+            wrongChoices = [
+                ...wrongChoices,
+                ...currentBossQuestion.pool
+                    .filter(item =>
+                        item !== currentBossQuestion.correct &&
+                        !wrongChoices.includes(item)
+                    )
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3 - wrongChoices.length)
+            ];
         }
         const choices = [...wrongChoices, currentBossQuestion.correct].sort(() => Math.random() - 0.5);
 
@@ -8731,6 +9019,168 @@ const recTime = document.getElementById("recFastestTime");
         startBossTimer();
     }
 
+    // 🌀 [불규칙 보스전] 변형 형태 중 1개 랜덤 룬 조립
+    function renderBossMorphQuestion(targetWord) {
+        startBossTimer();
+        const mutations = targetWord.mutations || [];
+        const targetForm = mutations[Math.floor(Math.random() * mutations.length)].toLowerCase().trim();
+
+        // 라벨 결정 (과거형, 과거분사형 등)
+        const meaningText = targetWord.kor || "";
+        let formLabel = "과거형";
+        if (meaningText.match(/\[명\]|\[명사\]/)) formLabel = "복수형";
+        else if (meaningText.match(/\[형\]|\[부\]/)) formLabel = (targetForm === mutations[0]) ? "비교급" : "최상급";
+        else formLabel = (targetForm === mutations[0]) ? "과거형" : "과거분사형";
+
+        document.getElementById("bossQuestionTag").innerText = `⚡ [${formLabel}] 룬을 조립하라!`;
+        document.getElementById("bossWordDisplay").innerText = targetWord.eng;
+        speakWord(targetWord.eng);
+
+        // 알파벳 룬 타일 구성
+        const letters = targetForm.split('');
+        const trapPool = ['a', 'e', 'i', 'o', 'u', 'd', 't', 'n', 's', 'r'];
+        letters.push(trapPool[Math.floor(Math.random() * trapPool.length)]);
+        letters.push(trapPool[Math.floor(Math.random() * trapPool.length)]);
+        letters.sort(() => Math.random() - 0.5);
+
+        let assembled = [];
+        const grid = document.getElementById("bossChoicesGrid");
+        grid.style.opacity = "1";
+        grid.innerHTML = `
+            <div class="morph-box-wrapper">
+                <div id="bossMorphSlot" class="morph-slot-display empty" onclick="bossMorphBack()">터치하여 룬 조립...</div>
+                <div id="bossMorphRack" class="morph-tile-rack"></div>
+                <div class="morph-control-bar">
+                    <button class="morph-btn-clear" onclick="bossMorphBack()">⌫ 지우기</button>
+                    <button class="morph-btn-submit" onclick="bossMorphSubmit()">⚡ 주문 시전! (완성) ➔</button>
+                 </div>
+                </div>
+            </div>
+        `;
+
+        const rack = document.getElementById("bossMorphRack");
+        letters.forEach(char => {
+            const btn = document.createElement("button");
+            btn.className = "morph-tile-btn";
+            btn.innerText = char;
+            btn.onclick = () => {
+                Sound.click();
+                assembled.push({ char, btn });
+                btn.classList.add("used");
+                updateBossMorphSlot();
+            };
+            rack.appendChild(btn);
+        });
+
+        function updateBossMorphSlot() {
+            const slot = document.getElementById("bossMorphSlot");
+            const str = assembled.map(x => x.char).join('');
+            if (str.length > 0) { slot.className = "morph-slot-display"; slot.innerText = str; }
+            else { slot.className = "morph-slot-display empty"; slot.innerText = "터치하여 룬 조립..."; }
+        }
+
+        window.bossMorphBack = () => {
+            if (assembled.length === 0) return;
+            Sound.click();
+            const last = assembled.pop();
+            if (last && last.btn) last.btn.classList.remove("used");
+            updateBossMorphSlot();
+        };
+
+        window.bossMorphSubmit = () => {
+            if (isBossChecking) return;
+            const str = assembled.map(x => x.char).join('').toLowerCase();
+            if (str === targetForm) {
+                // 🌟 조립 성공! ➔ 보스 HP -1
+                isBossChecking = true;
+                clearInterval(bossTimerInterval);
+                Sound.hit(bossHp <= 2);
+                bossHp--;
+                triggerBossHitEffect(bossHp <= 2);
+                updateBossUI();
+                setTimeout(() => { isBossChecking = false; loadNextBossQuestion(); }, 700);
+            } else {
+                // ❌ 조립 실패 ➔ 플레이어 피격
+                isBossChecking = true;
+                clearInterval(bossTimerInterval);
+                Sound.damage();
+                playerShields--;
+                triggerPlayerDamageEffect();
+                updateBossUI();
+                setTimeout(() => { isBossChecking = false; loadNextBossQuestion(); }, 800);
+            }
+        };
+    }
+
+    // 🌐 [동의어 보스전] 3단계 쓸어담기로 보스 공격
+    function renderBossSynonymQuestion(targetWord) {
+        startBossTimer();
+        const allParts = targetWord.eng.split(',').map(s => s.trim()).filter(Boolean);
+        const promptWord = allParts[0];
+        const targetSynonyms = allParts.slice(1);
+        let remaining = [...targetSynonyms];
+
+        document.getElementById("bossQuestionTag").innerText = `⚡ [동의어 결속] "${promptWord}"의 모든 짝꿍을 쓸어담아라!`;
+        document.getElementById("bossWordDisplay").innerText = promptWord;
+        speakWord(promptWord);
+
+        // 함정 수집
+        const distractorPool = [];
+        bossWordPool.forEach(w => {
+            if (w.eng !== targetWord.eng) {
+                w.eng.split(',').forEach(s => {
+                    const wSingle = s.trim();
+                    if (wSingle && !allParts.includes(wSingle)) distractorPool.push(wSingle);
+                });
+            }
+        });
+        const traps = [...new Set(distractorPool)].sort(() => Math.random() - 0.5).slice(0, 2);
+        const allTiles = [...targetSynonyms, ...traps].sort(() => Math.random() - 0.5);
+
+        const grid = document.getElementById("bossChoicesGrid");
+        grid.style.opacity = "1";
+        grid.innerHTML = `<div class="poly-sweep-container" id="bossSynContainer" style="gap:6px;"></div>`;
+        const container = document.getElementById("bossSynContainer");
+
+        allTiles.forEach(tileText => {
+            const btn = document.createElement("button");
+            btn.className = "choice-btn";
+            btn.style.minHeight = "44px";
+            btn.innerHTML = `<span>${tileText}</span>`;
+
+            btn.onclick = () => {
+                if (isBossChecking) return;
+                if (remaining.includes(tileText)) {
+                    Sound.click();
+                    btn.classList.add("correct");
+                    btn.innerHTML = `<span>${tileText} ✓</span>`;
+                    remaining = remaining.filter(t => t !== tileText);
+
+                    // 🌟 모든 동의어 쓸어담기 성공 ➔ 보스 HP -1!
+                    if (remaining.length === 0) {
+                        isBossChecking = true;
+                        clearInterval(bossTimerInterval);
+                        Sound.hit(bossHp <= 2);
+                        bossHp--;
+                        triggerBossHitEffect(bossHp <= 2);
+                        updateBossUI();
+                        setTimeout(() => { isBossChecking = false; loadNextBossQuestion(); }, 700);
+                    }
+                } else {
+                    // ❌ 함정 선택 ➔ 플레이어 피격!
+                    isBossChecking = true;
+                    clearInterval(bossTimerInterval);
+                    btn.classList.add("wrong");
+                    Sound.damage();
+                    playerShields--;
+                    triggerPlayerDamageEffect();
+                    updateBossUI();
+                    setTimeout(() => { isBossChecking = false; loadNextBossQuestion(); }, 800);
+                }
+            };
+            container.appendChild(btn);
+        });
+    }
 
 // 보스 타이머 함수
     function startBossTimer() {
