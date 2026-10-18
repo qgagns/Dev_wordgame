@@ -1803,19 +1803,19 @@
 
         .question-box {
             position: relative;
-            flex: 1;
+            flex: 1 0 auto; /* 중간의 거대한 빈 공간 독점 해제 */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 52px;
-            margin: 0;
+            min-height: 68px;
+            margin: 6px 0 8px 0;
             padding-top: 0px; /* 알약이 얹힐 최소한의 상단 안전 여백만 확보 */
         }
 
         .tags-wrapper { 
             position: absolute;
-            top: 15px;
+            top: 5px;
             left: 50%;
             transform: translateX(-50%);
             display: flex; 
@@ -1828,7 +1828,7 @@
         }
 
         .tag { 
-            font-size: 15px; 
+            font-size: 14px; 
             font-weight: 700; 
             padding: 2px 7px; 
             border-radius: 8px; 
@@ -1855,10 +1855,9 @@
             display: flex;
             flex-direction: column;
             gap: 8px; 
-            max-height: 52%; 
-            height: 43%;
+            min-height: 220px;
             flex-shrink: 0; 
-            margin-top: auto; /* 하단으로 완벽 밀착 */
+            margin-top: auto; /* 하단을 기준으로 위쪽 빈 공간으로 쑥 올라옴 */
         }
 
         .choices-grid .choice-btn {
@@ -2105,10 +2104,10 @@
             flex-direction: column;
             gap: 8px;
             width: 100%;
-            height: 100%;
+            height: auto;
             box-sizing: border-box;
-            overflow-y: auto;
-            padding: 2px 4px;
+            overflow: visible;
+            padding: 0;
         }
 
         /* 다의어 선지가 5~6개일 때 두루마리 모양이 찌그러지지 않도록 최소 높이 확보 */
@@ -7693,6 +7692,9 @@ const recTime = document.getElementById("recFastestTime");
             fbResonanceNotice.style.display = "none";
             fbMeaning.className = "fb-meaning";
 
+            // 💖 [교감실 판별] 진도 반영 없는 자율 훈련 모드인가?
+            const isFavPractice = (isCounselingMode && !q.isCounsel);
+
             // -------------------------------------------------------------
             // 🛋️ [경우 0: 정령 성소 문제일 때 (복구 완료!)]
             // -------------------------------------------------------------
@@ -7767,6 +7769,26 @@ const recTime = document.getElementById("recFastestTime");
                     const targetMapMastery = safeStorageGet(`spirit_mastery_${q.mapId}`, {});
                     targetMapMastery[key] = 3;
                     safeStorageSet(`spirit_mastery_${q.mapId}`, targetMapMastery);
+                }
+            
+            // [경우 2-1: 💖 교감실 자율 훈련 전용 피드백]
+            } else if (isFavPractice) {
+                fbResonanceNotice.style.display = "block";
+                if (isInstantResonance) {
+                    Sound.resonance();
+                    fbTitle.className = "fb-hero-badge fb-theme-resonance";
+                    fbTitle.innerText = `⚡ 찰나의 교감! (${elapsedSec}초)`;
+                    fbResonanceNotice.innerHTML = `빛의 속도로 마음이 통했다!<br>정령이 너에게 깊은 호감을 느끼고 있어.`;
+                } else if (isQuickTuning) {
+                    Sound.correct(streakCount);
+                    fbTitle.className = "fb-hero-badge fb-theme-tuning";
+                    fbTitle.innerText = `✨ 기민한 호흡! (${elapsedSec}초)`;
+                    fbResonanceNotice.innerHTML = `정령과의 호흡이 척척 맞는다!<br>실전에서도 이 감각을 잊지 마라.`;
+                } else {
+                    Sound.correct(streakCount);
+                    fbTitle.className = "fb-hero-badge fb-theme-counsel";
+                    fbTitle.innerText = `💖 따스한 교감! (${elapsedSec}초)`;
+                    fbResonanceNotice.innerHTML = `정령과 즐거운 시간을 보냈다.<br>실전에서 만나면 꼭 이름을 불러줘!`;
                 }
 
             // [경우 2: 이미 계약된 단어 ➔ 호박빛 뱃지]
