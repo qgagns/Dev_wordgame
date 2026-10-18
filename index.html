@@ -1353,17 +1353,6 @@
             background: rgba(255, 255, 255, 0.85) !important;
         }
 
-        /* 4. 퀴즈 4지선다 버튼 질감 */
-        .choice-btn, .poly-tile-btn {
-            background: rgba(253, 250, 242, 0.8) !important;
-            border: 2px solid rgba(143, 96, 58, 0.7) !important;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
-        }
-        .choice-btn:active, .poly-tile-btn:active {
-            background: rgba(220, 200, 170, 0.95) !important;
-            border-color: #8f603a !important;
-        }
-
         /* ========================================================
            🎬 마왕전 시네마틱 대화창 (양피지 액자 완전 제외 & 블랙 복원)
            ======================================================== */
@@ -1812,26 +1801,26 @@
 
         .question-box {
             position: relative;
-            flex: 1 0 auto; /* 중간의 거대한 빈 공간 독점 해제 */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 68px;
-            margin: 6px 0 8px 0;
-            padding-top: 0px; /* 알약이 얹힐 최소한의 상단 안전 여백만 확보 */
+            flex: 1;                 
+            min-height: 130px;        
+            margin: 6px 0;
+            padding: 0;
         }
 
         .tags-wrapper { 
             position: absolute;
-            top: 5px;
+            top: 3px;
             left: 50%;
             transform: translateX(-50%);
             display: flex; 
             justify-content: center; 
             align-items: center; 
             flex-wrap: wrap; 
-            gap: 6px; 
+            gap: 4px; 
             white-space: nowrap;
             z-index: 2;
         }
@@ -1864,51 +1853,59 @@
             display: flex;
             flex-direction: column;
             gap: 8px; 
-            min-height: 220px;
-            flex-shrink: 0; 
-            margin-top: auto; /* 하단을 기준으로 위쪽 빈 공간으로 쑥 올라옴 */
+            width: 100%;
+            margin-top: auto;
+            flex-shrink: 0;
+
+            /* 🌟 평소 화면의 40%를 넉넉하게 점유하다가, 필요 시 최대 60%까지 확장 */
+            min-height: 40%;
+            max-height: 60%;
+            overflow-y: auto;
+            padding: 2px 2px 4px 2px;
+            box-sizing: border-box;
         }
 
         .choices-grid .choice-btn {
-            flex: 1;
-            /* 🌟 기존 네모 박스 & 베이지 단색 배경 완전 초기화 */
-            background: none !important;
-            background-color: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            border-radius: 0 !important;
+            /* 🌟 남는 세로 공간을 균등 분배 (4지선다 기준 개당 약 65~75px의 시원한 높이) */
+            flex: 1 1 0;
+            min-height: 48px; /* 선지가 5~6개로 늘어나도 최소 터치 높이 보장 */
+            
             position: relative;
             z-index: 1;
-
-            /* 🌟 두루마리 B-cut 이미지 본체 적용 */
-            background-image: url('images/scroll_btn_bcut.webp') !important;
-            background-size: 100% 100% !important;
-            background-repeat: no-repeat !important;
-            background-position: center !important;
-
-            /* 글자 스타일 & 양쪽 말린 롤링을 피한 안쪽 패딩 */
-            color: #2c1a0e !important;
-            padding: 8px 26px !important;
-            font-size: 18px !important;
-            font-weight: 900 !important;
-            cursor: pointer;
-            transition: transform 0.12s ease, filter 0.18s ease;
-            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.25));
-
             display: flex;
             justify-content: center;
             align-items: center;
+            box-sizing: border-box;
+
+            /* 두루마리 질감 및 테두리 초기화 */
+            background: transparent url('images/scroll_btn_bcut.webp') no-repeat center;
+            background-size: 100% 100%;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+
+            /* 텍스트 & 여백 */
+            color: #2c1a0e;
+            padding: 8px 24px;
+            font-size: clamp(16px, 4.4vw, 19px);
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.3px;
             word-break: keep-all;
             text-align: center;
+
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: transform 0.1s ease, filter 0.15s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
         }
 
-        /* 호버 및 터치 손맛 */
         .choices-grid .choice-btn:hover {
             transform: translateY(-1.5px);
-            filter: drop-shadow(0 4px 7px rgba(0,0,0,0.35)) brightness(1.05);
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.35)) brightness(1.04);
         }
         .choices-grid .choice-btn:active {
-            transform: scale(0.97);
+            transform: scale(0.98);
         }
 
         /* 🌟 [정답] 두루마리 질감을 100% 살린 에메랄드 네온 발광 오라 */
@@ -6786,7 +6783,7 @@ const recTime = document.getElementById("recFastestTime");
             const hours = String(lastMod.getHours()).padStart(2, '0');
             const minutes = String(lastMod.getMinutes()).padStart(2, '0');
             
-            buildEl.innerText = `v1.3.6 · Update: ${year}.${month}.${day} ${hours}:${minutes}\n© 2025-${new Date().getFullYear()} Jayden. All Rights Reserved`;
+            buildEl.innerText = `v1.3.7 · Update: ${year}.${month}.${day} ${hours}:${minutes}\n© 2025-${new Date().getFullYear()} Jayden. All Rights Reserved`;
         }
 
         // 8. 최종 화면 뷰 전환
@@ -8007,7 +8004,7 @@ const recTime = document.getElementById("recFastestTime");
                     fbComboBadge.style.background = "linear-gradient(180deg, #fff1f2 0%, #fee2e2 100%)";
                     fbComboBadge.style.boxShadow = "0 3px 12px rgba(239, 68, 68, 0.35)";
                     fbComboBadge.style.color = "#ea580c";
-                    fbComboBadge.innerHTML = `⚡<span style="font-size:20px; font-weight:900; color:#dc2626; line-height:1; display:inline-flex; align-items:center; margin:0 4px;">${streakCount}</span>COMBO FEVER!⚡`;
+                    fbComboBadge.innerHTML = `⚡<span style="font-size:20px; font-weight:900; color:#dc2626; line-height:1; display:inline-flex; align-items:center; margin:0 4px;">${streakCount}</span>COMBO!⚡`;
                 } else {
                     fbComboBadge.style.border = "2px solid #f59e0b";
                     fbComboBadge.style.background = "linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%)";
@@ -8020,6 +8017,7 @@ const recTime = document.getElementById("recFastestTime");
             }
 
             // 단일 배너 및 제목 통합 분기
+            fbResonanceNotice.innerHTML = "";
             fbResonanceNotice.style.display = "none";
             fbMeaning.className = "fb-meaning";
 
@@ -8167,11 +8165,7 @@ const recTime = document.getElementById("recFastestTime");
                 Sound.correct(streakCount);
                 fbTitle.className = "fb-hero-badge fb-theme-success";
                 fbTitle.innerText = `✨교감 성공! (${elapsedSec}초)`;
-                fbResonanceNotice.style.display = "block";
-                // 🌟 교감실 훈련일 경우 전용 멘트
-                if (isCounselingMode && !q.isCounsel) {
-                    fbResonanceNotice.innerHTML = `정령과 즐거운 시간을 보냈네. 다음에 탐험하다 만날 땐 꼭 이름을 잘 불러주라고.<br><b style="color:#b45309;">(※ 교감실에서의 모의 퀴즈는 계약 진도에 반영되지 않음)</b>`;
-                }
+                fbResonanceNotice.style.display = "none";
             }
 
             // 3회 계약 체결 시 칭호 및 유예 기간 등록
