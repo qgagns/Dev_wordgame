@@ -1802,26 +1802,33 @@
         }
 
         .question-box {
-            margin-bottom: 35px;
+            position: relative;
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 48px;
+            min-height: 52px;
+            margin: 0;
+            padding-top: 0px; /* 알약이 얹힐 최소한의 상단 안전 여백만 확보 */
         }
 
         .tags-wrapper { 
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex; 
             justify-content: center; 
             align-items: center; 
             flex-wrap: wrap; 
             gap: 6px; 
-            margin-bottom: 7px; 
+            white-space: nowrap;
+            z-index: 2;
         }
 
         .tag { 
-            font-size: 13px; 
+            font-size: 15px; 
             font-weight: 700; 
             padding: 2px 7px; 
             border-radius: 8px; 
@@ -1833,7 +1840,7 @@
         @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
         
         .word {
-            font-size: 26px; 
+            font-size: 28px; 
             font-weight: 900; 
             color: #3b2211; 
             margin: 0;
@@ -1848,8 +1855,8 @@
             display: flex;
             flex-direction: column;
             gap: 8px; 
-            height: 42%; /* 🌟 전체 퀴즈 화면 높이의 40~42%를 강제 할당! */
-            min-height: 240px;
+            max-height: 52%; 
+            height: 43%;
             flex-shrink: 0; 
             margin-top: auto; /* 하단으로 완벽 밀착 */
         }
@@ -1874,7 +1881,7 @@
             /* 글자 스타일 & 양쪽 말린 롤링을 피한 안쪽 패딩 */
             color: #2c1a0e !important;
             padding: 8px 26px !important;
-            font-size: 16.5px !important;
+            font-size: 18px !important;
             font-weight: 900 !important;
             cursor: pointer;
             transition: transform 0.12s ease, filter 0.18s ease;
@@ -7224,7 +7231,7 @@ const recTime = document.getElementById("recFastestTime");
 
         const mTag = document.getElementById("masteryTag");
         if (mTag) {
-            mTag.innerText = `⚡ [동의어 결속] "${q.prompt}"의 모든 짝꿍을 골라라!`;
+            mTag.innerText = `⚡ [동의어] 모든 동의어들을 골라라!`;
             mTag.style.background = "#0284c7";
             mTag.style.color = "#ffffff";
         }
@@ -8521,7 +8528,8 @@ const recTime = document.getElementById("recFastestTime");
         isLastStandMode = false;
         isBossChecking = false;
 
-        bossWordPool = [...activeMap.words];
+        // 🎲 [무작위 셔플] 단어장 순서를 완전히 뒤섞어 랜덤 덱 생성
+        bossWordPool = [...activeMap.words].sort(() => Math.random() - 0.5);
 
         document.getElementById("bossTopStatusBox").className = "boss-top-status midboss-mode";
         document.getElementById("bossHpRow").className = "boss-hp-row midboss-mode";
@@ -8884,8 +8892,10 @@ const recTime = document.getElementById("recFastestTime");
 
         // 3. 먼저 문제와 보기 4개를 완벽하게 세팅!
        if (bossWordPool.length === 0) {
-            // 혹시 단어를 다 썼다면 다시 리필 (안전장치)
-            bossWordPool = getAllUniverseWords().sort(() => Math.random() - 0.5);
+            // 🎲 단어 소진 시 수호령전은 현재 영지 단어를, 마왕전은 전 대륙 단어를 무작위 리필
+            const curMap = worldMaps.find(m => m.id === currentMapId);
+            const refillSource = (bossMode === "mid" && curMap) ? curMap.words : getAllUniverseWords();
+            bossWordPool = [...refillSource].sort(() => Math.random() - 0.5);
         }
         const targetWord = bossWordPool.shift(); // 👈 뽑고 덱에서 삭제!
         const isE2K = Math.random() < 0.5;
@@ -9028,8 +9038,12 @@ const recTime = document.getElementById("recFastestTime");
         // 라벨 결정 (과거형, 과거분사형 등)
         const meaningText = targetWord.kor || "";
         let formLabel = "과거형";
-        if (meaningText.match(/\[명\]|\[명사\]/)) formLabel = "복수형";
-        else if (meaningText.match(/\[형\]|\[부\]/)) formLabel = (targetForm === mutations[0]) ? "비교급" : "최상급";
+        // 대괄호 안의 품사 유연 감지 ([형/부], [명사] 등)
+        if (meaningText.match(/\[[^\]]*명[^\]]*\]/)) {
+            formLabel = "복수형";
+        } else if (meaningText.match(/\[[^\]]*(형|부)[^\]]*\]/)) {
+            formLabel = (targetForm === mutations[0]) ? "비교급" : "최상급";
+        }
         else formLabel = (targetForm === mutations[0]) ? "과거형" : "과거분사형";
 
         document.getElementById("bossQuestionTag").innerText = `⚡ [${formLabel}] 룬을 조립하라!`;
@@ -9120,7 +9134,7 @@ const recTime = document.getElementById("recFastestTime");
         const targetSynonyms = allParts.slice(1);
         let remaining = [...targetSynonyms];
 
-        document.getElementById("bossQuestionTag").innerText = `⚡ [동의어 결속] "${promptWord}"의 모든 짝꿍을 쓸어담아라!`;
+        document.getElementById("bossQuestionTag").innerText = `⚡ [동의어] 모든 동의어들을 쓸어담아라!`;
         document.getElementById("bossWordDisplay").innerText = promptWord;
         speakWord(promptWord);
 
