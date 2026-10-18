@@ -1154,8 +1154,16 @@
             animation: smartGlowAmber 2.2s infinite alternate ease-in-out;
         }
         @keyframes smartGlowAmber {
-            0%   { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6)) drop-shadow(0 0 2px #fde047) drop-shadow(0 0 5px #f59e0b) drop-shadow(0 0 7px #d97706); }
-            100% { filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8)) drop-shadow(0 0 3px #fef08a) drop-shadow(0 0 7px #f59e0b) drop-shadow(0 0 10px #b45309) brightness(1.18); }
+            0%   { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6)) 
+                drop-shadow(0 0 1px #fde047) 
+                drop-shadow(0 0 3px #f59e0b) 
+                drop-shadow(0 0 5px #d97706); }
+            100% { filter: 
+                drop-shadow(0 4px 10px rgba(0,0,0,0.8)) 
+                drop-shadow(0 0 3px #fef08a) 
+                drop-shadow(0 0 5px #f59e0b) 
+                drop-shadow(0 0 8px #b45309) 
+                brightness(1.18); }
         }
 
         /* ② 🚨 안개 침식 경보: 3중첩 선명한 사파이어 블루 */
@@ -1163,12 +1171,15 @@
             animation: smartGlowBlue 1.8s infinite alternate ease-in-out;
         }
         @keyframes smartGlowBlue {
-            0%   { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6)) drop-shadow(0 0 2px #93c5fd) drop-shadow(0 0 5px #3b82f6) drop-shadow(0 0 7px #1d4ed8); }
+            0%   { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6)) 
+                drop-shadow(0 0 1px #93c5fd) 
+                drop-shadow(0 0 3px #3b82f6) 
+                drop-shadow(0 0 5px #1d4ed8); }
             100% { filter: 
                 drop-shadow(0 4px 10px rgba(0,0,0,0.8)) 
                 drop-shadow(0 0 3px #bfdbfe) 
-                drop-shadow(0 0 7px #2563eb) 
-                drop-shadow(0 0 11px #1e40af)
+                drop-shadow(0 0 5px #2563eb) 
+                drop-shadow(0 0 8px #1e40af)
                 brightness(1.22); }
         }
 
@@ -1177,11 +1188,14 @@
             animation: smartGlowRed 1.5s infinite alternate ease-in-out;
         }
         @keyframes smartGlowRed {
-            0%   { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 2px #fca5a5) drop-shadow(0 0 5px #ef4444) drop-shadow(0 0 7px #b91c1c); }
+            0%   { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7)) 
+                drop-shadow(0 0 1px #fca5a5) 
+                drop-shadow(0 0 3px #ef4444) 
+                drop-shadow(0 0 5px #b91c1c); }
             100% { filter: drop-shadow(0 4px 10px rgba(0,0,0,0.9)) 
                 drop-shadow(0 0 3px #fecdd3) 
-                drop-shadow(0 0 7px #dc2626) 
-                drop-shadow(0 0 11px #991b1b)
+                drop-shadow(0 0 5px #dc2626) 
+                drop-shadow(0 0 8px #991b1b)
                 brightness(1.25); }
         }
 
@@ -1190,8 +1204,15 @@
             animation: smartGlowOrange 2.0s infinite alternate ease-in-out;
         }
         @keyframes smartGlowOrange {
-            0%   { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6)) drop-shadow(0 0 2px #fed7aa) drop-shadow(0 0 5px #f97316) drop-shadow(0 0 7px #c2410c); }
-            100% { filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8)) drop-shadow(0 0 3px #ffedd5) drop-shadow(0 0 7px #ea580c) drop-shadow(0 0 10px #9a3412) brightness(1.18); }
+            0%   { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.6)) 
+                drop-shadow(0 0 1px #fed7aa) 
+                drop-shadow(0 0 3px #f97316) 
+                drop-shadow(0 0 5px #c2410c); }
+            100% { filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8)) 
+                drop-shadow(0 0 3px #ffedd5) 
+                drop-shadow(0 0 5px #ea580c) 
+                drop-shadow(0 0 8px #9a3412) 
+                brightness(1.18); }
         }
 
         /* 2. 🌟 [가로 9-Slice] 양쪽 말린 손잡이는 고정하고, 가운데 양피지만 늘리기 */
