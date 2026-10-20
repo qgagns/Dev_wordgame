@@ -162,14 +162,9 @@
         }
 
         /* ========================================================
-           📜 [하단 페이드 마스크] 양피지 질감 보존 & 바닥 카드 자연스러운 페이드아웃
+           📜 [스마트 하단 페이드] 실제로 내용이 넘칠 때만 켜지는 마스크
            ======================================================== */
-        .sector-list-box,
-        .tab-content,
-        #shrineWordlistContainer,
-        #imprintListContainer,
-        #adminStudentListContainer,
-        #adminDetailMapsContainer {
+        .scroll-fade-bottom {
             -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 30px), transparent 100%);
             mask-image: linear-gradient(to bottom, black calc(100% - 30px), transparent 100%);
         }
@@ -11276,6 +11271,56 @@ function handleMidBossVictory() {
             }
         });
     }
+
+    // ========================================================
+    // 📜 [전역 스마트 스크롤 엔진] 모든 모달/화면비 순수 스크롤 박스 일괄 자동 감지
+    // ========================================================
+    function isScrollableElement(el) {
+        if (!el || el.nodeType !== 1) return false;
+        // 최상위 뷰포트나 게임 프레임 자체는 제외
+        if (el.tagName === 'HTML' || el.tagName === 'BODY' || el.classList.contains('game-container') || el.classList.contains('parchment-inner')) return false;
+        const style = window.getComputedStyle(el);
+        return (style.overflowY === 'auto' || style.overflowY === 'scroll');
+    }
+
+    function updateElementScrollFade(el) {
+        if (!el || typeof el.scrollHeight !== 'number') return;
+        // 1. 실제로 눈에 보이는 높이보다 내용물이 넘치는가?
+        const isOverflowing = el.scrollHeight > el.clientHeight + 4;
+        // 2. 손가락으로 맨 밑(바닥 6px 이내)까지 다 내렸는가?
+        const isAtBottom = (el.scrollTop + el.clientHeight) >= (el.scrollHeight - 6);
+
+        // 내용이 넘치고 아직 바닥에 안 닿았을 때만 페이드 가동!
+        if (isOverflowing && !isAtBottom) {
+            el.classList.add('scroll-fade-bottom');
+        } else {
+            el.classList.remove('scroll-fade-bottom');
+        }
+    }
+
+    // 1) 터치/휠 스크롤 시 해당 박스 즉시 실시간 계산 (렉 0% passive)
+    document.addEventListener('scroll', (e) => {
+        const target = e.target;
+        if (isScrollableElement(target)) {
+            updateElementScrollFade(target);
+        }
+    }, { capture: true, passive: true });
+
+    // 2) 어떤 모달이 열리든(클릭/터치/화면크기 변경 시) 현재 열려있는 스크롤 박스를 자동 스캔
+    function autoScanAllVisibleScrolls() {
+        requestAnimationFrame(() => {
+            document.querySelectorAll('*').forEach(el => {
+                // 현재 화면에 실제로 보이고 있는 스크롤 박스만 선별 검사
+                if (el.offsetParent !== null && isScrollableElement(el)) {
+                    updateElementScrollFade(el);
+                }
+            });
+        });
+    }
+
+    window.addEventListener('click', autoScanAllVisibleScrolls, { passive: true });
+    window.addEventListener('touchstart', autoScanAllVisibleScrolls, { passive: true });
+    window.addEventListener('resize', autoScanAllVisibleScrolls, { passive: true });
 
     // 🌟 앱 실행 시 자동 로그인 처리
     window.onload = async function() {
