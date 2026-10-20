@@ -71,6 +71,117 @@ abundant, plentiful, ample, rich : [형] 풍부한, 넉넉한
 scarce, insufficient, deficient, meager : [형] 부족한, 불충분한
 
 
+[spell_1: 수행의 숲]
+#2학기 2차 수행 단어. 철자까지 확인하는 까탈스러운 정령들이다!
+implicit	:	[형] 암시적인
+indigenous	:	[형] 토착의
+indispensable	:	[형] 없어서는 안 되는
+inherent	:	[형] 내재된
+innate	:	[형] 선천적인
+intrinsic	:	[형] 본질적인
+jeopardize	:	[동] 위태롭게 하다
+journal	:	[명] 학술지
+juvenile	:	[형] 청소년의
+kinship	:	[명] 유대
+knowledgeable	:	[형] 지식이 많은
+lament	:	[동] 한탄하다
+landscape	:	[명] 경관
+latent	:	[형] 잠재된
+launch	:	[동] 시작하다
+legacy	:	[명] 유산
+legitimate	:	[형] 정당한
+liable	:	[형] 책임이 있는
+literacy	:	[명] 문해력
+magnitude	:	[명] 규모
+mandatory	:	[형] 의무적인
+manifest	:	[동] 나타나다
+manipulate	:	[동] 조작하다
+massive	:	[형] 대규모의
+mechanism	:	[명] 메커니즘
+metaphor	:	[명] 은유
+migrate	:	[동] 이동하다
+modest	:	[형] 겸손한
+motivate	:	[동] 동기를 부여하다
+narrative	:	[명] 서사
+neglect	:	[동] 소홀히 하다
+neutral	:	[형] 중립적인
+nevertheless	:	[부] 그럼에도 불구하고
+notion	:	[명] 관념
+notorious	:	[형] 악명 높은
+obligation	:	[명] 의무
+obscure	:	[형] 모호한 (o_)
+obstacle	:	[명] 장애물
+omit	:	[동] 생략하다
+opponent	:	[명] 상대
+optimistic	:	[형] 낙관적인
+outbreak	:	[명] 발생
+overlook	:	[동] 간과하다
+participate	:	[동] 참여하다
+perception	:	[명] 인식
+permanent	:	[형] 영구적인
+perspective	:	[명] 관점
+persuade	:	[동] 설득하다
+phenomenon	:	[명] 현상
+pioneer	:	[명] 선구자
+potential	:	[명] 잠재력
+precaution	:	[명] 예방 조치
+precise	:	[형] 정확한
+prejudice	:	[명] 편견
+privilege	:	[명] 특권
+procedure	:	[명] 절차
+prohibit	:	[동] 금지하다
+prominent	:	[형] 저명한
+provoke	:	[동] 유발하다
+qualitative	:	[형] 질적인
+quantify	:	[동] 수치화하다
+quota	:	[명] 할당량
+radical	:	[형] 급진적인
+rational	:	[형] 합리적인
+recipient	:	[명] 수령자
+refine	:	[동] 다듬다
+reform	:	[명] 개혁
+reinforce	:	[동] 강화하다
+relevant	:	[형] 관련된
+reliable	:	[형] 믿을 만한
+reluctant	:	[형] 꺼리는
+remarkable	:	[형] 놀라운
+represent	:	[동] 대표하다
+restrict	:	[동] 제한하다
+reveal	:	[동] 드러내다
+scarce	:	[형] 부족한
+scheme	:	[명] 계획
+scholar	:	[명] 학자
+secondary	:	[형] 부차적인
+significant	:	[형] 중요한
+simultaneous	:	[형] 동시의
+sophisticated	:	[형] 정교한
+specific	:	[형] 구체적인
+speculate	:	[동] 추측하다
+subsequent	:	[형] 그 후의
+substantial	:	[형] 상당한
+subtle	:	[형] 미묘한
+sufficient	:	[형] 충분한
+supervise	:	[동] 감독하다
+technical	:	[형] 기술적인
+temporary	:	[형] 일시적인
+tendency	:	[명] 경향
+tension	:	[명] 긴장
+theoretical	:	[형] 이론상의
+thorough	:	[형] 철저한
+thrive	:	[동] 번성하다
+tolerate	:	[동] 참다
+transition	:	[명] 전환
+typical	:	[형] 전형적인
+undermine	:	[동] 약화시키다
+unique	:	[형] 독특한
+universal	:	[형] 보편적인
+utilize	:	[동] 활용하다
+vague	:	[형] 모호한 (v_)
+venture	:	[명] 모험적인 시도
+
+
+
+
 
 
 
