@@ -7,8 +7,10 @@ const GAME_CONFIG = {
     dbKey: "TEST",      // 학교별 독립 DB 분리 키 (다른 학교와 랭킹/계정이 안 섞임)
 
     // 🎛️ [교사용 마스터 계정] 선생님만 아는 관리자 로그인 아이디/비밀번호
-    adminId: "qlagn",          // 관리자 로그인 아이디 (기본: admin)
-    adminPw: "0112",           // 관리자 비밀번호 (기본: 0000)
+    adminId: "qlagn",          // 관리자 로그인 아이디
+    adminPw: "0112",           // 관리자 비밀번호
+    adminName: "책선생",        // 👈 선생님 성함 지정!
+
 
     // ⚔️ [수호령전 체력 & 시간 & 플레이어 목숨]
     guardianHp1: 5,            // 1회차 수호령 체력 (기본: 5)
@@ -25,6 +27,14 @@ const GAME_CONFIG = {
     bossHpRepeat: 15,          // 2회차 마왕 체력 (기본: 12)
     bossTimeRepeat: 3.0,       // 2회차 마왕 시간 (기본: 4.0초)
     bossPlayerHpRepeat: 2,     // 👈 2회차 마왕전 플레이어 하트 수 (기본: 3개)
+
+    // 🚨 [안개 구출전 일일 쿼터 설정] (일반 단어 계약량에 따라 하루 의무 구출량 배정)
+    rescueQuota: [
+        { reqWords: 400, quota: 20 }, // 일반 단어 400마리 이상: 하루 20마리
+        { reqWords: 240, quota: 15 }, // 일반 단어 240마리 이상: 하루 15마리
+        { reqWords: 120, quota: 10 }, // 일반 단어 120마리 이상: 하루 10마리
+        { reqWords: 0,   quota: 5  }  // 기본(0마리 이상): 하루 5마리
+    ],
 
     // 🔥 [시험 직전 파이널] 하드코어 마왕전 설정
     hardcoreMode: {
@@ -49,7 +59,7 @@ const GAME_CONFIG = {
 // ========================================================
 const WORLD_MAPS_TEXT = `
 
-[net_1: 테스트]
+[net_1: 동의어 테스트용]
 increase, expand, grow, augment : [동] 증가하다, 팽창하다
 <=>
 decrease, shrink, reduce, diminish : [동] 감소하다, 축소하다
@@ -71,7 +81,15 @@ abundant, plentiful, ample, rich : [형] 풍부한, 넉넉한
 scarce, insufficient, deficient, meager : [형] 부족한, 불충분한
 
 
-[spell_1: 수행의 숲]
+[passage_1: 문맥 테스트용]
+# 문맥 속에 숨어버린 정령들의 진짜 이름을 밝혀내라!
+Technology has become an [[indispensable]] part of our modern society. 
+However, excessive reliance on automation can [[undermine]] our independent thinking. 
+Furthermore, it may [[jeopardize]] human creativity unless we establish ethical standards.
+Therefore, young students must maintain a critical attitude toward digital media.
+
+
+[spell_1: 스펠링 테스트용]
 #2학기 2차 수행 단어. 철자까지 확인하는 까탈스러운 정령들이다!
 implicit	:	[형] 암시적인
 indigenous	:	[형] 토착의
@@ -89,100 +107,6 @@ landscape	:	[명] 경관
 latent	:	[형] 잠재된
 launch	:	[동] 시작하다
 legacy	:	[명] 유산
-legitimate	:	[형] 정당한
-liable	:	[형] 책임이 있는
-literacy	:	[명] 문해력
-magnitude	:	[명] 규모
-mandatory	:	[형] 의무적인
-manifest	:	[동] 나타나다
-manipulate	:	[동] 조작하다
-massive	:	[형] 대규모의
-mechanism	:	[명] 메커니즘
-metaphor	:	[명] 은유
-migrate	:	[동] 이동하다
-modest	:	[형] 겸손한
-motivate	:	[동] 동기를 부여하다
-narrative	:	[명] 서사
-neglect	:	[동] 소홀히 하다
-neutral	:	[형] 중립적인
-nevertheless	:	[부] 그럼에도 불구하고
-notion	:	[명] 관념
-notorious	:	[형] 악명 높은
-obligation	:	[명] 의무
-obscure	:	[형] 모호한 (o_)
-obstacle	:	[명] 장애물
-omit	:	[동] 생략하다
-opponent	:	[명] 상대
-optimistic	:	[형] 낙관적인
-outbreak	:	[명] 발생
-overlook	:	[동] 간과하다
-participate	:	[동] 참여하다
-perception	:	[명] 인식
-permanent	:	[형] 영구적인
-perspective	:	[명] 관점
-persuade	:	[동] 설득하다
-phenomenon	:	[명] 현상
-pioneer	:	[명] 선구자
-potential	:	[명] 잠재력
-precaution	:	[명] 예방 조치
-precise	:	[형] 정확한
-prejudice	:	[명] 편견
-privilege	:	[명] 특권
-procedure	:	[명] 절차
-prohibit	:	[동] 금지하다
-prominent	:	[형] 저명한
-provoke	:	[동] 유발하다
-qualitative	:	[형] 질적인
-quantify	:	[동] 수치화하다
-quota	:	[명] 할당량
-radical	:	[형] 급진적인
-rational	:	[형] 합리적인
-recipient	:	[명] 수령자
-refine	:	[동] 다듬다
-reform	:	[명] 개혁
-reinforce	:	[동] 강화하다
-relevant	:	[형] 관련된
-reliable	:	[형] 믿을 만한
-reluctant	:	[형] 꺼리는
-remarkable	:	[형] 놀라운
-represent	:	[동] 대표하다
-restrict	:	[동] 제한하다
-reveal	:	[동] 드러내다
-scarce	:	[형] 부족한
-scheme	:	[명] 계획
-scholar	:	[명] 학자
-secondary	:	[형] 부차적인
-significant	:	[형] 중요한
-simultaneous	:	[형] 동시의
-sophisticated	:	[형] 정교한
-specific	:	[형] 구체적인
-speculate	:	[동] 추측하다
-subsequent	:	[형] 그 후의
-substantial	:	[형] 상당한
-subtle	:	[형] 미묘한
-sufficient	:	[형] 충분한
-supervise	:	[동] 감독하다
-technical	:	[형] 기술적인
-temporary	:	[형] 일시적인
-tendency	:	[명] 경향
-tension	:	[명] 긴장
-theoretical	:	[형] 이론상의
-thorough	:	[형] 철저한
-thrive	:	[동] 번성하다
-tolerate	:	[동] 참다
-transition	:	[명] 전환
-typical	:	[형] 전형적인
-undermine	:	[동] 약화시키다
-unique	:	[형] 독특한
-universal	:	[형] 보편적인
-utilize	:	[동] 활용하다
-vague	:	[형] 모호한 (v_)
-venture	:	[명] 모험적인 시도
-
-
-
-
-
 
 
 [irreg_verbs: 불규칙 동사의 늪]
