@@ -8601,12 +8601,12 @@ const recTime = document.getElementById("recFastestTime");
         const reTrialTitle = isNet ? "반정령 융합 재도전" : `${mapTheme.guardianName} 재대결`;
 
         if (bossDefeated) {
-            // 🌟 JS의 촌스러운 색상 덧칠 삭제
+            // 🌟 토벌 완료 후 재도전: 에메랄드 그린 톤
             guardianBtn.className = "guardian-trial-btn theme-emerald";
             guardianBtn.innerHTML = `⚔️ ${reTrialTitle} ➔`;
         } else if (allSectorsConquered) {
-            // 🌟 촌스러운 형광 초록 덧칠 삭제
-            guardianBtn.className = "guardian-trial-btn theme-emerald";
+            // 🌟 첫 도전 (정복 완료 직후): 황금빛 웜 앰버 톤으로 통일
+            guardianBtn.className = "guardian-trial-btn theme-amber";
             guardianBtn.innerHTML = `⚔️ ${trialTitle} ➔`;
         } else {
             const unlockPercent = Math.round((conqueredSectorsCount / sectors.length) * 100);
