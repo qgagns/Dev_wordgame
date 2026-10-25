@@ -18,13 +18,13 @@ const GAME_CONFIG = {
 
     guardianHpRepeat: 7,       // 2회차 수호령 체력 (기본: 7)
     guardianTimeRepeat: 5.0,   // 2회차 수호령 시간 (기본: 5.0초)
-    guardianPlayerHpRepeat: 3, // 👈 2회차 수호령전 플레이어 하트 수 (기본: 3개)
+    guardianPlayerHpRepeat: 2, // 👈 2회차 수호령전 플레이어 하트 수 (기본: 3개)
 
     // 👑 [마왕전 체력 & 시간 & 플레이어 목숨]
-    bossHp1: 15,               // 1회차 마왕 체력 (기본: 10)
+    bossHp1: 20,               // 1회차 마왕 체력 (기본: 10)
     bossTime1: 4.0,            // 1회차 마왕 시간 (기본: 5.0초)
 
-    bossHpRepeat: 15,          // 2회차 마왕 체력 (기본: 12)
+    bossHpRepeat: 20,          // 2회차 마왕 체력 (기본: 12)
     bossTimeRepeat: 3.0,       // 2회차 마왕 시간 (기본: 4.0초)
     bossPlayerHpRepeat: 2,     // 👈 2회차 마왕전 플레이어 하트 수 (기본: 3개)
 
@@ -89,8 +89,6 @@ There are some things that would be difficult to do with your [[injured | injure
 For example, you might not be able to carry heavy boxes or ride your bike. 
 What about [[accessing | access: [동] (컴퓨터로) ~에 접속하다]] the Internet? 
 If you are [[right-handed | right-handed: [형] 오른손잡이인]], using a computer mouse or touchscreen with your left hand would be [[awkward | awkward: [형] (동작∙행동 등이) 어색한]] and [[take a lot of time | take time: [동] 시간이 걸리다, 시간을 가지다]].
-
-=== 7. 마무리 ===
 The [[accessibility | accessibility: [명] 접근성, 이용성]] [[features | feature: [명] 특징, 특성]] of websites don’t just help people with [[disabilities | disability: [명] 장애, 불능]]. 
 They can make online experiences easier for everyone, [[regardless of | regardless of ~: [전] ~에 상관없이]] abilities or situations. 
 When websites are easy to navigate and understand, we can all [[benefit | benefit: [명] 이득, 이익; [동] 이익이 되다; [동] (from) 이익을 얻다]] from a more [[inclusive | inclusive: [형] 차별 없는, 포용적인]] online experience.
