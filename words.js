@@ -36,7 +36,7 @@ const GAME_CONFIG = {
         { reqWords: 0,   quota: 5  }  // 기본(0마리 이상): 하루 5마리
     ],
 
-    // 🔥 [시험 직전 파이널] 하드코어 마왕전 설정
+    // 🔥 [시험 직전 파이널] 하드코어 특훈
     hardcoreMode: {
         enabled: true,                       // 켜기(true) / 끄기(false)
         title: "책 선생의 하드코어 점검",            // 시험 명칭
