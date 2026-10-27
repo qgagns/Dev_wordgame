@@ -59,7 +59,7 @@ const GAME_CONFIG = {
 // ========================================================
 const WORLD_MAPS_TEXT = `
 
-[net_1: 동의어 테스트용]
+[net_1: 동의어 / 반의어]
 increase, expand, grow, augment : [동] 증가하다, 팽창하다
 <=>
 decrease, shrink, reduce, diminish : [동] 감소하다, 축소하다
@@ -68,9 +68,9 @@ encourage, foster, promote, boost : [동] 촉진하다, 북돋우다
 <=>
 discourage, hinder, impede, suppress : [동] 저해하다, 억제하다
 
-vague, ambiguous, obscure, hazy : [형] 모호한, 불분명한
-<=>
 clear, explicit, distinct, obvious : [형] 명확한, 뚜렷한
+<=>
+vague, ambiguous, obscure, hazy : [형] 모호한, 불분명한
 
 essential, crucial, vital, fundamental : [형] 필수적인, 결정적인
 <=>
