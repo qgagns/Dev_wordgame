@@ -431,7 +431,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 9px 12px;
+            padding: 5px 8px;
             border-radius: 9px;
             border: 1.5px solid #e9d5ff;
             background: #ffffff;
@@ -3504,11 +3504,11 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* 🌟 상단으로 바짝 밀착! */
+            justify-content: center;
             align-items: center;
             position: relative;
             min-height: 20px;
-            padding-top: 20px; /* 👈 여기서 숫자를 늘리거나 줄여 Y축 위치를 미세 조절! */
+            padding: 0px;
         }
         .polar-main-card {
             width: 85%;
@@ -3553,31 +3553,73 @@
         .polar-nav-btn.btn-to-b { background: #fff7ed; border-color: #ea580c; color: #c2410c; }
         .polar-nav-btn:active { transform: scale(0.96); }
 
-        /* 하단 최종 주문 시전 버튼 */
+        /* 🔮 [고대 마법진 3D 버튼] 글자는 고정, 뒤의 마법진만 회전 */
         .polar-submit-btn {
-            width: 100%;
-            padding: 13px;
-            font-size: 15px;
-            font-weight: 900;
-            border-radius: 12px;
-            border: 2px solid #57534e;
-            background: #a8a29e;
-            color: #f5f5f4;
-            cursor: not-allowed;
-            transition: all 0.2s ease;
-            box-shadow: none;
-            flex-shrink: 0; /* 🌟 위가 아무리 넘쳐도 버튼은 화면 맨 밑바닥에 절대 고정! */
-        }
-        .polar-submit-btn.ready {
-            background: linear-gradient(180deg, #b45309 0%, #78350f 100%);
-            border-color: #f59e0b;
-            color: #ffffff;
+            position: relative;
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: none;
+            border: none;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(180, 83, 9, 0.45);
-            animation: pulseComboLeft 1.0s infinite alternate ease-in-out;
+            touch-action: manipulation;
+            box-sizing: border-box;
+            user-select: none;
+            padding: 0;
+            transition: transform 0.08s ease, filter 0.12s ease;
+            animation: buttonPopGrow 0.28s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
         }
-        .polar-submit-btn.ready:active { transform: scale(0.98); }
 
+        /* 🔘 누를 때 실제 물리 버튼처럼 아래로 쑥 깊숙이 들어가는 손맛 */
+        .polar-submit-btn:active {
+            transform: scale(0.91) translateY(6px);
+            filter: brightness(1.25);
+        }
+
+        /* 1) 🌀 뒤에서 끊임없이 무한 회전하는 마법진 룬 레이어 */
+        .magic-circle-spinner {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('images/magic_circle.webp') no-repeat center;
+            background-size: 100% 100%;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.85)) drop-shadow(0 0 8px rgba(192, 132, 252, 0.85));
+            animation: magicCircleContinuousSpin 10s linear infinite;
+        }
+
+        /* 시전 버튼을 누르면 마법진 회전이 4배로 빨라지며 마력 방출 */
+        .polar-submit-btn.casting .magic-circle-spinner {
+            animation: magicCircleContinuousSpin 1.8s linear infinite !important;
+            filter: drop-shadow(0 0 15px rgba(253, 224, 71, 0.95)) drop-shadow(0 0 25px rgba(234, 88, 12, 0.8)) brightness(1.3);
+        }
+
+        @keyframes magicCircleContinuousSpin {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 2) 🌟 절대 회전하지 않고 수평을 단단히 지키는 중심 인장 텍스트 */
+        .magic-core-text {
+            position: relative;
+            z-index: 5;
+            background: rgba(18, 9, 28, 0.88);
+            border: 2px solid #d97706;
+            color: #fef08a;
+            font-size: 19px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            padding: 5px 15px;
+            border-radius: 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 8px rgba(245, 158, 11, 0.8);
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
 
     </style>
 </head>
@@ -13463,8 +13505,12 @@ function handleMidBossVictory() {
                 </div>
 
                 <!-- 2. 🌟 [상단 밀착] 큼직한 출제 단어 카드 -->
-                <div class="polar-swipe-arena" style="min-height:85px; margin-bottom:6px;">
+                <div class="polar-swipe-arena" style="min-height:130px; margin-bottom:6px;">
                     <div id="polarMainCard" class="polar-main-card">READY</div>
+                    <button id="polarSubmitBtn" class="polar-submit-btn" style="display:none;" onclick="submitPolarClashSpell()">
+                        <div class="magic-circle-spinner"></div>
+                        <span id="magicCoreText" class="magic-core-text">시전</span>
+                    </button>
                 </div>
 
                 <!-- 3. 🌟 [크기 고정 140px] 좌우 진영 바구니 카드 -->
@@ -13480,10 +13526,6 @@ function handleMidBossVictory() {
                         <div id="polarSlotsB" class="polar-stacked-slots"></div>
                     </div>
                 </div>
-                <!-- 4. 하단 최종 주문 시전 버튼 -->
-                <button id="polarSubmitBtn" class="polar-submit-btn" style="margin-top:auto;" onclick="submitPolarClashSpell()">
-                    ⚡ 반정령 융합 주문 시전!
-                </button>
             </div>
         `;
 
@@ -13495,21 +13537,25 @@ function handleMidBossVictory() {
     function popNextPolarWord() {
         const cardEl = document.getElementById("polarMainCard");
         const submitBtn = document.getElementById("polarSubmitBtn");
+        
         if (!cardEl) return;
 
         if (polarQueue.length > 0) {
             polarCurrentWordObj = polarQueue.shift();
+            if (submitBtn) submitBtn.style.display = "none";
             cardEl.style.display = "flex";
             cardEl.style.transform = "none";
             cardEl.style.opacity = "1";
             cardEl.innerText = polarCurrentWordObj.eng;
             speakWord(polarCurrentWordObj.eng);
         } else {
-            // 모든 단어를 다 던짐 ➔ 중앙 카드 숨기고 버튼 활성화!
+            // 🌟 모든 단어 분류 완료 ➔ 중앙 카드를 숨기고 정중앙에 주문 시전 버튼 출현!
             polarCurrentWordObj = null;
             cardEl.style.display = "none";
             if (submitBtn) {
-                submitBtn.classList.add("ready");
+                submitBtn.style.display = "flex";
+                submitBtn.style.justifyContent = "center";
+                submitBtn.style.alignItems = "center";
                 Sound.fanfare();
             }
         }
@@ -13585,12 +13631,22 @@ function handleMidBossVictory() {
     // ⚡ 최종 [주문 시전!] 클릭 시 일괄 채점 & 참격 대미지 작렬!
     function submitPolarClashSpell() {
         const submitBtn = document.getElementById("polarSubmitBtn");
-        if (!submitBtn || !submitBtn.classList.contains("ready") || isPolarEvaluating) return;
+        const coreText = document.getElementById("magicCoreText");
+        if (!submitBtn || isPolarEvaluating) return;
 
         isPolarEvaluating = true;
         clearInterval(bossTimerInterval); // 타이머 멈춤
-        submitBtn.classList.remove("ready");
-        submitBtn.innerText = "⚡ 주문 검증 및 타격 중...";
+
+        // 🌟 마법진 고속 회전 가동 (글자는 수평 고정 유지!)
+        submitBtn.classList.add("casting");
+        Sound.resonance(); // 마력 공명 사운드 출력
+
+        if (coreText) {
+            coreText.innerText = "공명 중";
+            coreText.style.borderColor = "#10b981";
+            coreText.style.color = "#a7f3d0";
+            coreText.style.textShadow = "0 0 10px #10b981";
+        }
 
         const allPills = document.querySelectorAll(".polar-pill-item");
         let correctCount = 0;
@@ -14833,6 +14889,8 @@ function handleMidBossVictory() {
             // 🌟 인라인 style을 100% 제거하고 순수 class로만 조립
             const card = document.createElement("div");
             card.className = `rank-card ${topClass} ${isMe ? 'my-card' : ''}`;
+            card.style.cursor = "pointer";
+            card.onclick = () => showRankStudentProfile(u, totalScore, finalImprintCnt, maxStreakCnt, clearCnt);
             card.innerHTML = `
                 <div style="display:flex; align-items:center; gap:8px; min-width:0;">
                     ${rankBadge}
@@ -14858,15 +14916,71 @@ function handleMidBossVictory() {
                     </div>
                     <div style="font-size:12px; font-weight:800; line-height:1.2; display:flex; gap:1px; white-space:nowrap;">
                         <span style="color:#b45309;" title="계약 단어">🔗${masteryCnt}</span>
-                        <span style="color:#7e22ce;" title="각인 단어">⚜️${finalImprintCnt}</span>
-                        <span style="color:#ea580c;" title="최고 콤보">⚡${maxStreakCnt}</span>
-                        <span style="color:#dc2626;" title="마왕 토벌">⚔️${clearCnt}</span>
+                        <span style="color:#7e22ce;" title="각인 단어">⚜️${finalImprintCnt}
                     </div>
                 </div>
             `;
             container.appendChild(card);
             rank++;
         });
+    }
+
+    // 🌟 [수정] 랭킹 카드 터치 시 알림창 규격에 100% 쏙 들어가는 초슬림 명예 기록부 팝업
+    function showRankStudentProfile(u, totalScore, imprintCnt, streakCnt, clearCnt) {
+        Sound.click();
+
+        let displayName = u.name;
+        if (!displayName && u.heroName) {
+            displayName = u.heroName.replace(u.id || '', '').replace(/^[0-9\s]+/, '').trim() || u.heroName;
+        }
+        displayName = displayName || '정령술사';
+
+        const titleStr = u.equippedTitle || (u.records && u.records.equippedTitle) || "🌱 첫 걸음의 탐색자";
+        const streakDays = u.streakDays || 1;
+        const masteryCnt = u.masteryCount || 0;
+        const fastestBoss = (u.fastestBossTime && u.fastestBossTime < 9999) ? `${u.fastestBossTime}초` : "미토벌";
+
+        // 🌟 코드 줄바꿈에 의한 <br> 침범을 원천 차단한 컴팩트 인라인 HTML 조립
+        const bodyHtml = ''
+            + '<div style="margin-bottom:8px; text-align:center;">'
+                + '<div style="font-size:11.5px; font-weight:800; color:#6b21a8; margin-bottom:2px;">'
+                    + (u.tierName || '입문 술사 🌱') + ' · 🔥 ' + streakDays + '일 연속'
+                + '</div>'
+                + '<div style="font-size:11px; font-weight:700; color:#451a03; background:rgba(254,243,199,0.7); border:1px solid #d4c29d; padding:2px 8px; border-radius:6px; display:inline-block;">'
+                    + titleStr
+                + '</div>'
+            + '</div>'
+            + '<div style="background:rgba(254,243,199,0.9); border:1.5px solid #d97706; border-radius:9px; padding:6px; text-align:center; margin-bottom:8px;">'
+                + '<span style="font-size:10px; font-weight:900; color:#b45309; letter-spacing:1px; display:block;">종합 랭킹 포인트</span>'
+                + '<div style="font-size:20px; font-weight:900; color:#15803d; line-height:1.1; margin-top:1px;">'
+                    + Number(totalScore).toLocaleString() + ' <span style="font-size:12px; color:#047857;">RP</span>'
+                + '</div>'
+            + '</div>'
+            + '<div style="display:grid; grid-template-columns:1fr 1fr; gap:5px; text-align:center; width:100%; box-sizing:border-box;">'
+            + '<div style="background:#ffffff; border:1px solid #d8c7a6; border-radius:7px; padding:6px 4px; display:flex; flex-direction:column; align-items:center; justify-content:center;">'
+                + '<span style="font-size:10.5px; font-weight:800; color:#785a3e; display:block; margin-bottom:1px;">🔗 영원의 계약</span>'
+                + '<b style="font-size:13px; color:#b45309;">' + masteryCnt + '마리</b>'
+            + '</div>'
+            + '<div style="background:#ffffff; border:1px solid #d8c7a6; border-radius:7px; padding:6px 4px; display:flex; flex-direction:column; align-items:center; justify-content:center;">'
+                + '<span style="font-size:10.5px; font-weight:800; color:#785a3e; display:block; margin-bottom:1px;">⚜️ 진명의 각인</span>'
+                + '<b style="font-size:13px; color:#7e22ce;">' + imprintCnt + '마리</b>'
+            + '</div>'
+            + '<div style="background:#ffffff; border:1px solid #d8c7a6; border-radius:7px; padding:6px 4px; display:flex; flex-direction:column; align-items:center; justify-content:center;">'
+                + '<span style="font-size:10.5px; font-weight:800; color:#785a3e; display:block; margin-bottom:1px;">⚡ 최다 콤보</span>'
+                + '<b style="font-size:13px; color:#ea580c;">' + streakCnt + '연속</b>'
+            + '</div>'
+            + '<div style="background:#ffffff; border:1px solid #d8c7a6; border-radius:7px; padding:6px 4px; display:flex; flex-direction:column; align-items:center; justify-content:center;">'
+                + '<span style="font-size:10.5px; font-weight:800; color:#785a3e; display:block; margin-bottom:1px;">⚔️ 마왕 토벌</span>'
+                + '<b style="font-size:12px; color:#dc2626;">' + clearCnt + '회 (' + fastestBoss + ')</b>'
+            + '</div>'
+        + '</div>';
+
+        showGameAlert(
+            `✦ ${displayName} 술사의 기록 ✦`,
+            bodyHtml,
+            "확인",
+            `RANKER PROFILE (${u.id})`
+        );
     }
 
     // 🌟 [NEW] 알림 씹힘 방지 대기열(Queue) 시스템
@@ -16054,16 +16168,6 @@ function handleMidBossVictory() {
         if (e.touches.length > 1) {
             e.preventDefault();
         }
-    }, { passive: false });
-
-    // 3. 더블 탭 확대 2중 방어
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(e) {
-        const now = Date.now();
-        if (now - lastTouchEnd <= 300) {
-            e.preventDefault();
-        }
-        lastTouchEnd = now;
     }, { passive: false });
 
 </script>
