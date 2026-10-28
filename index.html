@@ -554,13 +554,9 @@
             flex-shrink: 0; /* 🌟 구역이 많아져도 카드 높이가 찌그러지지 않게 보존 */
         }
         .sector-card:hover {
-            border-color: #10b981;
-            background: #f0fdf4;
+            border-color: #8f603a;
+            background: rgba(255, 255, 255, 0.85);
             transform: translateY(-1px);
-        }
-        .sector-card.conquered {
-            border-color: #10b981;
-            background: #f0fdf4;
         }
 
         /* 3. 영지 전초기지(로비) 카드 */
@@ -1991,14 +1987,6 @@
         /* 정복 완료된 카드의 게이지 채움 */
         .world-map-card.cleared .world-map-gauge-fill {
             background: linear-gradient(90deg, #f59e0b 0%, #10b981 100%);
-        }
-
-        /* 2. 🌟 [완전 정복 영지] 축복받은 땅 황금 프레임 & 에메랄드 리본 */
-        .world-map-card.cleared {
-            background: linear-gradient(135deg, rgba(255, 251, 235, 0.9) 0%, rgba(236, 253, 245, 0.9) 100%);
-            border: 1.8px solid #d97706;
-            border-left: 5px solid #10b981;
-            box-shadow: 0 2px 10px rgba(217, 119, 6, 0.22);
         }
 
         /* 3. 🌟 붉은 주사(朱砂) 불도장 스탬프 */
@@ -4050,10 +4038,13 @@
         <div id="mapLobbyScreen" class="screen-view">
             <div class="lobby-art-box" id="lobbyArtBox"></div>
 
-            <div class="lobby-card">
+            <div class="lobby-card" onclick="showMapConquerorsPopup()" style="cursor:pointer;" title="터치하여 이 영지의 명예 정복자 명단 확인">
                 <div class="lobby-top-row">
                     <h2 class="lobby-map-title" id="lobbyMapTitle">풍요와 도약의 숲</h2>
-                    <span id="lobbyMapMasteryBadge" class="tier-badge" style="font-size:10.5px; padding:2px 8px;">안개 낀 미답지 🌫️</span>
+                    <div style="display:flex; align-items:center; gap:4px;">
+                        <span id="lobbyMapMasteryBadge" class="tier-badge" style="font-size:10.5px; padding:2px 8px;">안개 낀 미답지 🌫️</span>
+                        <span style="font-size:10px; font-weight:800; color:#1e40af; background:#dbeafe; border:1px solid #93c5fd; padding:1px 5px; border-radius:6px; line-height:1.2;">👥정복자</span>
+                    </div>
                 </div>
                 <div class="lobby-map-desc" id="lobbyMapDesc">상승과 개선, 증가 등의 성격을 지닌 정령들이 노니는 곳</div>
 
@@ -9115,6 +9106,113 @@ const recTime = document.getElementById("recFastestTime");
         document.getElementById("bossScreen").style.display = "none";
     }
 
+    // ========================================================
+    // 🏛️ [신규] 영지별 명예 정복자 명단 팝업 엔진 (60초 스마트 캐싱 장착)
+    // ========================================================
+    const mapConquerorsCache = {}; // 영지별 60초 캐시 보관소
+    let isFetchingConquerors = false; // 연타 방어 락
+
+    async function showMapConquerorsPopup() {
+        Sound.click();
+        if (isFetchingConquerors) return; // 연타 중복 쿼리 원천 차단!
+
+        const activeMap = worldMaps.find(m => m.id === currentMapId) || worldMaps[0];
+        const mapId = activeMap.id;
+        const now = Date.now();
+
+        // 🌟 1. 60초 캐시 검사: 최근 1분 안에 부른 기록이 있으면 Firestore 0원 호출(메모리 즉시 출력)!
+        if (mapConquerorsCache[mapId] && (now - mapConquerorsCache[mapId].time < 60 * 1000)) {
+            renderConquerorsModal(activeMap, mapConquerorsCache[mapId].list);
+            return;
+        }
+
+        isFetchingConquerors = true;
+
+        try {
+            const snapshot = await db.collection(USER_COLLECTION).get();
+            const conquerors = [];
+            const masterId = (typeof GAME_CONFIG !== 'undefined' && GAME_CONFIG.adminId) ? GAME_CONFIG.adminId : "admin";
+
+            snapshot.forEach(doc => {
+                if (doc.id.startsWith('_') || doc.id === masterId) return;
+                const data = doc.data();
+
+                // 지문 영지는 단어 전체 완주 기준, 일반 영지는 수호령 토벌(clearedBosses) 기준 판별!
+                let isConquered = false;
+                if (activeMap.isPassage) {
+                    const studentMastery = (data.mastery && data.mastery[mapId]) || {};
+                    let contracted = 0;
+                    activeMap.words.forEach(w => { if ((studentMastery[w.eng] || 0) >= 3) contracted++; });
+                    isConquered = (activeMap.words.length > 0 && contracted >= activeMap.words.length);
+                } else {
+                    const clearedBosses = Array.isArray(data.clearedBosses) ? data.clearedBosses : [];
+                    isConquered = clearedBosses.includes(mapId) || (activeMap.oldHashId && clearedBosses.includes(activeMap.oldHashId));
+                }
+
+                if (isConquered) {
+                    let displayName = data.name || data.heroName || '무명 술사';
+                    displayName = displayName.replace(doc.id, '').replace(/^[0-9\s]+/, '').trim() || displayName;
+                    conquerors.push({
+                        id: doc.id,
+                        name: displayName,
+                        tierName: data.tierName || '입문 술사',
+                        title: (data.records && data.records.equippedTitle) || '첫 걸음의 탐색자',
+                        streak: data.streakDays || 1
+                    });
+                }
+            });
+
+            // 🌟 2. 60초간 메모리에 저장
+            mapConquerorsCache[mapId] = { time: now, list: conquerors };
+            isFetchingConquerors = false;
+
+            renderConquerorsModal(activeMap, conquerors);
+
+        } catch (e) {
+            isFetchingConquerors = false;
+            console.error("정복자 로드 실패:", e);
+            showGameAlert("명단 확인 실패", "네트워크가 불안정하여 정복자 명단을 불러오지 못했습니다.", "확인");
+        }
+    }
+
+    // 팝업 내용 조립 및 알림창 띄우기
+    function renderConquerorsModal(map, list) {
+        let listContentHtml = "";
+
+        if (list.length === 0) {
+            listContentHtml = ''
+                + '<div style="background:#fffbeb; border:1.5px dashed #d97706; border-radius:10px; padding:16px 12px; text-align:center; margin:8px 0;">'
+                    + '<span style="font-size:24px; display:block; margin-bottom:4px;">👑</span>'
+                    + '<div style="font-size:14px; font-weight:900; color:#78350f; margin-bottom:4px;">아직 정복한 술사가 없다!</div>'
+                    + '<div style="font-size:12px; font-weight:700; color:#92400e; line-height:1.4;">이 성역을 전교 최초로 완전 정복하여<br>명예의 선발대가 되어라!</div>'
+                + '</div>';
+        } else {
+            const itemsHtml = list.map((s, idx) => ''
+                + '<div style="display:flex; justify-content:space-between; align-items:center; background:#ffffff; border:1px solid #d8c7a6; border-radius:7px; padding:5px 8px; font-size:12px;">'
+                    + '<div style="display:flex; align-items:center; gap:5px;">'
+                        + '<span style="font-weight:900; color:#b45309; width:18px;">#' + (idx + 1) + '</span>'
+                        + '<span style="font-weight:900; color:#2c1a0e;">' + s.name + '</span>'
+                        + '<span style="font-size:10.5px; color:#785a3e;">(' + s.id + ')</span>'
+                    + '</div>'
+                    + '<span style="font-size:10px; font-weight:800; color:#065f46; background:#ecfdf5; border:1px solid #a7f3d0; padding:1px 5px; border-radius:5px;">완전 정복 ✓</span>'
+                + '</div>'
+            ).join('');
+
+            listContentHtml = ''
+                + '<div style="text-align:right; font-size:11px; font-weight:800; color:#15803d; margin-bottom:5px;">명예 정복자 총 ' + list.length + '명</div>'
+                + '<div style="display:flex; flex-direction:column; gap:4px; max-height:220px; overflow-y:auto; padding-right:2px; margin-bottom:4px;">'
+                    + itemsHtml
+                + '</div>';
+        }
+
+        showGameAlert(
+            `🏛️ [${map.name}] 정복자`,
+            listContentHtml,
+            "확인",
+            "✦ HALL OF CONQUERORS ✦"
+        );
+    }
+
     function handleGuardianBannerClick() {
         const activeMap = worldMaps.find(m => m.id === currentMapId) || worldMaps[0];
         let mapContracted = 0;
@@ -9934,6 +10032,8 @@ const recTime = document.getElementById("recFastestTime");
         if (arenaBox) arenaBox.style.display = "block";
         const qBox = document.querySelector("#gameScreen .question-box");
         if (qBox) qBox.style.display = "none";
+        const streakWrap = document.getElementById("comboStreakBadge")?.parentElement;
+        if (streakWrap) streakWrap.style.display = "none"; // 🌟 콤보 뱃지 래퍼 숨김!
 
         // 2. 단어 큐 세팅
         const teamAWords = curPair.teamA.words.map(w => ({ eng: w, team: 'A' }));
@@ -10014,6 +10114,7 @@ const recTime = document.getElementById("recFastestTime");
                         setTimeout(() => {
                             // 숨겼던 question-box 및 그리드 스타일 원상 복구
                             if (qBox) qBox.style.display = "flex";
+                            if (streakWrap) streakWrap.style.display = "flex"; // 🌟 콤보 래퍼 원상 복구
                             grid.style.maxHeight = "";
                             grid.style.flex = "";
 
@@ -10333,8 +10434,9 @@ const recTime = document.getElementById("recFastestTime");
         const parchmentInner = document.querySelector(".parchment-inner");
         let feverOverlay = document.getElementById("feverVignette");
 
-        // 📜 지문 퀴즈일 때만 콤보 숨김 (구출전/교감실에서는 콤보 뱃지 정상 출력!)
-        if (isPassageQuiz) {
+        // 📜 지문 퀴즈 및 반의어 스와이프 퀴즈일 때는 콤보 뱃지 완전 숨김!
+        const isHideComboQuiz = isPassageQuiz || (q && q.isPolarNormal);
+        if (isHideComboQuiz) {
             if (streakBadge) {
                 streakBadge.style.display = "none";
                 if (streakBadge.parentElement) streakBadge.parentElement.style.display = "none";
